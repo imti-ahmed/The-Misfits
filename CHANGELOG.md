@@ -14,6 +14,7 @@ _Internal development log. Updated by Claude after every completed task. One row
 | 4 | AboutSection component built | Built AboutSection from Figma frame. Header with Plus icon (Phosphor), two content rows with webring description text. Installed @phosphor-icons/react. | Feature | components/sections/AboutSection.tsx, components/sections/AboutSection.module.css |
 | 5 | RequirementSection component built | Built RequirementSection from Figma frame. Header with Plus icon, content area with 7-item bulleted list of join requirements. | Feature | components/sections/RequirementSection.tsx, components/sections/RequirementSection.module.css |
 | 6 | JoinSection component built | Built JoinSection from Figma frame. Header with Plus icon, single paragraph content block explaining how to join. | Feature | components/sections/JoinSection.tsx, components/sections/JoinSection.module.css |
+| 7 | AuthorSection component built | Built AuthorSection from Figma frame (482px wide). Header with Plus icon, two-line content with accent-coloured link text for social links. | Feature | components/sections/AuthorSection.tsx, components/sections/AuthorSection.module.css |
 
 ---
 
