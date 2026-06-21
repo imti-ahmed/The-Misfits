@@ -2,7 +2,7 @@
   width: 1920px;
   height: 1080px;
   background-color: var(--color-bg);
-  padding: 20px;
+  padding: 28px 20px 20px 20px;
 }
 
 .content {
