@@ -13,17 +13,19 @@ const MAX_SIZE = 4;
 const MOUSE_RADIUS = 100;
 const OPACITY_THRESHOLD = 0.28;
 const RIPPLE_SPEED = 6;
-const RIPPLE_BAND = 28;
+const RIPPLE_BAND = 14;
 
 interface Dot { x: number; y: number; }
 interface Ripple { x: number; y: number; radius: number; maxRadius: number; }
 
 export default function DotGridBackground({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const pill = pillRef.current;
+    if (!canvas || !pill) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -70,7 +72,6 @@ export default function DotGridBackground({ className }: { className?: string })
         let opacity = norm < OPACITY_THRESHOLD ? 0 : (norm - OPACITY_THRESHOLD) / (1 - OPACITY_THRESHOLD);
         let size = BASE_SIZE + (MAX_SIZE - BASE_SIZE) * norm;
 
-        // Mouse hover boost
         const mdx = dot.x - mouse.x;
         const mdy = dot.y - mouse.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -80,7 +81,6 @@ export default function DotGridBackground({ className }: { className?: string })
           size = Math.min(MAX_SIZE + 1.5, size + boost * 1.8);
         }
 
-        // Ripple wave boost — brightens dots as the wavefront passes through
         for (const rip of ripples) {
           const rdx = dot.x - rip.x;
           const rdy = dot.y - rip.y;
@@ -88,8 +88,8 @@ export default function DotGridBackground({ className }: { className?: string })
           const diff = Math.abs(rdist - rip.radius);
           if (diff < RIPPLE_BAND) {
             const wave = 1 - diff / RIPPLE_BAND;
-            opacity = Math.min(1, opacity + wave * 0.9);
-            size = Math.min(MAX_SIZE + 2.5, size + wave * 2.5);
+            opacity = Math.min(1, opacity + wave * 0.45);
+            size = Math.min(MAX_SIZE + 1.2, size + wave * 1.2);
           }
         }
 
@@ -100,7 +100,6 @@ export default function DotGridBackground({ className }: { className?: string })
         ctx.fillRect(dot.x - (px >> 1), dot.y - (px >> 1), px, px);
       }
 
-      // Advance and cull ripples
       for (const rip of ripples) rip.radius += RIPPLE_SPEED;
       ripples = ripples.filter(rip => rip.radius <= rip.maxRadius);
 
@@ -113,20 +112,26 @@ export default function DotGridBackground({ className }: { className?: string })
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
-      mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+      const relX = (e.clientX - rect.left) * (canvas.width / rect.width);
+      const relY = (e.clientY - rect.top) * (canvas.height / rect.height);
+      mouse.x = relX;
+      mouse.y = relY;
+
+      pill.style.opacity = '1';
+      pill.style.transform = `translate(${relX + 14}px, ${relY + 14}px)`;
     };
-    const onMouseLeave = () => { mouse.x = -9999; mouse.y = -9999; };
+
+    const onMouseLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+      pill.style.opacity = '0';
+    };
 
     const onMouseUp = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
       const x = (e.clientX - rect.left) * (canvas.width / rect.width);
       const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-      ripples.push({
-        x, y,
-        radius: 0,
-        maxRadius: Math.sqrt(canvas.width ** 2 + canvas.height ** 2),
-      });
+      ripples.push({ x, y, radius: 0, maxRadius: Math.sqrt(canvas.width ** 2 + canvas.height ** 2) });
     };
 
     window.addEventListener('resize', buildGrid);
@@ -144,10 +149,36 @@ export default function DotGridBackground({ className }: { className?: string })
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className={className}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block', cursor: 'crosshair' }}
-    />
+    <div className={className} style={{ position: 'absolute', inset: 0 }}>
+      <canvas
+        ref={canvasRef}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block', cursor: 'none' }}
+      />
+      <div
+        ref={pillRef}
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none',
+          opacity: 0,
+          transition: 'opacity 0.15s',
+        }}
+      >
+        <span style={{
+          display: 'inline-block',
+          border: '1px solid rgba(216,216,216,0.4)',
+          borderRadius: '999px',
+          padding: '3px 10px',
+          fontSize: '9px',
+          letterSpacing: '0.1em',
+          color: 'rgba(216,216,216,0.7)',
+          whiteSpace: 'nowrap',
+          userSelect: 'none',
+        }}>
+          CLICK HERE
+        </span>
+      </div>
+    </div>
   );
 }

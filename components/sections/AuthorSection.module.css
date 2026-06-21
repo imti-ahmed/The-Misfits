@@ -13,7 +13,7 @@
   padding: var(--space-3) var(--space-6);
   border: 1px solid var(--color-border);
   margin-bottom: -1px;
-  background-color: var(--color-surface);
+  background-color: var(--color-header);
   flex-shrink: 0;
 }
 
