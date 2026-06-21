@@ -1,8 +1,6 @@
 import { Eye, UserFocus, Plus } from "@phosphor-icons/react/dist/ssr";
+import CoolInteraction from "@/components/CoolInteraction";
 import styles from "./AnimationSection.module.css";
-
-const COOL_INTERACTION_PLACEHOLDER =
-  "https://www.figma.com/api/mcp/asset/d7be47c9-b813-4413-9b78-c2623941422c";
 
 export default function AnimationSection() {
   return (
@@ -21,9 +19,8 @@ export default function AnimationSection() {
         <Plus size={20} className={styles.headerIcon} />
       </div>
 
-      {/* Placeholder for GSAP animation — image to be replaced */}
       <div className={styles.coolInteraction}>
-        <img src={COOL_INTERACTION_PLACEHOLDER} alt="" />
+        <CoolInteraction />
       </div>
     </div>
   );
