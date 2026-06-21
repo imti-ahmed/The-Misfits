@@ -18,6 +18,7 @@ _Internal development log. Updated by Claude after every completed task. One row
 | 8 | GuildSection component built | Built GuildSection from Figma frame (481px wide). Three sub-sections: guild info header + description, numbered members list (11 entries, name + URL in accent gold), update log footer bar with GitFork and CaretRight Phosphor icons. | Feature | components/sections/GuildSection.tsx, components/sections/GuildSection.module.css |
 | 9 | GallerySection component built | Built GallerySection from Figma frame (1400px wide). Header with Plus icon, CSS marquee animation of 15 site screenshot images (duplicated for seamless loop, pauses on hover). Figma image URLs — placeholder until real member images added. | Feature | components/sections/GallerySection.tsx, components/sections/GallerySection.module.css |
 | 10 | AnimationSection component built | Built AnimationSection from Figma frame (482px wide, 625px tall). Stats header with Eye + UserFocus + Plus Phosphor icons, Views and Members counters. Large 583px placeholder area for future GSAP animation. | Feature | components/sections/AnimationSection.tsx, components/sections/AnimationSection.module.css |
+| 11 | Home screen assembled | Composed main page from all 7 section components. 1880px fixed layout with 20px page padding: GuildSection (left sidebar), AboutSection + RequirementSection + JoinSection (center column), AnimationSection + AuthorSection (right column), GallerySection (full-width bottom row). | Feature | app/page.tsx, app/page.module.css |
 
 ---
 
