@@ -12,6 +12,7 @@ _Internal development log. Updated by Claude after every completed task. One row
 | 2 | Design tokens extracted from Figma | Color and typography tokens pulled from the main page Figma frame and added to DESIGN.md. 6 color tokens, 6 typography tokens, 8 spacing tokens defined. | Update | DESIGN.md |
 | 3 | Next.js project scaffolded | Manually initialized Next.js 15 app with TypeScript, App Router, CSS Modules. Created package.json, next.config.ts, tsconfig.json, eslint config, app/layout.tsx, app/page.tsx, app/globals.css with all design tokens as CSS variables. | Setup | package.json, next.config.ts, tsconfig.json, eslint.config.mjs, app/layout.tsx, app/page.tsx, app/globals.css |
 | 4 | AboutSection component built | Built AboutSection from Figma frame. Header with Plus icon (Phosphor), two content rows with webring description text. Installed @phosphor-icons/react. | Feature | components/sections/AboutSection.tsx, components/sections/AboutSection.module.css |
+| 5 | RequirementSection component built | Built RequirementSection from Figma frame. Header with Plus icon, content area with 7-item bulleted list of join requirements. | Feature | components/sections/RequirementSection.tsx, components/sections/RequirementSection.module.css |
 
 ---
 
