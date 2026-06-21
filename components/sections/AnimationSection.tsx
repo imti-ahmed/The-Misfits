@@ -1,5 +1,5 @@
 import { Eye, UserFocus, Plus } from "@phosphor-icons/react/dist/ssr";
-import CoolInteraction from "@/components/CoolInteraction";
+import DotGridBackground from "@/components/DotGridBackground";
 import styles from "./AnimationSection.module.css";
 
 export default function AnimationSection() {
@@ -20,7 +20,7 @@ export default function AnimationSection() {
       </div>
 
       <div className={styles.coolInteraction}>
-        <CoolInteraction />
+        <DotGridBackground />
       </div>
     </div>
   );
