@@ -5,9 +5,9 @@ import { createNoise3D } from 'simplex-noise';
 
 const GRID_SPACING = 14;
 const NOISE_SCALE = 0.006;
-const TIME_SPEED = 0.00035;
-const BASE_RADIUS = 1.1;
-const MAX_RADIUS = 2.0;
+const TIME_SPEED = 0.003;
+const BASE_SIZE = 1.5;
+const MAX_SIZE = 3.0;
 const MOUSE_RADIUS = 100;
 const OPACITY_THRESHOLD = 0.35;
 
@@ -58,7 +58,7 @@ export default function DotGridBackground({ className }: { className?: string })
         const norm = (n + 1) / 2;
 
         let opacity = norm < OPACITY_THRESHOLD ? 0 : (norm - OPACITY_THRESHOLD) / (1 - OPACITY_THRESHOLD);
-        let radius = BASE_RADIUS + (MAX_RADIUS - BASE_RADIUS) * norm;
+        let size = BASE_SIZE + (MAX_SIZE - BASE_SIZE) * norm;
 
         const dx = dot.x - mouse.x;
         const dy = dot.y - mouse.y;
@@ -66,15 +66,13 @@ export default function DotGridBackground({ className }: { className?: string })
         if (dist < MOUSE_RADIUS) {
           const boost = 1 - dist / MOUSE_RADIUS;
           opacity = Math.min(1, opacity + boost * 0.65);
-          radius = Math.min(MAX_RADIUS + 1.2, radius + boost * 1.4);
+          size = Math.min(MAX_SIZE + 1.5, size + boost * 1.8);
         }
 
         if (opacity <= 0.01) continue;
 
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, radius, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(216,216,216,${opacity})`;
-        ctx.fill();
+        ctx.fillRect(dot.x - size / 2, dot.y - size / 2, size, size);
       }
 
       time += TIME_SPEED;
