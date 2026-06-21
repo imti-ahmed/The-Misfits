@@ -55,4 +55,5 @@
 
 .accentLinks {
   color: var(--color-accent);
+  text-decoration: none;
 }
