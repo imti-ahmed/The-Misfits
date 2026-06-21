@@ -15,6 +15,7 @@ _Internal development log. Updated by Claude after every completed task. One row
 | 5 | RequirementSection component built | Built RequirementSection from Figma frame. Header with Plus icon, content area with 7-item bulleted list of join requirements. | Feature | components/sections/RequirementSection.tsx, components/sections/RequirementSection.module.css |
 | 6 | JoinSection component built | Built JoinSection from Figma frame. Header with Plus icon, single paragraph content block explaining how to join. | Feature | components/sections/JoinSection.tsx, components/sections/JoinSection.module.css |
 | 7 | AuthorSection component built | Built AuthorSection from Figma frame (482px wide). Header with Plus icon, two-line content with accent-coloured link text for social links. | Feature | components/sections/AuthorSection.tsx, components/sections/AuthorSection.module.css |
+| 8 | GuildSection component built | Built GuildSection from Figma frame (481px wide). Three sub-sections: guild info header + description, numbered members list (11 entries, name + URL in accent gold), update log footer bar with GitFork and CaretRight Phosphor icons. | Feature | components/sections/GuildSection.tsx, components/sections/GuildSection.module.css |
 
 ---
 
