@@ -28,6 +28,7 @@ export default function GallerySection() {
       </div>
 
       <div className={styles.imageSection}>
+        <div className={styles.trackClip}>
         {/* Track is duplicated so the marquee loops seamlessly at -50% */}
         <div className={styles.track}>
           {[...GALLERY_IMAGES, ...GALLERY_IMAGES].map((src, i) => (
@@ -35,6 +36,7 @@ export default function GallerySection() {
               <img src={src} alt="" />
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>

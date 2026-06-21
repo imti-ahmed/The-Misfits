@@ -37,10 +37,14 @@
 
 .imageSection {
   height: 257px;
-  padding: var(--space-6);
+  padding: 28px var(--space-6);
   border: 1px solid var(--color-border);
-  overflow: hidden;
   flex-shrink: 0;
+}
+
+.trackClip {
+  overflow: hidden;
+  height: 201px;
 }
 
 .track {
