@@ -1,25 +1,15 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 const DESIGN_WIDTH = 1920;
 const DESIGN_HEIGHT = 1178;
 
 export default function ScaleWrapper({ children }: { children: React.ReactNode }) {
-  const outerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState<number | null>(null);
 
   useEffect(() => {
-    const update = () => {
-      const scale = window.innerWidth / DESIGN_WIDTH;
-      if (innerRef.current) {
-        innerRef.current.style.transform = `scale(${scale})`;
-      }
-      if (outerRef.current) {
-        outerRef.current.style.height = `${DESIGN_HEIGHT * scale}px`;
-      }
-    };
-
+    const update = () => setScale(window.innerWidth / DESIGN_WIDTH);
     update();
     window.addEventListener('resize', update);
     return () => window.removeEventListener('resize', update);
@@ -27,15 +17,18 @@ export default function ScaleWrapper({ children }: { children: React.ReactNode }
 
   return (
     <div
-      ref={outerRef}
-      style={{ width: '100vw', overflow: 'hidden', background: 'var(--color-bg)' }}
+      style={{
+        width: '100vw',
+        height: scale !== null ? `${DESIGN_HEIGHT * scale}px` : '0px',
+      }}
     >
       <div
-        ref={innerRef}
         style={{
           width: `${DESIGN_WIDTH}px`,
           height: `${DESIGN_HEIGHT}px`,
           transformOrigin: 'top left',
+          transform: `scale(${scale ?? 1})`,
+          visibility: scale !== null ? 'visible' : 'hidden',
         }}
       >
         {children}
