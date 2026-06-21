@@ -1,8 +1,12 @@
 import { Eye, UserFocus, Plus } from "@phosphor-icons/react/dist/ssr";
 import DotGridBackground from "@/components/DotGridBackground";
+import { getSites } from "@/lib/sites";
 import styles from "./AnimationSection.module.css";
 
 export default function AnimationSection() {
+  const count = getSites().length;
+  const formattedCount = String(count).padStart(3, '0');
+
   return (
     <div className={styles.container}>
       <div className={styles.statsHeader}>
@@ -13,7 +17,7 @@ export default function AnimationSection() {
           </div>
           <div className={styles.statGroup}>
             <UserFocus size={20} className={styles.statIcon} />
-            <p className={styles.statLabel}>Members [024]</p>
+            <p className={styles.statLabel}>Members [{formattedCount}]</p>
           </div>
         </div>
         <Plus size={20} className={styles.headerIcon} />
