@@ -57,3 +57,7 @@
   color: var(--color-accent);
   text-decoration: none;
 }
+
+.accentLinks:hover {
+  text-decoration: underline;
+}
