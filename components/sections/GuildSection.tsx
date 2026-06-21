@@ -27,7 +27,7 @@ export default function GuildSection() {
           {members.map((member) => (
             <li key={member.slug} className={styles.memberItem}>
               <span className={styles.memberName}>{member.name}</span>
-              <span className={styles.memberUrl}>{member.url}</span>
+              <a href={member.url} target="_blank" rel="noopener noreferrer" className={styles.memberUrl}>{member.url}</a>
             </li>
           ))}
         </ol>

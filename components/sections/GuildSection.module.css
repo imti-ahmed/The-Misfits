@@ -89,7 +89,12 @@
 .memberUrl {
   display: block;
   color: var(--color-accent);
-  margin-top: var(--space-1);
+  margin-top: 6px;
+  text-decoration: none;
+}
+
+.memberUrl:hover {
+  text-decoration: underline;
 }
 
 /* ── Update Log Header ──────────────────────────── */
