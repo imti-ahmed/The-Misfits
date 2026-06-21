@@ -89,6 +89,7 @@
 .memberUrl {
   display: block;
   color: var(--color-accent);
+  margin-top: 2px;
 }
 
 /* ── Update Log Header ──────────────────────────── */
