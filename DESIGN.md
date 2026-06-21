@@ -1,11 +1,9 @@
 # DESIGN.md — The Makers Guild
 
 ## Source of Truth
-Design tokens are imported from Figma. The Figma file is not yet complete — this section will be updated once tokens are exported and defined in `globals.css` (or equivalent token file).
+Design tokens are defined below, extracted from the Figma file. All tokens live in `globals.css`. Do not hardcode any color, font, spacing, or shadow values in component files — always reference a token.
 
-Until Figma tokens are imported, **do not hardcode any color, font, spacing, or shadow values in component files.**
-
-## How to Use (once tokens are imported)
+## How to Use
 - Colors → `var(--color-*)`
 - Typography → `var(--font-*)`
 - Spacing → `var(--space-*)`
@@ -19,24 +17,57 @@ Until Figma tokens are imported, **do not hardcode any color, font, spacing, or 
 The Makers Guild is built around structure, clarity, and a hint of the past.
 
 - **Grid-first:** Everything lives on a grid. Layouts are boxy, defined, and deliberate. No fluid organic shapes.
-- **Minimal palette:** Black, white, greys, and blues only. Color is used sparingly — it signals something, it doesn't decorate.
+- **Minimal palette:** Near-black backgrounds, grey text, and a restrained gold accent. Color signals meaning — it doesn't decorate.
 - **Retro-computerized:** The aesthetic recalls early web, terminal UIs, and 90s software interfaces — structured, utilitarian, and slightly cold. Not nostalgic kitsch, just honest function.
-- **Typography as structure:** Type is part of the grid. Font choices reinforce the computerized feel — expect monospace or geometric sans-serif influences.
+- **Typography as structure:** Inter is used throughout. Type is part of the grid — size and weight create hierarchy, not decoration.
 - **Restrained animation:** GSAP is used purposefully. Transitions should feel mechanical and precise — not bouncy or playful. Grid reveals, slide-ins, and deliberate state changes.
 
-## Anticipated Token Categories
-These will be populated from Figma once the design file is ready:
+## Color Tokens
 
-| Token Group | Examples |
-|-------------|---------|
-| `--color-*` | background, surface, border, text-primary, text-secondary, accent-blue |
-| `--font-family-*` | heading, body, mono |
-| `--font-size-*` | xs, sm, md, lg, xl, 2xl |
-| `--font-weight-*` | regular, medium, bold |
-| `--space-*` | 4, 8, 12, 16, 24, 32, 48, 64 (4px base scale) |
-| `--radius-*` | none, sm, md |
-| `--shadow-*` | sm, md, hard (sharp box shadows, retro feel) |
-| `--border-*` | default, strong |
+Extracted from Figma. All values go in `globals.css` as CSS custom properties.
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--color-bg` | `#0e0e10` | Page background |
+| `--color-surface` | `#121212` | Card / panel background |
+| `--color-border` | `#242328` | All borders |
+| `--color-text-primary` | `#d8d8d8` | Primary body text |
+| `--color-text-secondary` | `#676767` | Muted / secondary text |
+| `--color-accent` | `#9d894e` | Accent — gold, used sparingly |
+
+## Typography Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--font-family-base` | `'Inter', sans-serif` | All text — one font throughout |
+| `--font-weight-regular` | `400` | Body text |
+| `--font-size-sm` | `14px` | Base text size |
+| `--line-height-sm` | `17.52px` | Tight line height for small text |
+| `--line-height-md` | `20px` | Standard line height |
+| `--line-height-lg` | `23px` | Loose line height |
+
+## Spacing Tokens
+
+4px base scale. To be confirmed as components are built.
+
+| Token | Value |
+|-------|-------|
+| `--space-1` | `4px` |
+| `--space-2` | `8px` |
+| `--space-3` | `12px` |
+| `--space-4` | `16px` |
+| `--space-6` | `24px` |
+| `--space-8` | `32px` |
+| `--space-12` | `48px` |
+| `--space-16` | `64px` |
+
+## Anticipated Token Categories (to be expanded)
+
+| Token Group | Status |
+|-------------|--------|
+| `--radius-*` | Not yet defined |
+| `--shadow-*` | Not yet defined |
+| `--border-*` | Not yet defined — currently using `--color-border` directly |
 
 ## Rules
 - No inline styles.
@@ -44,4 +75,3 @@ These will be populated from Figma once the design file is ready:
 - No external UI libraries unless explicitly approved.
 - Every new component must use existing tokens only.
 - If a token doesn't exist for what you need, **flag it and ask** — do not invent values.
-- When Figma tokens are imported, update the token table above to reflect the real values.

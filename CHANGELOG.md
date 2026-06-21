@@ -9,6 +9,7 @@ _Internal development log. Updated by Claude after every completed task. One row
 | # | Title | Description | Type | Files Changed |
 |---|-------|-------------|------|---------------|
 | 1 | Project initialized | CLAUDE.md, DESIGN.md, CHANGELOG.md, RELEASES.md, README.md created. Internal Docs/ folder set up with ARCHITECTURE.md, DATA_FLOW.md, and COMPONENTS.md. | Setup | All |
+| 2 | Design tokens extracted from Figma | Color and typography tokens pulled from the main page Figma frame and added to DESIGN.md. 6 color tokens, 6 typography tokens, 8 spacing tokens defined. | Update | DESIGN.md |
 
 ---
 
