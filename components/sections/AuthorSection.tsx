@@ -14,7 +14,10 @@ export default function AuthorSection() {
           <p>Designed, developed and maintained by Imtiyaz Ahmed.</p>
           <p>
             Find me on{" "}
-            <span className={styles.accentLinks}>Portfolio, Twitter, Linkedin, Github.</span>
+            <a href="https://www.imtiyazahmed.com/" target="_blank" rel="noopener noreferrer" className={styles.accentLinks}>Portfolio</a>,{" "}
+            <a href="https://x.com/imtiahmed01" target="_blank" rel="noopener noreferrer" className={styles.accentLinks}>Twitter</a>,{" "}
+            <a href="https://www.linkedin.com/in/iamimtiyazahmed/" target="_blank" rel="noopener noreferrer" className={styles.accentLinks}>Linkedin</a>,{" "}
+            <a href="http://github.com/imti-ahmed" target="_blank" rel="noopener noreferrer" className={styles.accentLinks}>Github</a>.
           </p>
         </div>
       </div>
