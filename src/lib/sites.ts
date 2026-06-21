@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const SITES_DIR = path.join(process.cwd(), 'content/sites');
+const SITES_DIR = path.join(process.cwd(), 'members');
 
 export interface Site {
   slug: string;
