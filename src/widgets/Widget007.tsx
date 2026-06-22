@@ -1,5 +1,5 @@
-import { ArrowLeft, ArrowRight, List } from '@phosphor-icons/react/dist/ssr';
-import styles from './Widget001.module.css';
+import { CaretLeft, CaretRight, List } from '@phosphor-icons/react/dist/ssr';
+import styles from './Widget007.module.css';
 
 interface Props {
   nickname: string;
@@ -8,7 +8,7 @@ interface Props {
   textColor?: string;
 }
 
-function GuildMark({ size = 11 }: { size?: number }) {
+function GuildMark({ size = 12 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 14 14" fill="#ffffff" xmlns="http://www.w3.org/2000/svg" aria-hidden>
       <path d="M7 7V10.5H3.5V7H7Z" />
@@ -23,27 +23,21 @@ function GuildMark({ size = 11 }: { size?: number }) {
   );
 }
 
-export default function Widget001({ nickname, slug, bgColor, textColor }: Props) {
-  const style = {
-    '--widget-bg': bgColor ?? '#000000',
-    '--widget-text': textColor ?? '#ffffff',
-  } as React.CSSProperties;
-
+export default function Widget007({ nickname, slug }: Props) {
   return (
-    <div className={styles.widget} style={style}>
-      <div className={styles.header}>
-        <GuildMark />
-        <span className={styles.label}>{nickname} @ MAKERS GUILD</span>
-      </div>
+    <div className={styles.widget}>
+      <span className={styles.label}>{nickname}</span>
+      <GuildMark />
+      <span className={styles.label}>THE MAKERS GUILD</span>
       <div className={styles.nav}>
         <a href={`/api/ring/${slug}/prev`} className={styles.navItem} aria-label="Previous site">
-          <ArrowLeft size={12} weight="regular" color="#ffffff" />
+          <CaretLeft size={12} weight="regular" color="#ffffff" />
         </a>
         <a href={`/api/ring/${slug}/rand`} className={styles.navItem} aria-label="Random site">
           <List size={12} weight="regular" color="#ffffff" />
         </a>
         <a href={`/api/ring/${slug}/next`} className={styles.navItem} aria-label="Next site">
-          <ArrowRight size={12} weight="regular" color="#ffffff" />
+          <CaretRight size={12} weight="regular" color="#ffffff" />
         </a>
       </div>
     </div>

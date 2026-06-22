@@ -8,22 +8,17 @@
   font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
   background-color: var(--widget-bg);
   color: var(--widget-text);
-  border-radius: 6px 6px 0 0;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 6px;
   padding: 15px 15px 17px;
   border-bottom: 1.2px solid color-mix(in srgb, var(--widget-text) 15%, transparent);
-}
-
-.identity {
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .label {
@@ -33,19 +28,6 @@
   white-space: nowrap;
   text-transform: uppercase;
   color: var(--widget-text);
-}
-
-.externalLink {
-  display: flex;
-  align-items: center;
-  color: var(--widget-text);
-  opacity: 0.5;
-  text-decoration: none;
-  transition: opacity 0.15s;
-}
-
-.externalLink:hover {
-  opacity: 1;
 }
 
 .nav {
@@ -58,7 +40,7 @@
   align-items: center;
   justify-content: center;
   height: 23px;
-  color: var(--widget-text);
+  color: #000000;
   text-decoration: none;
   opacity: 0.6;
   transition: opacity 0.15s;

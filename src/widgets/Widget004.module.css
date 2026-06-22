@@ -1,0 +1,58 @@
+.widget {
+  width: 240px;
+  height: 32px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  padding: 0 14px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 54px;
+  font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+  box-sizing: border-box;
+}
+
+.identity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.23px;
+  text-transform: uppercase;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #e2e4f5;
+  border-radius: 6px;
+  overflow: hidden;
+  flex-shrink: 0;
+  height: 18px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 18px;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.navItem:hover {
+  opacity: 1;
+}

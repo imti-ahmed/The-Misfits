@@ -1,0 +1,63 @@
+.widget {
+  width: 636px;
+  height: 48px;
+  background: #18181b;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  gap: 8px;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #f4f4f5;
+  white-space: nowrap;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 13px;
+  background: #09090b;
+  border: 0.667px solid #27272a;
+  border-radius: 8px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #f4f4f5;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+  box-sizing: border-box;
+}
+
+.button:hover {
+  opacity: 0.8;
+}

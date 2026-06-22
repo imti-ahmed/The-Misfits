@@ -13,6 +13,14 @@ interface WidgetProps {
 const widgetMap: Record<string, ComponentType<WidgetProps>> = {
   '001': dynamic(() => import('./Widget001')),
   '002': dynamic(() => import('./Widget002')),
+  '003': dynamic(() => import('./Widget003')),
+  '004': dynamic(() => import('./Widget004')),
+  '005': dynamic(() => import('./Widget005')),
+  '006': dynamic(() => import('./Widget006')),
+  '007': dynamic(() => import('./Widget007')),
+  '008': dynamic(() => import('./Widget008')),
+  '009': dynamic(() => import('./Widget009')),
+  '010': dynamic(() => import('./Widget010')),
 };
 
 interface Props extends WidgetProps {

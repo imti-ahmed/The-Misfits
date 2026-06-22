@@ -1,0 +1,63 @@
+.widget {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  max-width: 600px;
+  padding: 6px 11px;
+  border: 0.667px dashed #cccccc;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+  box-sizing: border-box;
+}
+
+.nickname {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 17.25px;
+  letter-spacing: 0.17px;
+  text-transform: uppercase;
+  color: #7c7c7c;
+  white-space: nowrap;
+}
+
+.slash {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 19.5px;
+  letter-spacing: -0.065px;
+  color: #cccccc;
+  font-family: var(--font-inter, 'Inter', sans-serif);
+}
+
+.guild {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19.5px;
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
+  color: #7c7c7c;
+  white-space: nowrap;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.15s;
+}
+
+.navItem:hover {
+  opacity: 1;
+}
