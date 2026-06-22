@@ -1,0 +1,31 @@
+# Plans — The Makers Guild
+
+_Master plan for the project. Claude reads this at the start of every session to know what's done and what's next. Strikethrough = complete._
+
+---
+
+## Phase 1 — Foundation
+
+1. ~~Initialize project — Next.js 15, TypeScript, App Router, CSS Modules, design tokens~~
+2. ~~Build homepage sections — About, Requirements, Join, Author, Guild, Gallery, Animation~~
+3. ~~Add GSAP particle system and dot grid background animation~~
+4. ~~Build data layer and ring mechanics (prev/next navigation by slug)~~
+5. ~~Set up viewport scaling so the fixed 1920×1080 layout fits any screen~~
+6. ~~Add real member data and member profile markdown files~~
+7. ~~Apply favicon~~
+8. ~~Add nickname fields to member profiles~~
+
+---
+
+## Phase 2 — Widget System
+
+9. Make the widget designs
+10. Create the GitHub workflow
+11. Make the screenshot functionality
+12. Connect to R2 buckets from Cloudflare
+13. Create the checks for the new PR
+14. Create the checks for status and homepage widget existence
+15. Make the form
+16. Make the widget customizer
+17. Add the view check and counter shower
+18. Make the iframe generation functionality

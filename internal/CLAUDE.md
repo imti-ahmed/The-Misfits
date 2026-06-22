@@ -13,6 +13,7 @@ The Makers Guild is a webring platform where makers submit their personal sites,
 ## How to Work in This Project
 
 ### Read First
+- **Read PLANS.md first, before anything else.** It is the master plan for the project — check what is done (strikethrough) and what is still pending. Resume from the next pending item unless the user says otherwise.
 - Read this file at the start of every session, no exceptions.
 - Read DESIGN.md before touching any frontend code.
 - Read CHANGELOG.md to understand what has already been done.
