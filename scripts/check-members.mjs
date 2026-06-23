@@ -9,7 +9,7 @@ const MEMBERS_DIR = join(__dirname, '..', 'members');
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO ?? 'imti-ahmed/The-Makers-Guild';
 const GITHUB_BASE = process.env.GITHUB_BASE_BRANCH ?? 'main';
-const GUILD_ORIGIN = process.env.GUILD_ORIGIN ?? 'themakersguild.com';
+const GUILD_ORIGIN = process.env.GUILD_ORIGIN ?? 'the-makers-guild.vercel.app';
 
 // ── GitHub helpers ────────────────────────────────────────────────────────────
 

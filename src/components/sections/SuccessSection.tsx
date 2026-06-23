@@ -12,7 +12,7 @@ interface SuccessSectionProps {
 }
 
 export default function SuccessSection({ slug, prUrl, onGoBack }: SuccessSectionProps) {
-  const embedCode = `<iframe src="https://themakersguild.com/embed/${slug}" width="300" height="60"></iframe>`;
+  const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}" width="300" height="103" style="border:none;"></iframe>`;
   const [copied, setCopied] = useState(false);
   const closeCopied = useCallback(() => setCopied(false), []);
 
