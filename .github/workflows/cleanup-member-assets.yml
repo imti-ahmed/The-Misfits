@@ -1,0 +1,38 @@
+name: Clean Up Removed Member Assets
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find deleted member files
+        id: deleted
+        run: |
+          DELETED=$(git diff --name-only --diff-filter=D HEAD~1 HEAD -- 'members/*.md' | tr '\n' ' ')
+          echo "files=$DELETED" >> $GITHUB_OUTPUT
+
+      - uses: actions/setup-node@v4
+        if: steps.deleted.outputs.files != ''
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: steps.deleted.outputs.files != ''
+        run: npm ci
+
+      - name: Delete screenshots from R2
+        if: steps.deleted.outputs.files != ''
+        env:
+          DELETED_FILES: ${{ steps.deleted.outputs.files }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+        run: node scripts/cleanup-screenshots.mjs

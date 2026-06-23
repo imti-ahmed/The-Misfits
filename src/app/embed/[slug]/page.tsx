@@ -1,22 +1,38 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { notFound } from 'next/navigation';
 import WidgetRenderer from '@/widgets/WidgetRenderer';
+import WidgetPending from '@/widgets/WidgetPending';
 
 export default async function EmbedPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const filePath = path.join(process.cwd(), 'members', `${slug}.md`);
 
-  if (!fs.existsSync(filePath)) notFound();
+  const baseStyle = <style>{`html, body { background: transparent !important; margin: 0; padding: 0; }`}</style>;
+
+  if (!fs.existsSync(filePath)) {
+    return (
+      <>
+        {baseStyle}
+        <WidgetPending slug={slug} />
+      </>
+    );
+  }
 
   const { data } = matter(fs.readFileSync(filePath, 'utf-8'));
 
-  if (!data.widget) notFound();
+  if (!data.widget) {
+    return (
+      <>
+        {baseStyle}
+        <WidgetPending slug={slug} />
+      </>
+    );
+  }
 
   return (
     <>
-      <style>{`html, body { background: transparent !important; margin: 0; padding: 0; }`}</style>
+      {baseStyle}
       <WidgetRenderer
         widgetId={data.widget}
         nickname={data.nickname || data.name || slug}
