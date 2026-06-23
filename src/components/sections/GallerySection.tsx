@@ -1,5 +1,6 @@
 import { Plus } from "@phosphor-icons/react/dist/ssr";
 import { getSites } from "@/lib/sites";
+import GalleryTrack from "./GalleryTrack";
 import styles from "./GallerySection.module.css";
 
 const MIN_TRACK_ITEMS = 10;
@@ -28,13 +29,7 @@ export default function GallerySection() {
       <div className={styles.imageSection}>
         <div className={styles.trackClip}>
           {marqueeItems.length > 0 ? (
-            <div className={styles.track}>
-              {marqueeItems.map((item, i) => (
-                <div key={i} className={styles.imageItem}>
-                  <img src={item.src} alt={item.name} />
-                </div>
-              ))}
-            </div>
+            <GalleryTrack items={marqueeItems} />
           ) : (
             <div className={styles.empty} />
           )}

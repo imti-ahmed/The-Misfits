@@ -56,10 +56,6 @@
   will-change: transform;
 }
 
-.track:hover {
-  animation-play-state: paused;
-}
-
 .imageItem {
   height: 201px;
   flex-shrink: 0;
