@@ -160,8 +160,10 @@ function buildRemovalPRBody(member, siteStatus, widgetPresent) {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
+const DRY_RUN = process.env.DRY_RUN === 'true';
+
 async function main() {
-  if (!GITHUB_TOKEN) {
+  if (!DRY_RUN && !GITHUB_TOKEN) {
     console.error('GITHUB_TOKEN is not set');
     process.exit(1);
   }
@@ -208,6 +210,11 @@ async function main() {
   console.log(`\n${flagged.length} member(s) flagged.`);
 
   if (flagged.length === 0) return;
+
+  if (DRY_RUN) {
+    console.log('\n[DRY RUN] Skipping branch + PR creation.');
+    return;
+  }
 
   console.log('\nCreating removal PRs...\n');
   const baseSha = await getBaseSha();
