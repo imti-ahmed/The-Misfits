@@ -161,6 +161,7 @@ function buildRemovalPRBody(member, siteStatus, widgetPresent) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const DRY_RUN = process.env.DRY_RUN === 'true';
+const MEMBER_SLUG = process.env.MEMBER_SLUG ?? null;
 
 async function main() {
   if (!DRY_RUN && !GITHUB_TOKEN) {
@@ -168,7 +169,9 @@ async function main() {
     process.exit(1);
   }
 
-  const files = readdirSync(MEMBERS_DIR).filter(f => f.endsWith('.md')).sort();
+  let files = readdirSync(MEMBERS_DIR).filter(f => f.endsWith('.md')).sort();
+  if (MEMBER_SLUG) files = files.filter(f => f === `${MEMBER_SLUG}.md`);
+
   const members = files.map(filename => {
     const slug = filename.replace(/\.md$/, '');
     const raw = readFileSync(join(MEMBERS_DIR, filename), 'utf-8');
