@@ -1,11 +1,29 @@
-import { Plus, GitFork, CaretRight } from "@phosphor-icons/react/dist/ssr";
+import { Plus } from "@phosphor-icons/react/dist/ssr";
+import fs from "fs";
+import path from "path";
 import { getSites } from "@/lib/sites";
 import { withRef } from "@/lib/ref";
 import MemberLink from "@/components/MemberLink";
+import UpdateLogButton from "@/components/sections/UpdateLogButton";
 import styles from "./GuildSection.module.css";
+
+function getLatestVersion(): string {
+  try {
+    const content = fs.readFileSync(
+      path.join(process.cwd(), "internal", "RELEASES.md"),
+      "utf-8"
+    );
+    for (const line of content.split("\n")) {
+      const m = line.match(/\|\s*(v[\d.]+)\s*\|\s*\d{4}-\d{2}-\d{2}\s*\|/);
+      if (m) return m[1];
+    }
+  } catch {}
+  return "v0.0.0";
+}
 
 export default function GuildSection() {
   const members = getSites();
+  const latestVersion = getLatestVersion();
 
   return (
     <div className={styles.container}>
@@ -35,14 +53,7 @@ export default function GuildSection() {
         </ol>
       </div>
 
-      {/* Update Log Header */}
-      <div className={styles.updateLogHeader}>
-        <div className={styles.updateLogLeft}>
-          <GitFork size={20} className={styles.updateLogIcon} />
-          <p className={styles.updateLogText}>Update Logs @2026 [v2.0.1]</p>
-        </div>
-        <CaretRight size={20} className={styles.updateLogIcon} />
-      </div>
+      <UpdateLogButton versionLabel={`Update Logs @2026 [${latestVersion}]`} />
     </div>
   );
 }
