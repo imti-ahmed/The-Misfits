@@ -34,7 +34,7 @@ export default async function EmbedPage({ params }: { params: Promise<{ slug: st
     <>
       {baseStyle}
       <WidgetRenderer
-        widgetId={data.widget}
+        widgetId={String(data.widget).padStart(3, '0')}
         nickname={data.nickname || data.name || slug}
         slug={slug}
         bgColor={data.bgColor || ''}

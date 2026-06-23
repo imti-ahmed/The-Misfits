@@ -28,7 +28,7 @@ function buildMarkdown(fields: Record<string, string | string[]>): string {
       lines.push(`${key}: [${value.join(", ")}]`);
     } else {
       const str = String(value);
-      const needsQuotes = str.startsWith("#") || str.includes(":") || str.includes('"');
+      const needsQuotes = str.startsWith("#") || str.includes(":") || str.includes('"') || /^0\d+$/.test(str);
       lines.push(`${key}: ${needsQuotes ? `"${str.replace(/"/g, '\\"')}"` : str}`);
     }
   }
