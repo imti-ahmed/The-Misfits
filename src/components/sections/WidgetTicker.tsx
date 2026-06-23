@@ -50,7 +50,6 @@ export default function WidgetTicker({ onSelect, nickname = "USER" }: WidgetTick
       <div className={styles.widgetDisplay}>
         <div className={WIDGET_IDS[selectedIndex] !== "006" ? styles.widgetScaled : undefined}>
           <div key={animKey} className={slideClass}>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
             <div onClick={(e) => e.preventDefault()}>
               <WidgetRenderer
                 widgetId={WIDGET_IDS[selectedIndex]}

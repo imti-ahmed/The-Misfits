@@ -11,7 +11,6 @@ export default function PreviewSection({ widgetPreview, widgetId }: PreviewSecti
 
   return (
     <div className={styles.container}>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div className={styles.widgetPanel} onClick={(e) => e.preventDefault()}>
         <div className={scaled ? styles.widgetScaled : undefined}>
           {widgetPreview}

@@ -41,7 +41,7 @@ export default function RequirementSection() {
           </li>
           <li>
             This is an attempt to bring cool people together. Not just discover
-            sites - befriend the people making them. Be around builders that's
+            sites - befriend the people making them. Be around builders that&apos;s
             my current ongoing motto.
           </li>
         </ul>
