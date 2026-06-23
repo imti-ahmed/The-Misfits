@@ -63,11 +63,3 @@ Designed, developed and maintained by [Imtiyaz Ahmed](https://www.imtiyazahmed.c
 | `members/` | One `.md` file per approved member. Each file is the source of truth for their name, URL, widget ID, tags, and screenshot. |
 | `members/<slug>.md` | A member record. Fields: `name`, `nickname`, `url`, `email`, `tags`, `widget`, `bgColor`, `textColor`, `screenshot`. |
 | `activity.md` | Weekly automated health check log. Records whether each member's site is live and widget is present. |
-
----
-
-## License
-
-Copyright 2026 Imtiyaz Ahmed
-
-This project is public for transparency and contribution purposes only. You may not fork, copy, or run your own version of The Makers Guild without explicit written permission from the author.
