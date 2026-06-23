@@ -31,7 +31,6 @@ export default function CenterColumn() {
     function onPopState() {
       const path = window.location.pathname;
       if (path === "/apply") setView("join");
-      else if (path === "/success") setView("success");
       else setView("home");
     }
     window.addEventListener("popstate", onPopState);
@@ -51,7 +50,7 @@ export default function CenterColumn() {
 
   function handleSuccess(slug: string, applicationNumber: number, prUrl?: string) {
     setSuccessData({ slug, applicationNumber, prUrl });
-    goTo("/success", "success");
+    setView("success");
   }
 
   if (view === "join") {

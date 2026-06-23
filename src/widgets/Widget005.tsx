@@ -26,10 +26,10 @@ function GuildMark({ size = 9 }: { size?: number }) {
 export default function Widget005({ nickname, slug }: Props) {
   return (
     <div className={styles.widget}>
-      <a href={`/api/ring/${slug}/prev`} className={styles.bracket} aria-label="Previous site">
+      <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.bracket} aria-label="Previous site">
         <CaretLeft size={12} weight="regular" color="#000000" />
       </a>
-      <a href={`/api/ring/${slug}/next`} className={styles.bracket} aria-label="Next site">
+      <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.bracket} aria-label="Next site">
         <CaretRight size={12} weight="regular" color="#000000" />
       </a>
       <span className={styles.label}>{nickname}</span>

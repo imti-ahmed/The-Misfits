@@ -31,9 +31,9 @@ export default function Widget008({ nickname, slug }: Props) {
         <span className={styles.label}>THE MAKERS GUILD</span>
       </div>
       <div className={styles.bottom}>
-        <a href={`/api/ring/${slug}/prev`} className={styles.navLink}>[BACK]</a>
-        <a href={`/api/ring/${slug}/rand`} className={styles.navLink}>[RAND]</a>
-        <a href={`/api/ring/${slug}/next`} className={styles.navLink}>[NEXT]</a>
+        <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>[BACK]</a>
+        <a href={`/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>[RAND]</a>
+        <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>[NEXT]</a>
       </div>
     </div>
   );

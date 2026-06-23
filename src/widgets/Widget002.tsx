@@ -36,13 +36,13 @@ export default function Widget002({ nickname, slug, bgColor, textColor }: Props)
         <span className={styles.label}>{nickname} @ MAKERS GUILD</span>
       </div>
       <div className={styles.nav}>
-        <a href={`/api/ring/${slug}/prev`} className={styles.navItem} aria-label="Previous site">
+        <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Previous site">
           <ArrowLeft size={12} weight="regular" color="#000000" />
         </a>
-        <a href={`/api/ring/${slug}/rand`} className={styles.navItem} aria-label="Random site">
+        <a href={`/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Random site">
           <List size={12} weight="regular" color="#000000" />
         </a>
-        <a href={`/api/ring/${slug}/next`} className={styles.navItem} aria-label="Next site">
+        <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Next site">
           <ArrowRight size={12} weight="regular" color="#000000" />
         </a>
       </div>
