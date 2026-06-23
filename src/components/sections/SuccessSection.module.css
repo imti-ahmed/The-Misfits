@@ -1,0 +1,117 @@
+.container {
+  width: 919px;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.confirmation {
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  height: 73px;
+  padding: var(--space-6);
+  margin-bottom: -1px;
+}
+
+.embedRow {
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3-5);
+  height: 137px;
+  justify-content: center;
+  padding: var(--space-6);
+  margin-bottom: -1px;
+}
+
+.actionsRow {
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 101px;
+  flex: 1;
+  padding: var(--space-6);
+}
+
+.actionsRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2-5);
+}
+
+.bodyText {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.embedField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 43px;
+  padding: var(--space-3) var(--space-4-5);
+}
+
+.copyBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: color 0.15s;
+}
+
+.copyBtn:hover {
+  color: var(--color-white);
+}
+
+.embedCode {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.btn {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 43px;
+  padding: var(--space-3) var(--space-4-5);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.btnWithIcon {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 43px;
+  padding: var(--space-3) var(--space-4-5);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-white);
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+}

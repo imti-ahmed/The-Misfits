@@ -1,6 +1,6 @@
 .container {
   width: 919px;
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
 }

@@ -1,0 +1,99 @@
+.container {
+  width: 919px;
+  background-color: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.part {
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2-5);
+  padding: var(--space-6);
+  margin-bottom: -1px;
+}
+
+.submitRow {
+  flex: 1;
+  min-height: 99px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6);
+}
+
+.row {
+  display: flex;
+  gap: var(--space-2-5);
+}
+
+.field {
+  display: block;
+  width: 100%;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 43px;
+  padding: var(--space-3) var(--space-4-5);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-text-primary);
+  outline: none;
+  appearance: none;
+}
+
+.field::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.row .field {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+}
+
+.fieldTextarea {
+  height: 48px;
+  resize: none;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spinIcon {
+  animation: spin 0.5s linear infinite;
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 43px;
+  padding: var(--space-3) var(--space-4-5);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+.discardBtn {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  height: 43px;
+  padding: var(--space-3) var(--space-4-5);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-white);
+  cursor: pointer;
+}

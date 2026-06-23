@@ -1,0 +1,182 @@
+"use client";
+
+import { Plus } from "@phosphor-icons/react";
+import { useState, useCallback } from "react";
+import styles from "./FormSection.module.css";
+import Toast from "@/components/Toast";
+
+interface FormSectionProps {
+  widgetId?: string;
+  onDiscard?: () => void;
+  onNicknameChange?: (nickname: string) => void;
+  onSuccess?: (slug: string, applicationNumber: number, prUrl?: string) => void;
+}
+
+interface ToastState {
+  message: string;
+  type: "error" | "success";
+}
+
+function ensureHash(val: string): string {
+  if (!val) return "";
+  return val.startsWith("#") ? val : "#" + val;
+}
+
+export default function FormSection({
+  widgetId,
+  onDiscard,
+  onNicknameChange,
+  onSuccess,
+}: FormSectionProps) {
+  const [name, setName] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [url, setUrl] = useState("");
+  const [email, setEmail] = useState("");
+  const [tags, setTags] = useState("");
+  const [bgColor, setBgColor] = useState("");
+  const [textColor, setTextColor] = useState("");
+  const [comments, setComments] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [toast, setToast] = useState<ToastState | null>(null);
+
+  const closeToast = useCallback(() => setToast(null), []);
+
+  function showToast(message: string, type: "error" | "success" = "error") {
+    setToast({ message, type });
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!name.trim()) return showToast("Please enter your full name.");
+    if (!nickname.trim()) return showToast("Please enter a nickname.");
+    if (!url.trim()) return showToast("Please enter your website URL.");
+    if (!email.trim()) return showToast("Please enter your email address.");
+    if (!tags.trim()) return showToast("Please add at least one tag.");
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          nickname: nickname.trim().toUpperCase(),
+          url: url.trim(),
+          email: email.trim(),
+          tags,
+          bgColor,
+          textColor,
+          widgetId,
+          comments,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        onSuccess?.(data.slug, data.applicationNumber, data.prUrl);
+      } else {
+        showToast(data.error ?? "Submission failed. Please try again.");
+      }
+    } catch {
+      showToast("Network error — could not reach the server.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  function handleDiscard() {
+    setNickname("");
+    setBgColor("");
+    setTextColor("");
+    onNicknameChange?.("USER");
+    onDiscard?.();
+  }
+
+  return (
+    <>
+      {toast && <Toast message={toast.message} type={toast.type} onClose={closeToast} />}
+      <form className={styles.container} onSubmit={handleSubmit}>
+        <div className={styles.part}>
+          <div className={styles.row}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Your Full Name*"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Nickname (becomes your username)*"
+              value={nickname}
+              maxLength={8}
+              onChange={(e) => {
+                setNickname(e.target.value);
+                onNicknameChange?.(e.target.value.trim().toUpperCase() || "USER");
+              }}
+            />
+          </div>
+          <div className={styles.row}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Website Link (https://yoursite.com)*"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Email Address*"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <input
+            className={styles.field}
+            type="text"
+            placeholder="Tags (Developer, designer, vibe-coder, etc)*"
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.part}>
+          <div className={styles.row}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Custom Background Color (Optional)"
+              value={bgColor}
+              onChange={(e) => setBgColor(ensureHash(e.target.value))}
+            />
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Custom Text Color (Optional)"
+              value={textColor}
+              onChange={(e) => setTextColor(ensureHash(e.target.value))}
+            />
+          </div>
+          <textarea
+            className={`${styles.field} ${styles.fieldTextarea}`}
+            placeholder="Drop any comments or say something about yourself (optional)"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)}
+          />
+        </div>
+
+        <div className={styles.submitRow}>
+          <button type="submit" className={styles.submitBtn} disabled={submitting}>
+            {submitting ? "Submitting..." : "Submit The Application"}
+            <Plus size={20} className={submitting ? styles.spinIcon : undefined} />
+          </button>
+          <button type="button" className={styles.discardBtn} onClick={handleDiscard}>
+            Discard &amp; Go Back
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}
