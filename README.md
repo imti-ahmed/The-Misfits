@@ -16,7 +16,7 @@ Yahoo bought the biggest webring network and let it rot. Search and feeds took o
 
 ## How To Join
 
-1. Head over to [the-makers-guild.vercel.app](https://the-makers-guild.vercel.app) and fill out the application form
+1. Head over to [the-makers-guild.vercel.app](https://the-makers-guild.vercel.app) and fill out the application form, or open a request on [GitHub](https://github.com/imti-ahmed/The-Makers-Guild)
 2. Wait for review — we'll check your site meets the criteria (1–2 days)
 3. Once approved, embed the Guild widget on your homepage
 4. You're in the ring
@@ -57,6 +57,4 @@ Designed, developed and maintained by [Imtiyaz Ahmed](https://www.imtiyazahmed.c
 |------|---------|
 | `members/` | One `.md` file per approved member. Each file is the source of truth for their name, URL, widget ID, tags, and screenshot. |
 | `members/<slug>.md` | A member record. Fields: `name`, `nickname`, `url`, `email`, `tags`, `widget`, `bgColor`, `textColor`, `screenshot`. |
-| `internal/` | Internal planning docs, architecture notes, and release logs. Not member-facing. |
 | `activity.md` | Weekly automated health check log. Records whether each member's site is live and widget is present. |
-| `scripts/check-members.mjs` | The health check script. Runs every Monday, opens a GitHub PR to remove any member whose site is down or widget is missing. |
