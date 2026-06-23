@@ -18,7 +18,7 @@ export default function GuildSection() {
         <p className={styles.infoText}>
           The list of all the active guild members of this webring. Everyone here is an utterly
           crazy and interesting person making or building cool shit. P.S. The order of the ring is
-          randomized every 36 hours.
+          randomized.
         </p>
       </div>
 
