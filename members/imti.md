@@ -8,5 +8,5 @@ bgColor:
 textColor: 
 widget: 009
 info: 
-screenshot: "https://pub-cace89b70f804e5bbafbde60527270f7.r2.dev/screenshots/imti.jpg"
+screenshot: "https://pub-cace89b70f804e5bbafbde60527270f7.r2.dev/screenshots/Imti%20-%20Designer%20%20Builder.png"
 ---
