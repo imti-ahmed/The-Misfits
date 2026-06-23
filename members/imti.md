@@ -1,11 +1,11 @@
 ---
-name: Imtiyaz
+name: Imtiyaz Ahmed
 nickname: IMTI
-url: https://www.imtiyazahmed.com/
+url: "https://www.imtiyazahmed.com/"
 email: designer.imtiyaz@gmail.com
 tags: [Designer]
-bgColor: 
-textColor: #ffffff
-widget: 006
-info: just testing the api now
+bgColor: "#0E0E10"
+textColor: "#FFFFFF"
+widget: 005
+info: Something and someone
 ---
