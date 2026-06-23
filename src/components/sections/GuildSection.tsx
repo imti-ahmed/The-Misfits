@@ -1,5 +1,6 @@
 import { Plus, GitFork, CaretRight } from "@phosphor-icons/react/dist/ssr";
 import { getSites } from "@/lib/sites";
+import { withRef } from "@/lib/ref";
 import styles from "./GuildSection.module.css";
 
 export default function GuildSection() {
@@ -17,7 +18,7 @@ export default function GuildSection() {
         <p className={styles.infoText}>
           The list of all the active guild members of this webring. Everyone here is an utterly
           crazy and interesting person making or building cool shit. P.S. The order of the ring is
-          randomized daily.
+          randomized every 36 hours.
         </p>
       </div>
 
@@ -27,7 +28,7 @@ export default function GuildSection() {
           {members.map((member) => (
             <li key={member.slug} className={styles.memberItem}>
               <span className={styles.memberName}>{member.name}</span>
-              <a href={member.url} target="_blank" rel="noopener noreferrer" className={styles.memberUrl}>{member.url}</a>
+              <a href={withRef(member.url)} target="_blank" rel="noopener noreferrer" className={styles.memberUrl}>{member.url}</a>
             </li>
           ))}
         </ol>
