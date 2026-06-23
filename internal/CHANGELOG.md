@@ -48,6 +48,12 @@ _Internal development log. Updated by Claude after every completed task. One row
 | 13 | Widget011 built | Dark (#141414) pill widget, 300×29px. Doto SemiBold font (added to layout.tsx). Gold identity row (nickname + GuildMark + "THE MAKERS GUILD"). Gold pixel-art << and >> carets (SVG dot arrays) with list icon for random nav. Registered in WidgetRenderer and added to WidgetTicker. Fixed Widget004/007 overflow (added overflow:hidden + identity flex:1) and Widget008 top-clip (removed overflow:hidden, height→min-height). | Feature | Widget011.tsx, Widget011.module.css, layout.tsx, WidgetRenderer.tsx, WidgetTicker.tsx, Widget004.module.css, Widget007.module.css, Widget008.module.css |
 | 10 | Form screen assembled (client-side view swap) | Assembled the form screen as a client-side view swap within the homepage. CenterColumn.tsx manages "home"/"join" state. Home view: AboutSection + RequirementSection + JoinSection. Join view: JoinGuildSection + WidgetTicker + FormSection. JoinSection updated to accept onJoin prop and style "this form here" as bold gold clickable trigger. FormSection updated to accept onDiscard prop. page.tsx updated to use CenterColumn. | Feature | components/CenterColumn.tsx, components/sections/JoinSection.tsx, components/sections/JoinSection.module.css, components/sections/FormSection.tsx, app/page.tsx |
 
+## Session 4 — 2026-06-23
+
+| # | Title | Description | Type | Files Changed |
+|---|-------|-------------|------|---------------|
+| 1 | Member health check script + workflow | Created scripts/check-members.mjs — reads all members/*.md, fetches each site URL (10s timeout), checks homepage HTML for guild widget embed, and raises a removal PR for any member whose site is down or widget is missing. Created .github/workflows/member-health-check.yml — runs every Monday at midnight UTC and supports manual dispatch. Removal PRs land on branches like removal/SLUG-YYYYMMDD with a table of issues found and merge/close instructions. | Feature | scripts/check-members.mjs, .github/workflows/member-health-check.yml |
+
 ---
 
 _Types: Setup · Feature · Bug Fix · Update · Refactor · Config · Copy_

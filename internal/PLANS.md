@@ -19,13 +19,13 @@ _Master plan for the project. Claude reads this at the start of every session to
 
 ## Phase 2 — Widget System
 
-9. Make the widget designs
-10. Create the GitHub workflow
-11. Make the screenshot functionality
-12. Connect to R2 buckets from Cloudflare
-13. Create the checks for the new PR
-14. Create the checks for status and homepage widget existence
-15. Make the form
-16. Make the widget customizer
-17. Add the view check and counter shower
-18. Make the iframe generation functionality
+9. ~~Make the widget designs (Widgets 001–011 built)~~
+10. ~~Create the GitHub workflow (branch → MD file → PR via GitHub Contents API)~~
+11. ~~Make the screenshot functionality (Microlink API, 1000ms wait, fallback-safe)~~
+12. ~~Connect to R2 buckets from Cloudflare (via @aws-sdk/client-s3, S3-compatible endpoint)~~
+13. ~~Create the checks for the new PR~~
+14. ~~Create the checks for status and homepage widget existence~~
+15. ~~Make the form (FormSection with validation, toast errors, nickname cap, live widget preview)~~
+16. ~~Make the widget customizer~~
+17. Update the website with sound effects
+18. ~~Make the iframe generation functionality (embed code auto-generated on success)~~
