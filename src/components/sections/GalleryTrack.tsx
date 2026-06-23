@@ -9,7 +9,7 @@ interface Item {
   slug: string;
 }
 
-const SPEED = 0.6; // px per frame at 60fps
+const SPEED = 1.2; // px per frame at 60fps
 
 export default function GalleryTrack({ items }: { items: Item[] }) {
   const trackRef = useRef<HTMLDivElement>(null);
