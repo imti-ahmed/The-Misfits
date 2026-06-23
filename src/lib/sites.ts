@@ -15,6 +15,7 @@ export interface Site {
   bgColor: string;
   textColor: string;
   info: string;
+  screenshot: string;
 }
 
 function seededShuffle<T>(arr: T[], seed: number): T[] {
@@ -51,6 +52,7 @@ export function getSites(): Site[] {
       bgColor: data.bgColor ?? '',
       textColor: data.textColor ?? '',
       info: data.info ?? '',
+      screenshot: data.screenshot ?? '',
     };
   });
 

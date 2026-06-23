@@ -72,6 +72,11 @@
   object-fit: cover;
 }
 
+.empty {
+  height: 201px;
+  width: 100%;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
