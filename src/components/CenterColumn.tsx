@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import AboutSection from "@/components/sections/AboutSection";
 import RequirementSection from "@/components/sections/RequirementSection";
 import JoinSection from "@/components/sections/JoinSection";
@@ -14,34 +14,33 @@ import WidgetRenderer from "@/widgets/WidgetRenderer";
 
 const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011"];
 
-type View = "home" | "join" | "success";
-
-interface SuccessData {
-  slug: string;
-  applicationNumber: number;
-  prUrl?: string;
-}
-
 export default function CenterColumn() {
+  const pathname = usePathname();
   const router = useRouter();
-  const [view, setView] = useState<View>("home");
+  const searchParams = useSearchParams();
+
   const [nickname, setNickname] = useState("USER");
   const [selectedWidgetIndex, setSelectedWidgetIndex] = useState(0);
-  const [successData, setSuccessData] = useState<SuccessData | null>(null);
 
   function handleDiscard() {
-    setView("home");
     setNickname("USER");
     setSelectedWidgetIndex(0);
+    router.push("/");
   }
 
   function handleSuccess(slug: string, applicationNumber: number, prUrl?: string) {
-    setSuccessData({ slug, applicationNumber, prUrl });
-    setView("success");
-    router.refresh();
+    const widgetId = WIDGET_IDS[selectedWidgetIndex];
+    const params = new URLSearchParams({
+      slug,
+      n: String(applicationNumber),
+      w: widgetId,
+      nick: nickname,
+      ...(prUrl ? { pr: prUrl } : {}),
+    });
+    router.push(`/success?${params}`);
   }
 
-  if (view === "join") {
+  if (pathname === "/apply") {
     return (
       <>
         <JoinGuildSection />
@@ -59,26 +58,32 @@ export default function CenterColumn() {
     );
   }
 
-  if (view === "success" && successData) {
-    const widgetId = WIDGET_IDS[selectedWidgetIndex];
+  if (pathname === "/success") {
+    const slug = searchParams.get("slug") ?? "";
+    const applicationNumber = Number(searchParams.get("n") ?? 0);
+    const widgetId = searchParams.get("w") ?? "001";
+    const nick = searchParams.get("nick") ?? "USER";
+    const prUrl = searchParams.get("pr") ?? undefined;
+
+    if (!slug) {
+      router.replace("/");
+      return null;
+    }
+
     return (
       <>
         <JoinGuildSection />
         <PreviewSection
           widgetId={widgetId}
           widgetPreview={
-            <WidgetRenderer
-              widgetId={widgetId}
-              nickname={nickname}
-              slug={successData.slug}
-            />
+            <WidgetRenderer widgetId={widgetId} nickname={nick} slug={slug} />
           }
-          applicationNumber={successData.applicationNumber}
+          applicationNumber={applicationNumber}
         />
         <SuccessSection
-          slug={successData.slug}
-          prUrl={successData.prUrl}
-          onGoBack={handleDiscard}
+          slug={slug}
+          prUrl={prUrl}
+          onGoBack={() => router.push("/")}
         />
       </>
     );
@@ -88,7 +93,7 @@ export default function CenterColumn() {
     <>
       <AboutSection />
       <RequirementSection />
-      <JoinSection onJoin={() => setView("join")} />
+      <JoinSection onJoin={() => router.push("/apply")} />
     </>
   );
 }

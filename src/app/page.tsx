@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import AnimationSection from "@/components/sections/AnimationSection";
 import AuthorSection from "@/components/sections/AuthorSection";
 import GallerySection from "@/components/sections/GallerySection";
@@ -20,7 +21,9 @@ export default function Home() {
             <div className={styles.topRow}>
 
               <div className={styles.centerColumn}>
-                <CenterColumn />
+                <Suspense fallback={null}>
+                  <CenterColumn />
+                </Suspense>
               </div>
 
               <div className={styles.rightColumn}>
