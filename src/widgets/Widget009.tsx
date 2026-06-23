@@ -32,9 +32,9 @@ export default function Widget009({ nickname, slug }: Props) {
         </div>
       </div>
       <div className={styles.nav}>
-        <a href={`/api/ring/${slug}/next`} className={styles.navLink}>NEXT</a>
-        <a href={`/api/ring/${slug}/rand`} className={styles.navLink}>SHUFFLE</a>
         <a href={`/api/ring/${slug}/prev`} className={styles.navLink}>PREV</a>
+        <a href={`/api/ring/${slug}/rand`} className={styles.navLink}>SHUFFLE</a>
+        <a href={`/api/ring/${slug}/next`} className={styles.navLink}>NEXT</a>
       </div>
     </div>
   );
