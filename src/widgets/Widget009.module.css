@@ -4,6 +4,8 @@
   min-width: 225px;
   width: fit-content;
   font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+  background: #242424;
+  overflow: hidden;
 }
 
 .header {
