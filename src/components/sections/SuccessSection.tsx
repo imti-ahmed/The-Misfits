@@ -16,7 +16,7 @@ interface SuccessSectionProps {
 
 export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: SuccessSectionProps) {
   const { width, height, defaultScale } = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
-  const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}?scale=${defaultScale}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
+  const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
   const resizeScript = `<script>window.addEventListener('message',function(e){if(!e.data||e.data.type!=='tmg-resize')return;var f=document.querySelectorAll('iframe');for(var i=0;i<f.length;i++){if(f[i].contentWindow===e.source){f[i].width=e.data.width;f[i].height=e.data.height;break;}}});<\/script>`;
   const [copied, setCopied] = useState<"iframe" | "script" | null>(null);
   const closeCopied = useCallback(() => setCopied(null), []);
