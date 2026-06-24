@@ -27,12 +27,14 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
   const [successData, setSuccessData] = useState<SuccessData | null>(null);
 
   function handleBack() {
+    window.scrollTo(0, 0);
     setNickname("USER");
     setSelectedWidgetIndex(0);
     setView("home");
   }
 
   function handleSuccess(slug: string, applicationNumber: number, prUrl?: string) {
+    window.scrollTo(0, 0);
     setSuccessData({ slug, applicationNumber, prUrl });
     setView("success");
   }
@@ -65,7 +67,7 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
   }
 
   return (
-    <MobileJoinContext.Provider value={() => setView("join")}>
+    <MobileJoinContext.Provider value={() => { window.scrollTo(0, 0); setView("join"); }}>
       {homePage}
     </MobileJoinContext.Provider>
   );
