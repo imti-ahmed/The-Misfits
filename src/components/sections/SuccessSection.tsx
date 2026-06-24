@@ -5,15 +5,18 @@ import { useState, useCallback } from "react";
 import styles from "./SuccessSection.module.css";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
+import { WIDGET_SIZES, DEFAULT_WIDGET_SIZE } from "@/lib/widgetSizes";
 
 interface SuccessSectionProps {
   slug: string;
+  widgetId?: string;
   prUrl?: string;
   onGoBack?: () => void;
 }
 
-export default function SuccessSection({ slug, prUrl, onGoBack }: SuccessSectionProps) {
-  const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}" width="300" height="103" style="border:none;"></iframe>`;
+export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: SuccessSectionProps) {
+  const { width, height } = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
+  const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}" width="${width}" height="${height}" style="border:none;"></iframe>`;
   const [copied, setCopied] = useState(false);
   const closeCopied = useCallback(() => setCopied(false), []);
 

@@ -74,6 +74,7 @@ export default function CenterColumn() {
         />
         <SuccessSection
           slug={successData.slug}
+          widgetId={widgetId}
           prUrl={successData.prUrl}
           onGoBack={handleDiscard}
         />

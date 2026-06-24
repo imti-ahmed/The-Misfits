@@ -1,4 +1,7 @@
 .widget {
+  --widget-bg: #1348dc;
+  --widget-text: #ffffff;
+
   display: inline-flex;
   flex-direction: row;
   align-items: center;
@@ -7,14 +10,15 @@
   width: fit-content;
   height: 36px;
   padding: 0 7px 0 11px;
-  background: #1348dc;
+  background: var(--widget-bg);
   border-radius: 4px;
   border: 0.667px solid transparent;
   box-shadow:
     0px 1px 1.5px rgba(0, 0, 0, 0.4),
-    inset 0px -2px 0px 0px #053794;
+    inset 0px -2px 0px 0px rgba(0, 0, 0, 0.3);
   font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
   box-sizing: border-box;
+  color: var(--widget-text);
 }
 
 .label {
@@ -23,7 +27,7 @@
   line-height: 20px;
   letter-spacing: -0.15px;
   text-transform: uppercase;
-  color: #ffffff;
+  color: var(--widget-text);
   white-space: nowrap;
 }
 

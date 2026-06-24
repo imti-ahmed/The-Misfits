@@ -41,7 +41,7 @@
   align-items: center;
   justify-content: center;
   height: 23px;
-  color: #000000;
+  color: var(--widget-text);
   text-decoration: none;
   opacity: 0.6;
   transition: opacity 0.15s;

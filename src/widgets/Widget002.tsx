@@ -10,7 +10,7 @@ interface Props {
 
 function GuildMark({ size = 11 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 14 14" fill="#000000" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden>
       <path d="M7 7V10.5H3.5V7H7Z" />
       <path d="M3.5 7V10.5H0V7H3.5Z" />
       <path d="M5.25 3.5V7H1.75V3.5H5.25Z" />
@@ -37,13 +37,13 @@ export default function Widget002({ nickname, slug, bgColor, textColor }: Props)
       </div>
       <div className={styles.nav}>
         <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Previous site">
-          <ArrowLeft size={12} weight="regular" color="#000000" />
+          <ArrowLeft size={12} weight="regular" color="currentColor" />
         </a>
         <a href={`/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Random site">
-          <List size={12} weight="regular" color="#000000" />
+          <List size={12} weight="regular" color="currentColor" />
         </a>
         <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Next site">
-          <ArrowRight size={12} weight="regular" color="#000000" />
+          <ArrowRight size={12} weight="regular" color="currentColor" />
         </a>
       </div>
     </div>
