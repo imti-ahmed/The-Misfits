@@ -51,6 +51,7 @@
 /* ── Widget ticker ────────────────────────────────── */
 
 .ticker {
+  height: 140px;
   border: 1px solid var(--color-border);
   margin-top: -1px;
   display: flex;

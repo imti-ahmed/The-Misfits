@@ -84,7 +84,6 @@ export default function MobileFormPage({
   const tickerScale = getMobileTickerScale(widgetId);
   const { width: widgetNaturalWidth, height: widgetNaturalHeight } =
     WIDGET_SIZES[widgetId] ?? DEFAULT_WIDGET_SIZE;
-  const tickerHeight = Math.round(widgetNaturalHeight * tickerScale) + 32;
 
   const slideClass = animKey > 0
     ? (direction === "next" ? styles.slideFromRight : styles.slideFromLeft)
@@ -164,7 +163,7 @@ export default function MobileFormPage({
           </div>
 
           {/* Widget ticker */}
-          <div className={styles.ticker} style={{ height: tickerHeight }}>
+          <div className={styles.ticker}>
             <button className={styles.caretBtn} onClick={goToPrev} aria-label="Previous widget">
               <CaretLeft size={18} />
             </button>
