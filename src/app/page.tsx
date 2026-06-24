@@ -5,6 +5,8 @@ import GuildSection from "@/components/sections/GuildSection";
 import CenterColumn from "@/components/CenterColumn";
 import ScaleWrapper from "@/components/ScaleWrapper";
 import MobilePage from "@/components/mobile/MobilePage";
+import MobileRoot from "@/components/mobile/MobileRoot";
+import MobileFormBottomContent from "@/components/mobile/MobileFormBottomContent";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -44,7 +46,10 @@ export default function Home() {
       </div>
 
       <div className={styles.mobileOnly}>
-        <MobilePage />
+        <MobileRoot
+          homePage={<MobilePage />}
+          formBottomContent={<MobileFormBottomContent />}
+        />
       </div>
     </>
   );

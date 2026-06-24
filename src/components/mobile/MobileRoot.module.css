@@ -1,0 +1,12 @@
+.successPage {
+  width: 100%;
+  background-color: var(--color-bg);
+  min-height: 100dvh;
+}
+
+.successContent {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

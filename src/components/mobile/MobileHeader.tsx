@@ -17,14 +17,27 @@ function GuildMark({ size = 14 }: { size?: number }) {
   );
 }
 
-const TABS = [
+export const HOME_TABS = [
   { label: "About",      id: "about" },
   { label: "Criteria",   id: "criteria" },
   { label: "Join Guild", id: "join" },
   { label: "Members",    id: "members" },
 ] as const;
 
-export default function MobileHeader() {
+export const FORM_TABS = [
+  { label: "Form",       id: "form" },
+  { label: "Criteria",   id: "criteria" },
+  { label: "Join Guild", id: "join" },
+  { label: "Members",    id: "members" },
+] as const;
+
+type Tab = { label: string; id: string };
+
+interface MobileHeaderProps {
+  tabs?: Tab[];
+}
+
+export default function MobileHeader({ tabs = HOME_TABS as unknown as Tab[] }: MobileHeaderProps) {
   function handleTabClick(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }
@@ -36,7 +49,7 @@ export default function MobileHeader() {
         <GuildMark size={14} />
       </div>
       <nav className={styles.tabRow} aria-label="Page sections">
-        {TABS.map(({ label, id }) => (
+        {tabs.map(({ label, id }) => (
           <button
             key={id}
             className={styles.tab}

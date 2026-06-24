@@ -1,13 +1,15 @@
 "use client";
 
 import { sounds } from "@/lib/sounds";
+import { useMobileJoin } from "./MobileJoinContext";
 import styles from "./MobilePage.module.css";
 
 export default function MobileJoinButton() {
+  const onJoin = useMobileJoin();
   return (
     <button
       className={styles.joinBtn}
-      onClick={() => sounds.click()}
+      onClick={() => { sounds.click(); onJoin?.(); }}
       onMouseEnter={() => sounds.hover()}
     >
       <span className={styles.joinBtnText}>Join The Guild</span>
