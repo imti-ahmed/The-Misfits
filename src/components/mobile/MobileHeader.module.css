@@ -32,10 +32,10 @@
 .tabRow {
   display: flex;
   align-items: stretch;
-  border-left: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  gap: 8px;
+  margin-top: 10px;
   background-color: var(--color-header);
+  border: 1px solid var(--color-border);
 }
 
 .tab {
@@ -48,14 +48,9 @@
   color: var(--color-white);
   background-color: var(--color-header);
   border: none;
-  border-right: 1px solid var(--color-border);
   cursor: pointer;
-  transition: color 0.15s, background-color 0.15s;
+  transition: opacity 0.15s;
   white-space: nowrap;
-}
-
-.tab:last-child {
-  border-right: none;
 }
 
 .tab:hover {
