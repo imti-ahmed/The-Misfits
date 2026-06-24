@@ -17,11 +17,10 @@ interface SuccessSectionProps {
 export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: SuccessSectionProps) {
   const { width, height, defaultScale } = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
   const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
-  const resizeScript = `<script>window.addEventListener('message',function(e){if(!e.data||e.data.type!=='tmg-resize')return;var f=document.querySelectorAll('iframe');for(var i=0;i<f.length;i++){if(f[i].contentWindow===e.source){f[i].width=e.data.width;f[i].height=e.data.height;break;}}});<\/script>`;
-  const [copied, setCopied] = useState<"iframe" | "script" | null>(null);
+  const [copied, setCopied] = useState<"iframe" | null>(null);
   const closeCopied = useCallback(() => setCopied(null), []);
 
-  async function handleCopy(text: string, type: "iframe" | "script") {
+  async function handleCopy(text: string, type: "iframe") {
     try {
       await navigator.clipboard.writeText(text);
       sounds.copy();
@@ -49,15 +48,6 @@ export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: Succ
             <Copy size={20} weight="regular" />
           </button>
           <span className={styles.embedCode}>{embedCode}</span>
-        </div>
-        <p className={styles.bodyText}>
-          Optional: add this script so the iframe auto-resizes when you tweak the scale.
-        </p>
-        <div className={styles.embedField}>
-          <button type="button" className={styles.copyBtn} onClick={() => handleCopy(resizeScript, "script")} aria-label="Copy resize script">
-            <Copy size={20} weight="regular" />
-          </button>
-          <span className={styles.embedCode}>{resizeScript}</span>
         </div>
       </div>
 
@@ -88,7 +78,7 @@ export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: Succ
           </a>
         </div>
       </div>
-      {copied && <Toast message={copied === "script" ? "Resize script copied!" : "Embed code copied to clipboard!"} type="success" onClose={closeCopied} />}
+      {copied && <Toast message="Embed code copied to clipboard!" type="success" onClose={closeCopied} />}
     </div>
   );
 }

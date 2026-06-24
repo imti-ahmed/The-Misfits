@@ -1,13 +1,44 @@
+import { Plus, Eye, UserFocus } from "@phosphor-icons/react/dist/ssr";
+import { unstable_noStore as noStore } from "next/cache";
+import fs from "fs";
+import path from "path";
 import { getSites } from "@/lib/sites";
+import { getViews } from "@/lib/db";
 import { withRef } from "@/lib/ref";
 import MemberLink from "@/components/MemberLink";
 import GalleryTrack from "@/components/sections/GalleryTrack";
+import UpdateLogButton from "@/components/sections/UpdateLogButton";
 import styles from "./MobilePage.module.css";
 
 const MIN_TRACK_ITEMS = 10;
 
-export default function MobileFormBottomContent() {
+function getLatestVersion(): string {
+  try {
+    const content = fs.readFileSync(
+      path.join(process.cwd(), "internal", "RELEASES.md"),
+      "utf-8"
+    );
+    for (const line of content.split("\n")) {
+      const m = line.match(/\|\s*(v[\d.]+)\s*\|\s*\d{4}-\d{2}-\d{2}\s*\|/);
+      if (m) return m[1];
+    }
+  } catch {}
+  return "v0.0.0";
+}
+
+export default async function MobileFormBottomContent() {
+  noStore();
+
   const members = getSites();
+  const formattedCount = String(members.length).padStart(3, "0");
+
+  let views = 0;
+  try {
+    views = await getViews();
+  } catch {}
+  const formattedViews = String(views).padStart(6, "0");
+
+  const latestVersion = getLatestVersion();
 
   const screenshots = members
     .filter((m) => m.screenshot)
@@ -28,6 +59,7 @@ export default function MobileFormBottomContent() {
       <section id="members">
         <div className={styles.sectionHeader}>
           <p className={styles.sectionTitle}>Active Guild Members</p>
+          <Plus size={18} className={styles.sectionIcon} />
         </div>
         <div className={styles.block}>
           <p className={styles.bodyText}>
@@ -54,6 +86,7 @@ export default function MobileFormBottomContent() {
       <section>
         <div className={styles.sectionHeader}>
           <p className={styles.sectionTitle}>Gallery Of Sites</p>
+          <Plus size={18} className={styles.sectionIcon} />
         </div>
         <div className={styles.galleryBody}>
           <div className={styles.galleryClip}>
@@ -74,6 +107,7 @@ export default function MobileFormBottomContent() {
       <section id="criteria">
         <div className={styles.sectionHeader}>
           <p className={styles.sectionTitle}>Requirements To Join The Guild</p>
+          <Plus size={18} className={styles.sectionIcon} />
         </div>
         <div className={styles.block}>
           <ul className={styles.criteriaList}>
@@ -88,6 +122,39 @@ export default function MobileFormBottomContent() {
           </ul>
         </div>
       </section>
+
+      {/* ── About The Author ──────────────────────────── */}
+      <section>
+        <div className={styles.sectionHeader}>
+          <p className={styles.sectionTitle}>About The Author</p>
+          <Plus size={18} className={styles.sectionIcon} />
+        </div>
+        <div className={styles.block}>
+          <p className={styles.bodyText}>
+            Designed, developed and maintained by Imtiyaz Ahmed. Find me on{" "}
+            <MemberLink href="https://www.imtiyazahmed.com/" className={styles.accentLink}>Portfolio</MemberLink>,{" "}
+            <MemberLink href="https://x.com/imtiahmed01" className={styles.accentLink}>Twitter</MemberLink>,{" "}
+            <MemberLink href="https://www.linkedin.com/in/iamimtiyazahmed/" className={styles.accentLink}>Linkedin</MemberLink>,{" "}
+            <MemberLink href="http://github.com/imti-ahmed" className={styles.accentLink}>Github</MemberLink>.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Footer Stats ──────────────────────────────── */}
+      <div className={styles.statsRow}>
+        <div className={styles.statsLeft}>
+          <div className={styles.statGroup}>
+            <Eye size={18} className={styles.statIcon} />
+            <span className={styles.statLabel}>Views [{formattedViews}]</span>
+          </div>
+          <div className={styles.statGroup}>
+            <UserFocus size={18} className={styles.statIcon} />
+            <span className={styles.statLabel}>Members [{formattedCount}]</span>
+          </div>
+        </div>
+        <Plus size={18} className={styles.sectionIcon} />
+      </div>
+      <UpdateLogButton versionLabel={`Update Logs @2026 [${latestVersion}]`} />
     </>
   );
 }
