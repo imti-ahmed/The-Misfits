@@ -64,5 +64,4 @@
 
 .tabActive {
   color: var(--color-text-primary);
-  background-color: var(--color-surface);
 }
