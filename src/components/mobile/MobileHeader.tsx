@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Plus } from "@phosphor-icons/react";
 import styles from "./MobileHeader.module.css";
 
@@ -12,24 +11,6 @@ const TABS = [
 ] as const;
 
 export default function MobileHeader() {
-  const [activeTab, setActiveTab] = useState<string>("about");
-
-  useEffect(() => {
-    const observers = TABS.map(({ id }) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveTab(id);
-        },
-        { rootMargin: "-30% 0px -60% 0px" }
-      );
-      obs.observe(el);
-      return obs;
-    });
-    return () => observers.forEach((o) => o?.disconnect());
-  }, []);
-
   function handleTabClick(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }
@@ -44,7 +25,7 @@ export default function MobileHeader() {
         {TABS.map(({ label, id }) => (
           <button
             key={id}
-            className={`${styles.tab} ${activeTab === id ? styles.tabActive : ""}`}
+            className={styles.tab}
             onClick={() => handleTabClick(id)}
           >
             {label}

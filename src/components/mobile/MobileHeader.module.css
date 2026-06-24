@@ -61,7 +61,3 @@
 .tab:hover {
   color: var(--color-text-primary);
 }
-
-.tabActive {
-  color: var(--color-text-primary);
-}
