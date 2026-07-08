@@ -8,7 +8,7 @@ const familjenGrotesk = Familjen_Grotesk({ subsets: ["latin"], variable: "--font
 const doto = Doto({ subsets: ["latin"], variable: "--font-doto" });
 
 export const metadata: Metadata = {
-  title: "The Makers Guild",
+  title: "The Misfits",
   description: "A webring for people who build things.",
   icons: {
     icon: "/assets/Webring Logo.png",

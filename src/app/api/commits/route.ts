@@ -36,7 +36,7 @@ function versionForDate(commitDate: Date, releases: Release[]): string | null {
 
 export async function GET() {
   const res = await fetch(
-    'https://api.github.com/repos/imti-ahmed/The-Makers-Guild/commits?per_page=5',
+    'https://api.github.com/repos/imti-ahmed/The-Misfits/commits?per_page=5',
     { headers: GH_HEADERS, next: { revalidate: 300 } }
   );
 

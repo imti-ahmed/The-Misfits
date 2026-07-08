@@ -1,6 +1,6 @@
 ![](<public/assets/Github Banner.png>)
 
-# The Makers Guild
+# The Misfits
 
 A webring for people who build things - apps, tools, weird side projects, anything made out of curiosity rather than a roadmap. Every member's site links to the next one in the ring. No feed, no algorithm. Just one maker pointing you toward another.
 
@@ -10,13 +10,13 @@ A webring for people who build things - apps, tools, weird side projects, anythi
 
 A webring is one of the internet's oldest discovery tricks. Back in the 90s, before Google and infinite scroll, personal sites linked to each other in a loop - each one wearing a small widget with **Previous**, **Next**, and **Random** buttons. Clicking *Next* enough times eventually brought you back where you started.
 
-Yahoo bought the biggest webring network and let it rot. Search and feeds took over. The Makers Guild is bringing that loop back, for people who build.
+Yahoo bought the biggest webring network and let it rot. Search and feeds took over. The Misfits is bringing that loop back, for people who build.
 
 ---
 
 ## How To Join
 
-1. Head over to [the-makers-guild.vercel.app](https://the-makers-guild.vercel.app) and fill out the application form
+1. Head over to [the-misfits.vercel.app](https://the-misfits.vercel.app) and fill out the application form
 2. Wait for review - we'll check your site meets the criteria (1–2 days)
 3. Once approved, embed the Guild widget on your homepage
 4. You're in the ring
@@ -52,7 +52,7 @@ Removing the widget or letting your site go offline will trigger an automatic re
 
 Designed, developed and maintained by [Imtiyaz Ahmed](https://www.imtiyazahmed.com) - a designer and builder who wanted a better way to discover personal sites on the internet.
 
-**GitHub:** [github.com/imti-ahmed/The-Makers-Guild](https://github.com/imti-ahmed/The-Makers-Guild)
+**GitHub:** [github.com/imti-ahmed/The-Misfits](https://github.com/imti-ahmed/The-Misfits)
 
 ---
 

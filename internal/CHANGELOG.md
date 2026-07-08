@@ -1,4 +1,4 @@
-# CHANGELOG — The Makers Guild
+# CHANGELOG — The Misfits
 
 _Internal development log. Updated by Claude after every completed task. One row per change. Sessions are separated by a header. This is not the public release log — see RELEASES.md for versioned public updates._
 

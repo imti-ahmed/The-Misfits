@@ -1,4 +1,4 @@
-# Plans — The Makers Guild
+# Plans — The Misfits
 
 _Master plan for the project. Claude reads this at the start of every session to know what's done and what's next. Strikethrough = complete._
 

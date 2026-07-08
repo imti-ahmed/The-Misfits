@@ -1,4 +1,4 @@
-# Activity Log — The Makers Guild
+# Activity Log — The Misfits
 
 _Weekly checks for all members. Verifies site is live and widget is present on the homepage._
 

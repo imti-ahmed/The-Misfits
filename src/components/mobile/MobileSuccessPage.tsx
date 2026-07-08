@@ -35,7 +35,7 @@ export default function MobileSuccessPage({
 }: MobileSuccessPageProps) {
   const { width, height, defaultScale } =
     (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
-  const embedCode = `<iframe src="https://the-makers-guild.vercel.app/embed/${slug}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
+  const embedCode = `<iframe src="https://the-misfits.vercel.app/embed/${slug}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
   const previewScale = getPreviewScale(widgetId);
 
   const [copied, setCopied] = useState(false);
@@ -128,7 +128,7 @@ export default function MobileSuccessPage({
               Go Back To Mainpage
             </button>
             <a
-              href={prUrl ?? "https://github.com/imti-ahmed/The-Makers-Guild"}
+              href={prUrl ?? "https://github.com/imti-ahmed/The-Misfits"}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.actionBtnLink}

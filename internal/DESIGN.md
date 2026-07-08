@@ -1,4 +1,4 @@
-# DESIGN.md — The Makers Guild
+# DESIGN.md — The Misfits
 
 ## Source of Truth
 Design tokens are defined below, extracted from the Figma file. All tokens live in `globals.css`. Do not hardcode any color, font, spacing, or shadow values in component files — always reference a token.
@@ -14,7 +14,7 @@ Design tokens are defined below, extracted from the Figma file. All tokens live 
 
 ## Design Philosophy
 
-The Makers Guild is built around structure, clarity, and a hint of the past.
+The Misfits is built around structure, clarity, and a hint of the past.
 
 - **Grid-first:** Everything lives on a grid. Layouts are boxy, defined, and deliberate. No fluid organic shapes.
 - **Minimal palette:** Near-black backgrounds, grey text, and a restrained gold accent. Color signals meaning — it doesn't decorate.

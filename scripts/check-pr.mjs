@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(__dirname, '..');
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const GITHUB_REPO = process.env.GITHUB_REPO ?? 'imti-ahmed/The-Makers-Guild';
+const GITHUB_REPO = process.env.GITHUB_REPO ?? 'imti-ahmed/The-Misfits';
 const PR_NUMBER = process.env.PR_NUMBER;
 
 const COMMENT_MARKER = '<!-- guild-pr-check -->';
@@ -63,7 +63,7 @@ async function fetchWithTimeout(url, options = {}) {
       ...options,
       signal: controller.signal,
       redirect: 'follow',
-      headers: { 'User-Agent': 'TheMakersGuild-PRCheck/1.0', ...(options.headers ?? {}) },
+      headers: { 'User-Agent': 'TheMisfits-PRCheck/1.0', ...(options.headers ?? {}) },
     });
     clearTimeout(timer);
     return res;

@@ -1,7 +1,7 @@
-# CLAUDE.md — The Makers Guild
+# CLAUDE.md — The Misfits
 
 ## Project Overview
-The Makers Guild is a webring platform where makers submit their personal sites, receive auto-generated embeddable widgets, and get listed in a shared discovery network. It connects indie makers and their projects through a structured, navigable web of sites.
+The Misfits is a webring platform where makers submit their personal sites, receive auto-generated embeddable widgets, and get listed in a shared discovery network. It connects indie makers and their projects through a structured, navigable web of sites.
 
 ## Tech Stack
 - **Framework:** Next.js (App Router)

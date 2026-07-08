@@ -1,4 +1,4 @@
-# RELEASES — The Makers Guild
+# RELEASES — The Misfits
 
 _Public release log. Each entry is one versioned update pushed to users. Use this as the source file for update pages, release notes, and in-app toasters._
 
@@ -18,7 +18,7 @@ _MAJOR — breaking changes or full redesigns · MINOR — new features · PATCH
 ## v0.1.0 · 2026-06-21
 ### Initial Release
 
-- First version of The Makers Guild released publicly.
+- First version of The Misfits released publicly.
 - [Features to be documented when v0.1.0 ships.]
 
 ---

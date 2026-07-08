@@ -4,7 +4,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 // ─── Config ───────────────────────────────────────────────────────────────────
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN!;
-const GITHUB_REPO = process.env.GITHUB_REPO ?? "imti-ahmed/The-Makers-Guild";
+const GITHUB_REPO = process.env.GITHUB_REPO ?? "imti-ahmed/The-Misfits";
 const GITHUB_BASE = process.env.GITHUB_BASE_BRANCH ?? "main";
 
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
