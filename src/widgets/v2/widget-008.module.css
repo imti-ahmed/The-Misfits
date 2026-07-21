@@ -1,0 +1,56 @@
+.widget {
+  --widget-bg: #356aff;
+  --widget-text: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 169px;
+  color: var(--widget-text);
+  font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+}
+
+.label {
+  background: var(--widget-bg);
+  padding: 4px 8px;
+  font-size: 18px;
+  line-height: 1.185;
+  letter-spacing: -0.4143px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iconBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--widget-bg);
+  padding: 6px;
+}
+
+.navPill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--widget-bg);
+  padding: 2px 6px;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--widget-text);
+  opacity: 1;
+  transition: opacity 0.15s;
+}
+
+.navBtn:hover {
+  opacity: 0.7;
+}

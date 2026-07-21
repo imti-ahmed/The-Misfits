@@ -11,7 +11,7 @@ export default function WidgetV2Preview() {
           </p>
           <WidgetV2Renderer
             widgetId={widget.id}
-            nickname="IMTI"
+            nickname="USER"
             slug="imti"
             bgColor={widget.defaultBgColor}
             textColor={widget.defaultTextColor}
