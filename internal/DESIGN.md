@@ -24,17 +24,25 @@ The Misfits is built around structure, clarity, and a hint of the past.
 
 ## Color Tokens
 
-Extracted from Figma. All values go in `globals.css` as CSS custom properties.
+Extracted from Figma (Success Screen redesign, node 162:1832). All values go in `globals.css` as CSS custom properties.
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `--color-bg` | `#0e0e10` | Page background |
-| `--color-surface` | `#121212` | Card / panel background |
-| `--color-border` | `#242328` | All borders |
+| `--color-bg` | `#111111` | Page background |
+| `--color-surface` | `#1c1c1c` | Card / panel background |
+| `--color-surface-alt` | `#363636` | Secondary/neutral label background (e.g. "copy the url" pill) |
+| `--color-border` | `#474747` | All borders |
 | `--color-text-primary` | `#d8d8d8` | Primary body text |
-| `--color-text-secondary` | `#676767` | Muted / secondary text |
-| `--color-accent` | `#9d894e` | Accent — gold, used sparingly |
-| `--color-white` | `#ffffff` | Pure white — button labels, high-contrast text |
+| `--color-text-secondary` | `#8d8d8d` | Muted / secondary text, inline links |
+| `--color-text-tertiary` | `#c7c7c7` | Text on `--color-surface-alt` labels |
+| `--color-text-inverted` | `#161616` | Near-black text on light accent badges |
+| `--color-white` | `#ffffff` | Pure white — high-contrast text on dark/blue badges |
+| `--color-black` | `#000000` | Pure black — text on bright yellow/green badges |
+| `--color-accent-yellow` | `#ffc62b` | Accent badge — join / github / contact / click-to-join labels |
+| `--color-accent-purple` | `#944bc4` | Accent badge — how it works / site stats labels |
+| `--color-accent-green` | `#65d35f` | Accent badge — ticker bar / return home / author's note labels |
+| `--color-accent-blue` | `#356aff` | Accent badge — widget / update widget labels |
+| `--color-accent-pink` | `#c44b86` | Accent badge — select a widget / active members labels |
 
 ## Typography Tokens
 
