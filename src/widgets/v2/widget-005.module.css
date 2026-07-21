@@ -4,6 +4,7 @@
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 4px;
   width: 256px;
   color: var(--widget-text);
@@ -15,7 +16,9 @@
   align-items: center;
   gap: 10px;
   background: var(--widget-bg);
-  padding: 4px 8px;
+  height: 28px;
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .navRow {
@@ -23,9 +26,9 @@
   align-items: center;
   gap: 6px;
   background: var(--widget-bg);
-  margin-left: 23px;
-  width: 212px;
-  padding: 4px 0 4px 4px;
+  height: 28px;
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .label {

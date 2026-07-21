@@ -13,9 +13,12 @@
 .identity {
   display: flex;
   align-items: center;
+  align-self: flex-start;
   gap: 10px;
   background: var(--widget-bg);
-  padding: 4px 8px;
+  height: 28px;
+  padding: 0 8px;
+  box-sizing: border-box;
 }
 
 .navRow {
