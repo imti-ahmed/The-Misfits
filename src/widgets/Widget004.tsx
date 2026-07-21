@@ -1,5 +1,6 @@
 import { CaretLeft, CaretRight, List } from '@phosphor-icons/react/dist/ssr';
 import styles from './Widget004.module.css';
+import { SITE_ORIGIN } from '@/lib/site';
 
 interface Props {
   nickname: string;
@@ -32,13 +33,13 @@ export default function Widget004({ nickname, slug }: Props) {
         <span className={styles.label}>THE MAKERS GUILD</span>
       </div>
       <div className={styles.nav}>
-        <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Previous site">
+        <a href={`${SITE_ORIGIN}/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Previous site">
           <CaretLeft size={10} weight="regular" color="#3a3a5c" />
         </a>
-        <a href={`/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Random site">
+        <a href={`${SITE_ORIGIN}/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Random site">
           <List size={10} weight="regular" color="#3a3a5c" />
         </a>
-        <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Next site">
+        <a href={`${SITE_ORIGIN}/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navItem} aria-label="Next site">
           <CaretRight size={10} weight="regular" color="#3a3a5c" />
         </a>
       </div>

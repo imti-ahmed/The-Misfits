@@ -7,6 +7,7 @@ import { WIDGET_SIZES, DEFAULT_WIDGET_SIZE } from "@/lib/widgetSizes";
 import DotGridBackground from "@/components/DotGridBackground";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
+import { SITE_ORIGIN } from "@/lib/site";
 import MobileHeader, { FORM_TABS } from "./MobileHeader";
 import pageStyles from "./MobilePage.module.css";
 import styles from "./MobileSuccessPage.module.css";
@@ -33,9 +34,7 @@ export default function MobileSuccessPage({
   bottomContent,
   onGoBack,
 }: MobileSuccessPageProps) {
-  const { width, height, defaultScale } =
-    (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
-  const embedCode = `<iframe src="https://the-misfits.vercel.app/embed/${slug}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
+  const embedCode = `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`;
   const previewScale = getPreviewScale(widgetId);
 
   const [copied, setCopied] = useState(false);
@@ -72,7 +71,7 @@ export default function MobileSuccessPage({
               Welcome Cool Strange. To join the guild, please fill the form below and choose the
               kind of webring widget you want to embed in your website. Want different colors?
               Please specify the hex codes in the form below and submit — and we handle the rest.
-              You will get an iframe code, embed that in your site and once we approve, you will
+              You will get an embed code, add that to your site and once we approve, you will
               part of the webring.
             </p>
           </div>
@@ -102,7 +101,7 @@ export default function MobileSuccessPage({
           {/* Embed code */}
           <div className={styles.embedBlock}>
             <p className={pageStyles.bodyText}>
-              Here is your iframe embed code. Make sure its added to the main page of the website.
+              Here is your embed code. Make sure its added to the main page of the website.
             </p>
             <div className={styles.embedField}>
               <button

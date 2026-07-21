@@ -1,4 +1,5 @@
 import styles from './Widget009.module.css';
+import { SITE_ORIGIN } from '@/lib/site';
 
 interface Props {
   nickname: string;
@@ -32,9 +33,9 @@ export default function Widget009({ nickname, slug }: Props) {
         </div>
       </div>
       <div className={styles.nav}>
-        <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>PREV</a>
-        <a href={`/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>SHUFFLE</a>
-        <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>NEXT</a>
+        <a href={`${SITE_ORIGIN}/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>PREV</a>
+        <a href={`${SITE_ORIGIN}/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>SHUFFLE</a>
+        <a href={`${SITE_ORIGIN}/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.navLink}>NEXT</a>
       </div>
     </div>
   );

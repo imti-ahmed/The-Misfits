@@ -1,4 +1,5 @@
 import styles from './Widget006.module.css';
+import { SITE_ORIGIN } from '@/lib/site';
 
 interface Props {
   nickname: string;
@@ -31,9 +32,9 @@ export default function Widget006({ nickname, slug }: Props) {
           <span className={styles.label}>{nickname} - WEBRING MEMBER - THE MAKERS GUILD</span>
         </div>
         <div className={styles.buttons}>
-          <a href={`/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.button}>BACK</a>
-          <a href={`/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.button}>NEXT</a>
-          <a href={`/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.button}>SHUFFLE</a>
+          <a href={`${SITE_ORIGIN}/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.button}>BACK</a>
+          <a href={`${SITE_ORIGIN}/api/ring/${slug}/next`} target="_blank" rel="noopener noreferrer" className={styles.button}>NEXT</a>
+          <a href={`${SITE_ORIGIN}/api/ring/${slug}/rand`} target="_blank" rel="noopener noreferrer" className={styles.button}>SHUFFLE</a>
         </div>
       </div>
     </div>

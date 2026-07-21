@@ -14,7 +14,7 @@ export default function JoinGuildSection() {
           Welcome Cool Strange. To join the guild, please fill the form below and choose the kind
           of webring widget you want to embed in your website. Want different colors? Please specify
           the hex codes in the form below and submit - and we handle the rest. You will get an
-          iframe code, embed that in your site and once we approve, you will part of the webring.
+          embed code, add that to your site and once we approve, you will part of the webring.
         </p>
       </div>
     </div>

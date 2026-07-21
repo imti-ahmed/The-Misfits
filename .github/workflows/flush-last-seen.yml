@@ -1,0 +1,31 @@
+name: Flush Last Seen
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # Every 4 hours
+  workflow_dispatch:        # Manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  flush:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Flush widget last-seen log
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_BASE_BRANCH: main
+          SITE_ORIGIN: https://the-misfits.vercel.app
+          HITS_FLUSH_SECRET: ${{ secrets.HITS_FLUSH_SECRET }}
+        run: node scripts/flush-last-seen.mjs

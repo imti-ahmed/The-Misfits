@@ -5,7 +5,7 @@ import { useState, useCallback } from "react";
 import styles from "./SuccessSection.module.css";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
-import { WIDGET_SIZES, DEFAULT_WIDGET_SIZE } from "@/lib/widgetSizes";
+import { SITE_ORIGIN } from "@/lib/site";
 
 interface SuccessSectionProps {
   slug: string;
@@ -14,13 +14,12 @@ interface SuccessSectionProps {
   onGoBack?: () => void;
 }
 
-export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: SuccessSectionProps) {
-  const { width, height, defaultScale } = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
-  const embedCode = `<iframe src="https://the-misfits.vercel.app/embed/${slug}" width="${Math.round(width * defaultScale)}" height="${Math.round(height * defaultScale)}" style="border:none;"></iframe>`;
-  const [copied, setCopied] = useState<"iframe" | null>(null);
+export default function SuccessSection({ slug, prUrl, onGoBack }: SuccessSectionProps) {
+  const embedCode = `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`;
+  const [copied, setCopied] = useState<"script" | null>(null);
   const closeCopied = useCallback(() => setCopied(null), []);
 
-  async function handleCopy(text: string, type: "iframe") {
+  async function handleCopy(text: string, type: "script") {
     try {
       await navigator.clipboard.writeText(text);
       sounds.copy();
@@ -41,10 +40,10 @@ export default function SuccessSection({ slug, widgetId, prUrl, onGoBack }: Succ
 
       <div className={styles.embedRow}>
         <p className={styles.bodyText}>
-          Here is your iframe embed code. Make sure its added to the main page of the website.
+          Here is your embed code. Make sure its added to the main page of the website.
         </p>
         <div className={styles.embedField}>
-          <button type="button" className={styles.copyBtn} onClick={() => handleCopy(embedCode, "iframe")} aria-label="Copy embed code">
+          <button type="button" className={styles.copyBtn} onClick={() => handleCopy(embedCode, "script")} aria-label="Copy embed code">
             <Copy size={20} weight="regular" />
           </button>
           <span className={styles.embedCode}>{embedCode}</span>
