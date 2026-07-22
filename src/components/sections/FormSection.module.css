@@ -1,27 +1,23 @@
 .container {
-  width: 919px;
+  width: 100%;
   background-color: var(--color-bg);
   display: flex;
   flex-direction: column;
+  gap: var(--space-1);
 }
 
 .part {
-  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
   display: flex;
   flex-direction: column;
   gap: var(--space-2-5);
-  padding: var(--space-6);
-  margin-bottom: -1px;
+  padding: var(--space-4);
 }
 
 .submitRow {
-  flex: 1;
-  min-height: 99px;
-  border: 1px solid var(--color-border);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-6);
+  gap: var(--space-1);
+  margin-top: var(--space-1);
 }
 
 .row {
@@ -32,21 +28,21 @@
 .field {
   display: block;
   width: 100%;
-  background-color: var(--color-surface);
+  background-color: transparent;
   border: 1px solid var(--color-border);
-  height: 43px;
+  min-height: 43px;
   padding: var(--space-3) var(--space-4-5);
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-sm);
+  font-family: var(--font-chivo, 'Chivo', sans-serif);
+  font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-sm);
+  line-height: var(--line-height-body);
   color: var(--color-text-primary);
   outline: none;
   appearance: none;
 }
 
 .field::placeholder {
-  color: var(--color-text-secondary);
+  color: var(--color-text-placeholder);
 }
 
 .row .field {
@@ -56,44 +52,19 @@
 }
 
 .fieldTextarea {
-  height: 48px;
+  min-height: 65px;
   resize: none;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.spinIcon {
-  animation: spin 0.5s linear infinite;
-}
-
-.submitBtn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  height: 43px;
-  padding: var(--space-3) var(--space-4-5);
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-sm);
-  color: var(--color-white);
+.navButton {
+  background: none;
+  border: none;
+  padding: 0;
   cursor: pointer;
+  display: block;
 }
 
-.discardBtn {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  height: 43px;
-  padding: var(--space-3) var(--space-4-5);
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-sm);
-  color: var(--color-white);
-  cursor: pointer;
+.navButton:disabled {
+  cursor: default;
+  opacity: 0.6;
 }

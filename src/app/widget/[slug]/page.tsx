@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import WidgetRenderer from '@/widgets/WidgetRenderer';
+import WidgetV2Renderer from '@/widgets/v2/WidgetV2Renderer';
 import WidgetPending from '@/widgets/WidgetPending';
 import { recordHit } from '@/lib/widgetHits';
 
@@ -41,7 +41,7 @@ export default async function WidgetEmbedPage({
 
   return (
     <div data-widget-state="active">
-      <WidgetRenderer
+      <WidgetV2Renderer
         widgetId={widgetId}
         nickname={data.nickname || data.name || slug}
         slug={slug}

@@ -2,8 +2,8 @@
 
 import { Plus, ArrowUpRight, Copy } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
-import WidgetRenderer from "@/widgets/WidgetRenderer";
-import { WIDGET_SIZES, DEFAULT_WIDGET_SIZE } from "@/lib/widgetSizes";
+import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
+import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from "@/lib/widgetV2Sizes";
 import DotGridBackground from "@/components/DotGridBackground";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
@@ -86,7 +86,7 @@ export default function MobileSuccessPage({
               }}
               onClick={(e) => e.preventDefault()}
             >
-              <WidgetRenderer widgetId={widgetId} nickname={nickname} slug={slug} />
+              <WidgetV2Renderer widgetId={widgetId} nickname={nickname} slug={slug} />
             </div>
           </div>
 

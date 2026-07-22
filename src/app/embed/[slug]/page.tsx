@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import WidgetRenderer from '@/widgets/WidgetRenderer';
+import WidgetV2Renderer from '@/widgets/v2/WidgetV2Renderer';
 import WidgetPending from '@/widgets/WidgetPending';
-import { WIDGET_SIZES, DEFAULT_WIDGET_SIZE } from '@/lib/widgetSizes';
+import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from '@/lib/widgetV2Sizes';
 
 function ensureHash(val: string): string {
   if (!val) return '';
@@ -59,7 +59,7 @@ export default async function EmbedPage({
     <>
       <style>{`html,body{margin:0;padding:0;background:transparent;width:${Math.round(width*scale)}px;height:${Math.round(height*scale)}px;overflow:hidden;}`}</style>
       <div style={{ width, height, transform: `scale(${scale})`, transformOrigin: 'top left', overflow: 'hidden' }}>
-        <WidgetRenderer
+        <WidgetV2Renderer
           widgetId={widgetId}
           nickname={data.nickname || data.name || slug}
           slug={slug}

@@ -3,14 +3,14 @@
 import { Plus } from "@phosphor-icons/react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
-import WidgetRenderer from "@/widgets/WidgetRenderer";
-import { WIDGET_SIZES, DEFAULT_WIDGET_SIZE } from "@/lib/widgetSizes";
+import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
+import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from "@/lib/widgetV2Sizes";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
 import MobileHeader, { FORM_TABS } from "./MobileHeader";
 import styles from "./MobileFormPage.module.css";
 
-const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011"];
+const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009"];
 const MOBILE_TICKER_TARGET = 260;
 
 function getMobileTickerScale(widgetId: string): number {
@@ -173,7 +173,7 @@ export default function MobileFormPage({
               }}>
                 <div key={animKey} className={slideClass}>
                   <div onClick={(e) => e.preventDefault()}>
-                    <WidgetRenderer
+                    <WidgetV2Renderer
                       widgetId={widgetId}
                       nickname={nickname}
                       slug="preview"

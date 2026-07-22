@@ -1,15 +1,17 @@
 "use client";
 
-import { Plus } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
 import styles from "./FormSection.module.css";
 import Toast from "@/components/Toast";
+import NavTag from "@/components/NavTag";
 import { sounds } from "@/lib/sounds";
 
 interface FormSectionProps {
   widgetId?: string;
   onDiscard?: () => void;
   onNicknameChange?: (nickname: string) => void;
+  onBgColorChange?: (bgColor: string) => void;
+  onTextColorChange?: (textColor: string) => void;
   onSuccess?: (slug: string, applicationNumber: number, prUrl?: string) => void;
 }
 
@@ -27,6 +29,8 @@ export default function FormSection({
   widgetId,
   onDiscard,
   onNicknameChange,
+  onBgColorChange,
+  onTextColorChange,
   onSuccess,
 }: FormSectionProps) {
   const [name, setName] = useState("");
@@ -91,6 +95,8 @@ export default function FormSection({
     setBgColor("");
     setTextColor("");
     onNicknameChange?.("USER");
+    onBgColorChange?.("");
+    onTextColorChange?.("");
     onDiscard?.();
   }
 
@@ -151,14 +157,24 @@ export default function FormSection({
               type="text"
               placeholder="Custom Background Color (Optional)"
               value={bgColor}
-              onChange={(e) => setBgColor(ensureHash(e.target.value))}
+              maxLength={7}
+              onChange={(e) => {
+                const val = ensureHash(e.target.value);
+                setBgColor(val);
+                onBgColorChange?.(val);
+              }}
             />
             <input
               className={styles.field}
               type="text"
               placeholder="Custom Text Color (Optional)"
               value={textColor}
-              onChange={(e) => setTextColor(ensureHash(e.target.value))}
+              maxLength={7}
+              onChange={(e) => {
+                const val = ensureHash(e.target.value);
+                setTextColor(val);
+                onTextColorChange?.(val);
+              }}
             />
           </div>
           <textarea
@@ -170,12 +186,11 @@ export default function FormSection({
         </div>
 
         <div className={styles.submitRow}>
-          <button type="submit" className={styles.submitBtn} disabled={submitting} onClick={() => sounds.click()} onMouseEnter={() => sounds.hover()}>
-            {submitting ? "Submitting..." : "Submit The Application"}
-            <Plus size={20} className={submitting ? styles.spinIcon : undefined} />
+          <button type="submit" className={styles.navButton} disabled={submitting} onClick={() => sounds.click()} onMouseEnter={() => sounds.hover()}>
+            <NavTag label={submitting ? "submitting..." : "submit >>"} />
           </button>
-          <button type="button" className={styles.discardBtn} onClick={() => { sounds.click(); handleDiscard(); }} onMouseEnter={() => sounds.hover()}>
-            Discard &amp; Go Back
+          <button type="button" className={styles.navButton} onClick={() => { sounds.click(); handleDiscard(); }} onMouseEnter={() => sounds.hover()}>
+            <NavTag label="cancel >>" />
           </button>
         </div>
       </form>

@@ -13,7 +13,7 @@
 .identity {
   display: flex;
   align-items: center;
-  align-self: flex-start;
+  align-self: center;
   gap: 10px;
   background: var(--widget-bg);
   height: 28px;

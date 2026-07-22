@@ -5,7 +5,7 @@ import MobileFormPage from "./MobileFormPage";
 import MobileSuccessPage from "./MobileSuccessPage";
 import { MobileJoinContext } from "./MobileJoinContext";
 
-const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011"];
+const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009"];
 
 type View = "home" | "join" | "success";
 
