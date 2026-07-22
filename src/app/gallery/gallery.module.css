@@ -1,0 +1,9 @@
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  align-items: start;
+  gap: var(--space-10-5);
+  width: 100%;
+  padding: 0 var(--space-10-5) var(--space-14) var(--space-10-5);
+}

@@ -1,0 +1,79 @@
+.card {
+  width: 100%;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  width: 100%;
+  text-decoration: none;
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  display: block;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.nameTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-1);
+  background-color: var(--color-surface-alt);
+  transition: background-color 0.15s ease;
+}
+
+.nameLabel {
+  font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: normal;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.yellow {
+  background-color: var(--color-accent-yellow);
+}
+
+.green {
+  background-color: var(--color-accent-green);
+}
+
+.purple {
+  background-color: var(--color-accent-purple);
+}
+
+.blue {
+  background-color: var(--color-accent-blue);
+}
+
+.pink {
+  background-color: var(--color-accent-pink);
+}
+
+.yellow .nameLabel,
+.green .nameLabel {
+  color: var(--color-black);
+}
+
+.purple .nameLabel,
+.blue .nameLabel,
+.pink .nameLabel {
+  color: var(--color-white);
+}

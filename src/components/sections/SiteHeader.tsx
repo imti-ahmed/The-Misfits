@@ -17,7 +17,7 @@ interface SiteHeaderProps {
 
 export default function SiteHeader({ memberCount }: SiteHeaderProps) {
   return (
-    <header className={styles.headerRow}>
+    <header className={styles.headerRow} data-transition-group="header">
       <LogoBox />
 
       <div className={styles.marqueeSlot}>
@@ -34,10 +34,9 @@ export default function SiteHeader({ memberCount }: SiteHeaderProps) {
         <StackedTag topLabel="visit" bottomLabel="github >" color="yellow" align="start" />
       </a>
 
-      {/* TODO: link to gallery section once it's built in the new design */}
-      <a href="#" className={styles.headerLink}>
+      <Link href="/gallery" className={styles.headerLink}>
         <HeaderTag label="gallery >" color="yellow" />
-      </a>
+      </Link>
     </header>
   );
 }
