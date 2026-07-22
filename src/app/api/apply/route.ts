@@ -15,6 +15,8 @@ const R2_CDN_URL = process.env.R2_CDN_URL;
 
 const SCREENSHOT_API_KEY = process.env.SCREENSHOT_API_KEY;
 
+const SITE_ORIGIN = "https://themisfits.byimti.tools";
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function toSlug(nickname: string): string {
@@ -285,6 +287,7 @@ export async function POST(req: NextRequest) {
       textColor: textColor ?? "",
       widget: widgetId ?? "",
       info: comments ?? "",
+      embedCode: `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`,
       ...(screenshotUrl ? { screenshot: screenshotUrl } : {}),
     });
 
