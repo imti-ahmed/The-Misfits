@@ -25,6 +25,15 @@ function ensureHash(val: string): string {
   return val.startsWith("#") ? val : "#" + val;
 }
 
+function ensureHttps(val: string): string {
+  if (!val) return "";
+  if (/^https?:\/\//i.test(val)) return val;
+  // Let the user type or backspace through a partial "https://" themselves
+  // instead of fighting them with a re-added prefix on every keystroke.
+  if ("https://".startsWith(val.toLowerCase())) return val;
+  return "https://" + val;
+}
+
 export default function FormSection({
   widgetId,
   onDiscard,
@@ -57,7 +66,6 @@ export default function FormSection({
     if (!nickname.trim()) return showToast("Please enter a nickname.");
     if (!url.trim()) return showToast("Please enter your website URL.");
     if (!email.trim()) return showToast("Please enter your email address.");
-    if (!tags.trim()) return showToast("Please add at least one tag.");
 
     setSubmitting(true);
     try {
@@ -129,9 +137,9 @@ export default function FormSection({
             <input
               className={styles.field}
               type="text"
-              placeholder="Website Link (https://yoursite.com)*"
+              placeholder="Website Link*"
               value={url}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={(e) => setUrl(ensureHttps(e.target.value))}
             />
             <input
               className={styles.field}
@@ -144,7 +152,7 @@ export default function FormSection({
           <input
             className={styles.field}
             type="text"
-            placeholder="Tags (Developer, designer, vibe-coder, etc)*"
+            placeholder="Tags (Developer, designer, vibe-coder, etc) (optional)"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           />
