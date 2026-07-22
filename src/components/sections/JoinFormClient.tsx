@@ -58,7 +58,7 @@ export default function JoinFormClient() {
   }
 
   return (
-    <div ref={wrapperRef}>
+    <div ref={wrapperRef} className={styles.wrapper}>
       {successSlug ? (
         <WidgetSuccessPanel
           widgetId={widgetId}

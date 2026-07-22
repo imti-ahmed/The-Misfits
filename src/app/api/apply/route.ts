@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
@@ -94,14 +94,25 @@ async function putFile(branch: string, path: string, content: string, message: s
   }
 }
 
-async function createPR(branch: string, title: string, body: string): Promise<string> {
+async function createPR(branch: string, title: string, body: string): Promise<{ url: string; number: number }> {
   const res = await gh(`/repos/${GITHUB_REPO}/pulls`, {
     method: "POST",
     body: JSON.stringify({ title, body, head: branch, base: GITHUB_BASE }),
   });
   const data = await res.json();
   if (!res.ok) throw new Error(`PR creation failed: ${data.message}`);
-  return data.html_url as string;
+  return { url: data.html_url as string, number: data.number as number };
+}
+
+async function updatePRBody(prNumber: number, body: string): Promise<void> {
+  const res = await gh(`/repos/${GITHUB_REPO}/pulls/${prNumber}`, {
+    method: "PATCH",
+    body: JSON.stringify({ body }),
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(`PR update failed: ${err.message}`);
+  }
 }
 
 async function countExistingMembers(): Promise<number> {
@@ -267,17 +278,7 @@ export async function POST(req: NextRequest) {
         ? tags.split(",").map((t: string) => t.trim()).filter(Boolean)
         : Array.isArray(tags) ? tags : [];
 
-    // Screenshot → R2
-    let screenshotUrl: string | null = null;
-    const screenshot = await takeScreenshot(url);
-    if (screenshot) {
-      screenshotUrl = await uploadToR2(screenshot, `screenshots/${slug}.jpg`);
-    } else {
-      console.warn("[apply] Screenshot returned null — skipping R2 upload");
-    }
-
-    // Build markdown
-    const markdown = buildMarkdown({
+    const fields = {
       name,
       nickname,
       url,
@@ -288,18 +289,42 @@ export async function POST(req: NextRequest) {
       widget: widgetId ?? "",
       info: comments ?? "",
       embedCode: `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`,
-      ...(screenshotUrl ? { screenshot: screenshotUrl } : {}),
-    });
+    };
 
-    // GitHub: branch → file → PR
+    // GitHub: branch → file → PR — no screenshot yet, so the member is live
+    // and reviewable right away instead of waiting on a slow external API.
+    const markdown = buildMarkdown(fields);
     const baseSha = await getBaseSha();
     await createBranch(branch, baseSha);
     await putFile(branch, `members/${slug}.md`, markdown, `Add member: ${nickname}`);
 
-    const prBody = buildPRBody({ name, nickname, url, email, widgetId, tags: tagList, applicationNumber, screenshotUrl });
-    const prUrl = await createPR(branch, `Add member: ${nickname}`, prBody);
+    const prBody = buildPRBody({ name, nickname, url, email, widgetId, tags: tagList, applicationNumber, screenshotUrl: null });
+    const pr = await createPR(branch, `Add member: ${nickname}`, prBody);
 
-    return NextResponse.json({ slug, applicationNumber, prUrl });
+    // Screenshot + R2 upload + updating the file and PR happen after the
+    // response is sent, so the user isn't stuck waiting on a slow external API.
+    after(async () => {
+      try {
+        const screenshot = await takeScreenshot(url);
+        if (!screenshot) {
+          console.warn("[apply] Screenshot returned null — skipping R2 upload");
+          return;
+        }
+
+        const screenshotUrl = await uploadToR2(screenshot, `screenshots/${slug}.jpg`);
+        if (!screenshotUrl) return;
+
+        const updatedMarkdown = buildMarkdown({ ...fields, screenshot: screenshotUrl });
+        await putFile(branch, `members/${slug}.md`, updatedMarkdown, `Add screenshot: ${nickname}`);
+
+        const updatedPrBody = buildPRBody({ name, nickname, url, email, widgetId, tags: tagList, applicationNumber, screenshotUrl });
+        await updatePRBody(pr.number, updatedPrBody);
+      } catch (err) {
+        console.error("[apply] Background screenshot step failed:", err);
+      }
+    });
+
+    return NextResponse.json({ slug, applicationNumber, prUrl: pr.url });
   } catch (err) {
     console.error("[apply] Error:", err);
     return NextResponse.json(
