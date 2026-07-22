@@ -1,0 +1,58 @@
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 9999;
+  image-rendering: pixelated;
+  will-change: transform, background-color;
+  transition: background-color 0.1s steps(2);
+}
+
+.trailDot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 9998;
+  image-rendering: pixelated;
+  animation: trailFade 0.35s steps(4) forwards;
+}
+
+@keyframes trailFade {
+  from {
+    opacity: 0.45;
+    transform: translate3d(var(--x), var(--y), 0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(var(--x), var(--y), 0) scale(0.4);
+  }
+}
+
+.particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  pointer-events: none;
+  z-index: 9999;
+  image-rendering: pixelated;
+  animation: burst 0.45s steps(6) forwards;
+}
+
+@keyframes burst {
+  from {
+    opacity: 1;
+    transform: translate3d(var(--x), var(--y), 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(var(--dx), var(--dy), 0);
+  }
+}

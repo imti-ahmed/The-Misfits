@@ -94,3 +94,8 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+body.customCursorActive,
+body.customCursorActive * {
+  cursor: none !important;
+}
