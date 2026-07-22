@@ -4,11 +4,13 @@ import TaggedSection from "@/components/TaggedSection";
 import GalleryCard from "@/components/GalleryCard";
 import ResolutionIndicator from "@/components/ResolutionIndicator";
 import { getSites } from "@/lib/sites";
+import { getRecentMemberActivityMessages } from "@/lib/version";
 import layout from "@/styles/screenLayout.module.css";
 import styles from "./gallery.module.css";
 
 export default async function GalleryPage() {
   const members = getSites();
+  const recentActivity = await getRecentMemberActivityMessages();
   const memberCount = String(members.length).padStart(3, "0");
   const withScreenshots = members.filter((m) => m.screenshot);
 
@@ -19,7 +21,7 @@ export default async function GalleryPage() {
         {/* TODO: dev-only reference overlay, remove before final ship */}
         <ResolutionIndicator />
 
-        <SiteHeader memberCount={memberCount} />
+        <SiteHeader memberCount={memberCount} recentActivity={recentActivity} />
 
         <div className={styles.grid}>
           <TaggedSection

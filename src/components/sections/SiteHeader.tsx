@@ -5,23 +5,24 @@ import HeaderTag from "@/components/HeaderTag";
 import StackedTag from "@/components/StackedTag";
 import styles from "./SiteHeader.module.css";
 
-const MARQUEE_MESSAGES = [
-  "welcome to the webring",
-  "new member nolan c d has joined", // TODO: replace with real latest-member feed
-  "built & maintained by imtiyaz ahmed",
-];
-
 interface SiteHeaderProps {
   memberCount: string;
+  recentActivity?: string[];
 }
 
-export default function SiteHeader({ memberCount }: SiteHeaderProps) {
+export default function SiteHeader({ memberCount, recentActivity = [] }: SiteHeaderProps) {
+  const marqueeMessages = [
+    "welcome to the webring",
+    ...recentActivity,
+    "built & maintained by imtiyaz ahmed",
+  ];
+
   return (
     <header className={styles.headerRow} data-transition-group="header">
       <LogoBox />
 
       <div className={styles.marqueeSlot}>
-        <MarqueeTag messages={MARQUEE_MESSAGES} color="green" />
+        <MarqueeTag messages={marqueeMessages} color="green" />
       </div>
 
       <StackedTag topLabel="active" bottomLabel={`members:${memberCount}`} color="purple" align="end" />

@@ -48,3 +48,39 @@ export async function getLastUpdateDate(): Promise<string> {
     return "—";
   }
 }
+
+// Member add/remove events are already recorded as plain commit messages
+// ("Add member: X" / "Remove member: X") by the apply route and the removal
+// scripts — no separate tracking needed, just read recent commit history.
+export async function getRecentMemberActivityMessages(limit = 5): Promise<string[]> {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=30`, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
+      },
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+
+    const data = await res.json();
+    if (!Array.isArray(data)) return [];
+
+    const messages: string[] = [];
+    for (const commit of data) {
+      const line = (commit?.commit?.message ?? "").split("\n")[0].trim();
+
+      const added = line.match(/^Add member:\s*(.+)$/i);
+      const removed = line.match(/^Remove member:\s*(.+)$/i);
+      const nickname = (added?.[1] ?? removed?.[1])?.replace(/\s*\(#\d+\)$/, "").trim();
+      if (!nickname) continue;
+
+      messages.push(added ? `${nickname} joined the webring` : `${nickname} left the webring`);
+      if (messages.length >= limit) break;
+    }
+
+    return messages;
+  } catch {
+    return [];
+  }
+}
