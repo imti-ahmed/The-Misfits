@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "The Misfits",
   description: "A webring for people who build things.",
   icons: {
-    icon: "/assets/Webring Logo.png",
+    icon: "/assets/Favicon.png",
   },
 };
 
