@@ -12,7 +12,7 @@ interface TaggedSectionProps {
 
 export default function TaggedSection({ headerLabel, content, color = 'yellow' }: TaggedSectionProps) {
   return (
-    <div className={styles.section}>
+    <div className={styles.section} data-transition-group="card">
       <HeaderTag label={headerLabel} color={color} />
       {content.map((node, i) => (
         <div key={i} className={styles.contentBox}>

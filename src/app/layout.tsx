@@ -27,8 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${chivo.variable} ${chivoMono.variable} ${familjenGrotesk.variable} ${doto.variable}`}>
         <CustomCursor />
-        <PageTransition />
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
