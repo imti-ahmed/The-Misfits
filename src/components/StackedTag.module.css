@@ -1,0 +1,12 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.alignStart {
+  align-items: flex-start;
+}
+
+.alignEnd {
+  align-items: flex-end;
+}

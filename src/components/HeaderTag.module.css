@@ -1,0 +1,42 @@
+.headerTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-1);
+}
+
+.label {
+  font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: normal;
+  color: var(--color-black);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.yellow {
+  background-color: var(--color-accent-yellow);
+}
+
+.purple {
+  background-color: var(--color-accent-purple);
+}
+
+.green {
+  background-color: var(--color-accent-green);
+}
+
+.blue {
+  background-color: var(--color-accent-blue);
+}
+
+.pink {
+  background-color: var(--color-accent-pink);
+}
+
+.blue .label,
+.purple .label,
+.pink .label {
+  color: var(--color-white);
+}

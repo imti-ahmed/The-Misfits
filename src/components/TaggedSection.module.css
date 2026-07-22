@@ -1,0 +1,43 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.contentBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+}
+
+.contentText {
+  font-family: var(--font-chivo, 'Chivo', sans-serif);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-white);
+  width: 100%;
+}
+
+.contentText p + p {
+  margin-top: var(--space-4);
+}
+
+.contentText ul,
+.contentText ol {
+  padding-left: var(--space-6);
+}
+
+.contentText li:not(:last-child) {
+  margin-bottom: var(--space-1);
+}
+
+.contentText a {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+}

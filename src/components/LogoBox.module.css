@@ -1,0 +1,22 @@
+.logoBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.iconWrap {
+  position: relative;
+  width: 16.84px;
+  height: 46px;
+  color: var(--color-accent-blue);
+  flex-shrink: 0;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 16.84px;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
