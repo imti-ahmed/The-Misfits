@@ -7,7 +7,6 @@ export interface WidgetSize {
 // Approximate — derived from each widget's module.css. Good enough for embed/preview
 // scaling; refine with exact rendered dimensions if pixel precision matters later.
 export const WIDGET_V2_SIZES: Record<string, WidgetSize> = {
-  '001': { width: 752, height: 60, defaultScale: 1 },
   '002': { width: 256, height: 60, defaultScale: 1 },
   '003': { width: 205, height: 32, defaultScale: 1 },
   '004': { width: 217, height: 32, defaultScale: 1 },
@@ -19,3 +18,12 @@ export const WIDGET_V2_SIZES: Record<string, WidgetSize> = {
 };
 
 export const DEFAULT_WIDGET_V2_SIZE: WidgetSize = { width: 256, height: 60, defaultScale: 1 };
+
+// Iframe embeds get breathing room around the widget itself — 12px on top
+// and both sides, flush on the bottom.
+export const EMBED_PADDING = 12;
+
+export function getEmbedIframeSize(widgetId: string): { width: number; height: number } {
+  const { width, height } = WIDGET_V2_SIZES[String(widgetId).padStart(3, '0')] ?? DEFAULT_WIDGET_V2_SIZE;
+  return { width: width + EMBED_PADDING * 2, height: height + EMBED_PADDING };
+}

@@ -10,12 +10,6 @@ const nextConfig: NextConfig = {
           { key: 'Content-Security-Policy', value: "frame-ancestors *" },
         ],
       },
-      {
-        source: '/widget/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-        ],
-      },
     ];
   },
 };

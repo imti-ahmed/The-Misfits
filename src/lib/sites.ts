@@ -14,6 +14,7 @@ export interface Site {
   widget: string;
   bgColor: string;
   textColor: string;
+  customFont: string;
   info: string;
   screenshot: string;
 }
@@ -55,6 +56,7 @@ export function getSites(): Site[] {
       widget: data.widget ?? '',
       bgColor: data.bgColor ?? '',
       textColor: data.textColor ?? '',
+      customFont: data.customFont ?? '',
       info: data.info ?? '',
       screenshot: data.screenshot ?? '',
     };

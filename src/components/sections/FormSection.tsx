@@ -49,6 +49,7 @@ export default function FormSection({
   const [tags, setTags] = useState("");
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
+  const [customFont, setCustomFont] = useState("");
   const [comments, setComments] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
@@ -80,6 +81,7 @@ export default function FormSection({
           tags,
           bgColor,
           textColor,
+          customFont,
           widgetId,
           comments,
         }),
@@ -102,6 +104,7 @@ export default function FormSection({
     setNickname("");
     setBgColor("");
     setTextColor("");
+    setCustomFont("");
     onNicknameChange?.("USER");
     onBgColorChange?.("");
     onTextColorChange?.("");
@@ -185,6 +188,13 @@ export default function FormSection({
               }}
             />
           </div>
+          <input
+            className={styles.field}
+            type="text"
+            placeholder="Custom Font: Google Fonts or CDN stylesheet URL (Optional)"
+            value={customFont}
+            onChange={(e) => setCustomFont(e.target.value)}
+          />
           <textarea
             className={`${styles.field} ${styles.fieldTextarea}`}
             placeholder="Drop any comments or say something about yourself (optional)"

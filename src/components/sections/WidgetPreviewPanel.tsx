@@ -34,8 +34,7 @@ export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColo
   }, []);
 
   // Shrink the widget to fit the box whenever it (or the box) is wider than
-  // the available space — e.g. widget-001 is 752px wide and can overflow the
-  // preview box in cramped viewport ranges. Independent of the bounce
+  // the available space in cramped viewport ranges. Independent of the bounce
   // animation's own transform (applied on a nested inner element) so the two
   // don't fight over the same transform property.
   useEffect(() => {

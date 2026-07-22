@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse, after } from "next/server";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { buildEmbedCode } from "@/lib/embedCode";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -252,7 +253,7 @@ function buildPRBody(opts: {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, nickname, url, email, tags, bgColor, textColor, widgetId, comments } = body;
+    const { name, nickname, url, email, tags, bgColor, textColor, customFont, widgetId, comments } = body;
 
     if (!name || !nickname || !url || !email) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -286,9 +287,10 @@ export async function POST(req: NextRequest) {
       tags: tagList,
       bgColor: bgColor ?? "",
       textColor: textColor ?? "",
+      customFont: customFont ?? "",
       widget: widgetId ?? "",
       info: comments ?? "",
-      embedCode: `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`,
+      embedCode: buildEmbedCode(SITE_ORIGIN, slug, widgetId ?? ""),
     };
 
     // GitHub: branch → file → PR — no screenshot yet, so the member is live

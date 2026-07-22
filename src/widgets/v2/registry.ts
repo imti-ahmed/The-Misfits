@@ -7,12 +7,6 @@ export interface WidgetV2Config {
 
 export const widgetV2Registry: WidgetV2Config[] = [
   {
-    id: '001',
-    label: 'Blue Stamp',
-    defaultBgColor: '#356aff',
-    defaultTextColor: '#ffffff',
-  },
-  {
     id: '002',
     label: 'Stacked Bar',
     defaultBgColor: '#356aff',

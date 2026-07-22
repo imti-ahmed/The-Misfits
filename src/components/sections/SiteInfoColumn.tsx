@@ -1,4 +1,6 @@
 import TaggedSection from "@/components/TaggedSection";
+import { SITE_ORIGIN } from "@/lib/site";
+import { getEmbedIframeSize } from "@/lib/widgetV2Sizes";
 
 const SOCIAL_LINKS = [
   { label: "Portfolio", href: "https://www.imtiyazahmed.com/" },
@@ -16,6 +18,8 @@ interface SiteInfoColumnProps {
 }
 
 export default function SiteInfoColumn({ views, memberCount, latestVersion, daysOnline, lastUpdate }: SiteInfoColumnProps) {
+  const adminWidgetSize = getEmbedIframeSize('009');
+
   return (
     <>
       <TaggedSection
@@ -35,6 +39,14 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion, days
                 </span>
               ))}
             </p>
+            <iframe
+              src={`${SITE_ORIGIN}/embed/admin`}
+              width={adminWidgetSize.width}
+              height={adminWidgetSize.height}
+              scrolling="no"
+              style={{ border: 0, overflow: "hidden", marginTop: "12px" }}
+              title="Misfits Webring"
+            />
           </div>,
         ]}
       />

@@ -15,7 +15,7 @@ const ENTER_DURATION = 0.32;
 
 export default function JoinFormClient() {
   const [nickname, setNickname] = useState("USER");
-  const [widgetId, setWidgetId] = useState("001");
+  const [widgetId, setWidgetId] = useState("002");
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
   const [successSlug, setSuccessSlug] = useState<string | null>(null);

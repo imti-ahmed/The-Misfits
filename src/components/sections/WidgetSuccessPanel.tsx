@@ -8,6 +8,7 @@ import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
 import { SITE_ORIGIN } from "@/lib/site";
+import { buildEmbedCode } from "@/lib/embedCode";
 import styles from "./WidgetSuccessPanel.module.css";
 
 interface WidgetSuccessPanelProps {
@@ -19,7 +20,7 @@ interface WidgetSuccessPanelProps {
 }
 
 export default function WidgetSuccessPanel({ widgetId, nickname, slug, bgColor, textColor }: WidgetSuccessPanelProps) {
-  const embedCode = `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`;
+  const embedCode = buildEmbedCode(SITE_ORIGIN, slug, widgetId);
   const [copied, setCopied] = useState(false);
   const closeToast = useCallback(() => setCopied(false), []);
 

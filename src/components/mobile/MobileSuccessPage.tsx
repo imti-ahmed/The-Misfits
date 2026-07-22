@@ -8,6 +8,7 @@ import DotGridBackground from "@/components/DotGridBackground";
 import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
 import { SITE_ORIGIN } from "@/lib/site";
+import { buildEmbedCode } from "@/lib/embedCode";
 import MobileHeader, { FORM_TABS } from "./MobileHeader";
 import pageStyles from "./MobilePage.module.css";
 import styles from "./MobileSuccessPage.module.css";
@@ -34,7 +35,7 @@ export default function MobileSuccessPage({
   bottomContent,
   onGoBack,
 }: MobileSuccessPageProps) {
-  const embedCode = `<script async src="${SITE_ORIGIN}/widget-loader.js" data-slug="${slug}"></script>`;
+  const embedCode = buildEmbedCode(SITE_ORIGIN, slug, widgetId);
   const previewScale = getPreviewScale(widgetId);
 
   const [copied, setCopied] = useState(false);
