@@ -11,9 +11,11 @@ interface SiteInfoColumnProps {
   views: number;
   memberCount: number;
   latestVersion: string;
+  daysOnline: number;
+  lastUpdate: string;
 }
 
-export default function SiteInfoColumn({ views, memberCount, latestVersion }: SiteInfoColumnProps) {
+export default function SiteInfoColumn({ views, memberCount, latestVersion, daysOnline, lastUpdate }: SiteInfoColumnProps) {
   return (
     <>
       <TaggedSection
@@ -44,11 +46,9 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion }: Si
           <ul key="stats">
             <li>Views {">>"} {String(views).padStart(4, "0")}</li>
             <li>Active Members {">>"} {String(memberCount).padStart(4, "0")}</li>
-            {/* TODO: no launch-date source yet to compute real days-online */}
-            <li>Days Online {">>"} 0057</li>
+            <li>Days Online {">>"} {String(daysOnline).padStart(4, "0")}</li>
             <li>Version {">>"} {latestVersion.replace(/^v/, "")}</li>
-            {/* TODO: wire to real last-update timestamp */}
-            <li>Last Update {">>"} 21.7.26</li>
+            <li>Last Update {">>"} {lastUpdate}</li>
           </ul>,
         ]}
       />

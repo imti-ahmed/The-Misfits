@@ -9,7 +9,7 @@ import ResolutionIndicator from "@/components/ResolutionIndicator";
 import { getSites } from "@/lib/sites";
 import { getViews } from "@/lib/db";
 import { withRef } from "@/lib/ref";
-import { getLatestVersion } from "@/lib/version";
+import { getLatestVersion, getDaysOnline, getLastUpdateDate } from "@/lib/version";
 import layout from "@/styles/screenLayout.module.css";
 import styles from "./page.module.css";
 
@@ -17,6 +17,8 @@ export default async function Home() {
   const members = getSites();
   const views = await getViews().catch(() => 0);
   const latestVersion = getLatestVersion();
+  const daysOnline = getDaysOnline();
+  const lastUpdate = await getLastUpdateDate();
   const memberCount = String(members.length).padStart(3, "0");
 
   return (
@@ -103,7 +105,13 @@ export default async function Home() {
             </div>
 
             <div className={layout.rightColumn}>
-              <SiteInfoColumn views={views} memberCount={members.length} latestVersion={latestVersion} />
+              <SiteInfoColumn
+                views={views}
+                memberCount={members.length}
+                latestVersion={latestVersion}
+                daysOnline={daysOnline}
+                lastUpdate={lastUpdate}
+              />
             </div>
           </div>
         </main>

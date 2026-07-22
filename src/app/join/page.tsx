@@ -5,13 +5,15 @@ import TaggedSection from "@/components/TaggedSection";
 import ResolutionIndicator from "@/components/ResolutionIndicator";
 import { getSites } from "@/lib/sites";
 import { getViews } from "@/lib/db";
-import { getLatestVersion } from "@/lib/version";
+import { getLatestVersion, getDaysOnline, getLastUpdateDate } from "@/lib/version";
 import layout from "@/styles/screenLayout.module.css";
 
 export default async function JoinPage() {
   const members = getSites();
   const views = await getViews().catch(() => 0);
   const latestVersion = getLatestVersion();
+  const daysOnline = getDaysOnline();
+  const lastUpdate = await getLastUpdateDate();
   const memberCount = String(members.length).padStart(3, "0");
 
   return (
@@ -70,7 +72,13 @@ export default async function JoinPage() {
           </div>
 
           <div className={layout.rightColumn}>
-            <SiteInfoColumn views={views} memberCount={members.length} latestVersion={latestVersion} />
+            <SiteInfoColumn
+              views={views}
+              memberCount={members.length}
+              latestVersion={latestVersion}
+              daysOnline={daysOnline}
+              lastUpdate={lastUpdate}
+            />
           </div>
         </div>
       </main>
