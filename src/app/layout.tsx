@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Chivo_Mono, Familjen_Grotesk, Doto } from "next/font/google";
+import { Inter, Chivo, Chivo_Mono, Familjen_Grotesk, Doto } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const chivo = Chivo({ subsets: ["latin"], variable: "--font-chivo" });
 const chivoMono = Chivo_Mono({ subsets: ["latin"], variable: "--font-chivo-mono" });
 const familjenGrotesk = Familjen_Grotesk({ subsets: ["latin"], variable: "--font-familjen-grotesk" });
 const doto = Doto({ subsets: ["latin"], variable: "--font-doto" });
@@ -22,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${chivoMono.variable} ${familjenGrotesk.variable} ${doto.variable}`}>{children}</body>
+      <body className={`${inter.className} ${chivo.variable} ${chivoMono.variable} ${familjenGrotesk.variable} ${doto.variable}`}>{children}</body>
     </html>
   );
 }

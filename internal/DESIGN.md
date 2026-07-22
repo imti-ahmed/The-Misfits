@@ -35,6 +35,7 @@ Extracted from Figma (Success Screen redesign, node 162:1832). All values go in 
 | `--color-text-primary` | `#d8d8d8` | Primary body text |
 | `--color-text-secondary` | `#8d8d8d` | Muted / secondary text, inline links |
 | `--color-text-tertiary` | `#c7c7c7` | Text on `--color-surface-alt` labels |
+| `--color-text-placeholder` | `#676767` | Form field placeholder text (darker/dimmer than --color-text-secondary) |
 | `--color-text-inverted` | `#161616` | Near-black text on light accent badges |
 | `--color-white` | `#ffffff` | Pure white — high-contrast text on dark/blue badges |
 | `--color-black` | `#000000` | Pure black — text on bright yellow/green badges |
@@ -52,9 +53,20 @@ Extracted from Figma (Success Screen redesign, node 162:1832). All values go in 
 | `--font-weight-regular` | `400` | Body text |
 | `--font-weight-bold` | `700` | Bold emphasis — used sparingly for inline highlights |
 | `--font-size-sm` | `14px` | Base text size (aligns with Figma) |
+| `--font-size-md` | `clamp(16px, ~fluid, 22px)` | Header tag/button label size — fluid, scales with viewport width (16px at <=768px, 22px at >=1920px) |
+| `--font-size-body` | `clamp(14px, ~fluid, 18px)` | Content box / paragraph body text (Chivo, not Chivo Mono) — fluid, scales with viewport width (14px at <=768px, 18px at >=1920px) |
 | `--line-height-sm` | `17.52px` | Tight line height for small text |
 | `--line-height-md` | `20px` | Standard line height |
 | `--line-height-lg` | `23px` | Loose line height |
+| `--line-height-body` | `1.3125` (unitless) | Content box / paragraph body text line height — unitless so it scales proportionally with the fluid --font-size-body |
+
+**Fluid typography:** `--font-size-md` and `--font-size-body` are only consumed by the new-design atoms (HeaderTag, NavTag, MarqueeTag, StackedTag, TaggedSection) — never by widgets or the old design — so they were safe to make fluid via `clamp()` without affecting embedded widgets on other people's sites. `--font-size-sm` and other legacy tokens stay fixed-px.
+
+**1400–1700px dip:** both tokens intentionally dip down to 12px across the 1700px→1400px viewport range (interpolated, not a hard jump), staying pinned at 12px below 1400px, before resuming the normal 768–1920px fluid curve above 1700px. Implemented as two `@media (max-width: ...)` overrides of the `:root` custom properties in globals.css, since a single `clamp()` can't express a non-monotonic/piecewise curve.
+
+**Secondary fonts (Chivo, Chivo Mono, Familjen Grotesk, Doto):** loaded via `next/font` in `layout.tsx` and exposed as CSS variables (`--font-chivo`, `--font-chivo-mono`, `--font-familjen-grotesk`, `--font-doto`) on `<body>`. These are NOT `:root` tokens — `:root` is the `<html>` element, an ancestor of `<body>`, so it cannot see variables scoped to `<body>`. Reference them directly at the point of use with a fallback, e.g. `font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);` — this matches every widget component already in the codebase.
+
+**Chivo vs Chivo Mono:** Chivo Mono (monospace) is used for header tags/buttons/labels — short, uppercase, structural UI text. Plain Chivo (sans-serif, not mono) is used for longer-form body/paragraph copy inside content boxes.
 
 ## Spacing Tokens
 
@@ -71,8 +83,12 @@ Extracted from Figma (Success Screen redesign, node 162:1832). All values go in 
 | `--space-4-5` | `18px` |
 | `--space-5` | `20px` |
 | `--space-6` | `24px` |
+| `--space-7` | `28px` |
 | `--space-8` | `32px` |
+| `--space-10-5` | `42px` |
 | `--space-12` | `48px` |
+| `--space-12-5` | `50px` |
+| `--space-14` | `56px` |
 | `--space-16` | `64px` |
 
 ## Anticipated Token Categories (to be expanded)

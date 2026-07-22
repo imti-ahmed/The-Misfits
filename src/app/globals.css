@@ -8,6 +8,7 @@
   --color-text-primary: #d8d8d8;
   --color-text-secondary: #8d8d8d;
   --color-text-tertiary: #c7c7c7;
+  --color-text-placeholder: #676767;
   --color-text-inverted: #161616;
   --color-white: #ffffff;
   --color-black: #000000;
@@ -22,9 +23,15 @@
   --font-weight-regular: 400;
   --font-weight-bold: 700;
   --font-size-sm: 14px;
+  /* Fluid: 16px at <=768px viewport, scaling up to 22px at >=1920px viewport */
+  --font-size-md: clamp(16px, calc(16px + (100vw - 768px) * 0.003472), 22px);
+  /* Fluid: 14px at <=768px viewport, scaling up to 18px at >=1920px viewport */
+  --font-size-body: clamp(14px, calc(14px + (100vw - 768px) * 0.003472), 18px);
   --line-height-sm: 17.52px;
   --line-height-md: 20px;
   --line-height-lg: 23px;
+  /* Unitless so it scales proportionally with the fluid --font-size-body */
+  --line-height-body: 1.3125;
 
   /* Spacing */
   --space-1: 4px;
@@ -36,9 +43,30 @@
   --space-4-5: 18px;
   --space-5: 20px;
   --space-6: 24px;
+  --space-7: 28px;
   --space-8: 32px;
+  --space-10-5: 42px;
   --space-12: 48px;
+  --space-12-5: 50px;
+  --space-14: 56px;
   --space-16: 64px;
+}
+
+/* Between 1400px and 1700px viewport, font-size-md/body dip down to 12px
+   (interpolated from their value at 1700px), overriding the normal 768-1920px
+   fluid curve above. Below 1400px they stay pinned at 12px. */
+@media (max-width: 1700px) {
+  :root {
+    --font-size-md: clamp(12px, calc(12px + (100vw - 1400px) * 0.02412), 19.236px);
+    --font-size-body: clamp(12px, calc(12px + (100vw - 1400px) * 0.017453), 17.236px);
+  }
+}
+
+@media (max-width: 1400px) {
+  :root {
+    --font-size-md: 12px;
+    --font-size-body: 12px;
+  }
 }
 
 *,
