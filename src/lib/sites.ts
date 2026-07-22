@@ -30,6 +30,10 @@ function seededShuffle<T>(arr: T[], seed: number): T[] {
 }
 
 export function getSites(): Site[] {
+  // The members/ folder itself won't exist once the last .md file in it is
+  // removed — Git doesn't track empty directories.
+  if (!fs.existsSync(SITES_DIR)) return [];
+
   const files = fs.readdirSync(SITES_DIR)
     .filter(f => f.endsWith('.md'))
     .sort();

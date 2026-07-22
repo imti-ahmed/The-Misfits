@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SiteHeader from "@/components/sections/SiteHeader";
 import SiteInfoColumn from "@/components/sections/SiteInfoColumn";
 import JoinFormClient from "@/components/sections/JoinFormClient";
@@ -61,7 +62,7 @@ export default async function JoinPage() {
               color="green"
               content={[
                 <p key="home">
-                  Wanna go back to the homepage? <a href="/">Click Here</a>
+                  Wanna go back to the homepage? <Link href="/">Click Here</Link>
                 </p>,
               ]}
             />

@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
@@ -99,7 +99,9 @@ async function main() {
   const hits = await res.json();
   console.log(`Fetched ${Object.keys(hits).length} new hit(s).`);
 
-  const files = readdirSync(MEMBERS_DIR).filter(f => f.endsWith('.md')).sort();
+  // members/ won't exist once the last .md file in it is removed — Git
+  // doesn't track empty directories.
+  const files = existsSync(MEMBERS_DIR) ? readdirSync(MEMBERS_DIR).filter(f => f.endsWith('.md')).sort() : [];
   const members = files.map(filename => {
     const slug = filename.replace(/\.md$/, '');
     const raw = readFileSync(join(MEMBERS_DIR, filename), 'utf-8');
