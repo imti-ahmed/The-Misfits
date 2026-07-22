@@ -9,7 +9,7 @@ const MEMBERS_DIR = join(__dirname, '..', 'members');
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO ?? 'imti-ahmed/The-Misfits';
 const GITHUB_BASE = process.env.GITHUB_BASE_BRANCH ?? 'main';
-const GUILD_ORIGIN = process.env.GUILD_ORIGIN ?? 'the-misfits.vercel.app';
+const GUILD_ORIGIN = process.env.GUILD_ORIGIN ?? 'themisfits.byimti.tools';
 
 // ── GitHub helpers ────────────────────────────────────────────────────────────
 

@@ -10,7 +10,7 @@ const LAST_SEEN_PATH = 'last-seen.md';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO ?? 'imti-ahmed/The-Misfits';
 const GITHUB_BASE = process.env.GITHUB_BASE_BRANCH ?? 'main';
-const SITE_ORIGIN = process.env.SITE_ORIGIN ?? 'https://the-misfits.vercel.app';
+const SITE_ORIGIN = process.env.SITE_ORIGIN ?? 'https://themisfits.byimti.tools';
 const HITS_FLUSH_SECRET = process.env.HITS_FLUSH_SECRET;
 const DRY_RUN = process.env.DRY_RUN === 'true';
 

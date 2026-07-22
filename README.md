@@ -16,7 +16,7 @@ Yahoo bought the biggest webring network and let it rot. Search and feeds took o
 
 ## How To Join
 
-1. Head over to [the-misfits.vercel.app](https://the-misfits.vercel.app) and fill out the application form
+1. Head over to [themisfits.byimti.tools](https://themisfits.byimti.tools) and fill out the application form
 2. Wait for review - we'll check your site meets the criteria (1–2 days)
 3. Once approved, embed the Guild widget on your homepage
 4. You're in the ring

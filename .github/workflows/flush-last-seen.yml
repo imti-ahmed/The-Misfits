@@ -26,6 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_BASE_BRANCH: main
-          SITE_ORIGIN: https://the-misfits.vercel.app
+          SITE_ORIGIN: https://themisfits.byimti.tools
           HITS_FLUSH_SECRET: ${{ secrets.HITS_FLUSH_SECRET }}
         run: node scripts/flush-last-seen.mjs

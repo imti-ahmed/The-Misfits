@@ -27,5 +27,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPO: ${{ github.repository }}
           GITHUB_BASE_BRANCH: main
-          GUILD_ORIGIN: the-misfits.vercel.app
+          GUILD_ORIGIN: themisfits.byimti.tools
         run: node scripts/check-members.mjs
