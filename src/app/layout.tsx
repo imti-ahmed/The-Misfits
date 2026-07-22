@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Chivo, Chivo_Mono, Familjen_Grotesk, Doto } from "next/font/google";
 import CustomCursor from "@/components/CustomCursor";
+import PageTransition from "@/components/PageTransition";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${chivo.variable} ${chivoMono.variable} ${familjenGrotesk.variable} ${doto.variable}`}>
         <CustomCursor />
+        <PageTransition />
         {children}
       </body>
     </html>
