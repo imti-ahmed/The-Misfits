@@ -1,0 +1,18 @@
+.headerRow {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-12);
+  padding: var(--space-7) var(--space-10-5) var(--space-14) var(--space-10-5);
+}
+
+.marqueeSlot {
+  flex: 1 1 200px;
+  min-width: 0;
+  align-self: flex-end;
+}
+
+.headerLink {
+  text-decoration: none;
+}
