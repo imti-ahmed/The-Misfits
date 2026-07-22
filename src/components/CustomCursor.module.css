@@ -38,21 +38,24 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 5px;
-  height: 5px;
+  width: var(--size, 8px);
+  height: var(--size, 8px);
   pointer-events: none;
   z-index: 9999;
   image-rendering: pixelated;
-  animation: burst 0.45s steps(6) forwards;
+  animation: burst 0.32s cubic-bezier(0.15, 0.75, 0.25, 1) forwards;
 }
 
 @keyframes burst {
-  from {
+  0% {
     opacity: 1;
-    transform: translate3d(var(--x), var(--y), 0);
+    transform: translate3d(var(--x), var(--y), 0) scale(1);
   }
-  to {
+  55% {
+    opacity: 1;
+  }
+  100% {
     opacity: 0;
-    transform: translate3d(var(--dx), var(--dy), 0);
+    transform: translate3d(var(--dx), var(--dy), 0) scale(0.25);
   }
 }

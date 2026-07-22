@@ -33,6 +33,7 @@ interface Particle {
   y: number;
   dx: number;
   dy: number;
+  size: number;
   color: string;
 }
 
@@ -111,21 +112,24 @@ export default function CustomCursor() {
       const cy = Math.min(Math.max(e.clientY, rect.top), rect.bottom);
       const color = currentColor();
 
-      const burst: Particle[] = Array.from({ length: 8 }, (_, i) => {
-        const angle = (Math.PI * 2 * i) / 8;
-        const dist = 18 + Math.random() * 14;
+      const COUNT = 12;
+      const burst: Particle[] = Array.from({ length: COUNT }, (_, i) => {
+        const angle = (Math.PI * 2 * i) / COUNT + (Math.random() - 0.5) * 0.4;
+        const dist = 28 + Math.random() * 30;
+        const size = 7 + Math.random() * 7;
         return {
           id: uid++,
-          x: cx - 2.5,
-          y: cy - 2.5,
+          x: cx - size / 2,
+          y: cy - size / 2,
           dx: Math.cos(angle) * dist,
           dy: Math.sin(angle) * dist,
+          size,
           color,
         };
       });
       setParticles(p => [...p, ...burst]);
       const ids = burst.map(b => b.id);
-      setTimeout(() => setParticles(p => p.filter(b => !ids.includes(b.id))), 450);
+      setTimeout(() => setParticles(p => p.filter(b => !ids.includes(b.id))), 340);
     }
 
     window.addEventListener("pointermove", onMove, { passive: true });
@@ -158,6 +162,7 @@ export default function CustomCursor() {
           className={styles.particle}
           style={{
             backgroundColor: p.color,
+            "--size": `${p.size}px`,
             "--x": `${p.x}px`,
             "--y": `${p.y}px`,
             "--dx": `${p.x + p.dx}px`,
