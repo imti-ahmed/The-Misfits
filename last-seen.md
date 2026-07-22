@@ -4,4 +4,4 @@ _Best-effort log of the most recent time each member's widget actually loaded, b
 
 | Member | Slug | Last Seen (Widget Ping) |
 |--------|------|--------------------------|
-| IMTI | imti | — |
+| ADMIN | admin | — |
