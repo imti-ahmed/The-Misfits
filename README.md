@@ -62,4 +62,5 @@ Designed, developed and maintained by [Imtiyaz Ahmed](https://www.imtiyazahmed.c
 |------|---------|
 | `members/` | One `.md` file per approved member. Each file is the source of truth for their name, URL, widget ID, tags, and screenshot. |
 | `members/<slug>.md` | A member record. Fields: `name`, `nickname`, `url`, `email`, `tags`, `widget`, `bgColor`, `textColor`, `screenshot`. |
+| `members/pending/<slug>.md` | A not-yet-approved application, written straight to `main` at signup so the widget can render with the applicant's real details immediately (links inert until reviewed). Automatically deleted once the matching `members/<slug>.md` exists — i.e. once the review PR is merged. |
 | `activity.md` | Weekly automated health check log. Records whether each member's site is live and widget is present. |

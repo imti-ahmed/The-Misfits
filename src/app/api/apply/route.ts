@@ -135,7 +135,13 @@ async function takeScreenshot(url: string): Promise<Buffer | null> {
 
     if (SCREENSHOT_API_KEY) {
       // ScreenshotOne — paid, reliable
-      const endpoint = `https://api.screenshotone.com/take?access_key=${SCREENSHOT_API_KEY}&url=${encodeURIComponent(url)}&format=jpg&block_ads=true&delay=3&timeout=60&image_quality=85&viewport_width=1280&viewport_height=800`;
+      // Capturing at device_scale_factor=2 gives crisp source text/detail,
+      // then image_width asks the API to properly resample it back down to
+      // 1280 (a gentler ~3.7x reduction for the browser to then fit into a
+      // gallery card, vs a raw ~7x reduction straight from the 2560px
+      // capture) — the browser's own downscale at that steeper ratio was
+      // what actually looked blurry, even though the source was high-res.
+      const endpoint = `https://api.screenshotone.com/take?access_key=${SCREENSHOT_API_KEY}&url=${encodeURIComponent(url)}&format=jpg&block_ads=true&delay=3&timeout=60&image_quality=90&viewport_width=1280&viewport_height=800&device_scale_factor=2&image_width=1280`;
       console.log("[screenshot] Using ScreenshotOne");
       const res = await fetch(endpoint, { signal: controller.signal });
       clearTimeout(timer);
@@ -318,7 +324,7 @@ export async function POST(req: NextRequest) {
     // "joining" placeholder until the PR is merged. The embed page marks it
     // as inert (pending) until the reviewed members/{slug}.md file exists.
     try {
-      await putFile(GITHUB_BASE, `members-pending/${slug}.md`, markdown, `Add pending widget preview: ${nickname}`);
+      await putFile(GITHUB_BASE, `members/pending/${slug}.md`, markdown, `Add pending widget preview: ${nickname}`);
     } catch (err) {
       console.error("[apply] Failed to write pending widget preview:", err);
     }

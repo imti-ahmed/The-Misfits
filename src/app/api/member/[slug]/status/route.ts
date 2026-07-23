@@ -23,7 +23,7 @@ async function gh(path: string, options: RequestInit = {}) {
 async function deletePendingFile(slug: string): Promise<void> {
   if (!GITHUB_TOKEN) return;
   try {
-    const repoPath = `members-pending/${slug}.md`;
+    const repoPath = `members/pending/${slug}.md`;
     const check = await gh(`/repos/${GITHUB_REPO}/contents/${repoPath}?ref=${GITHUB_BASE}`);
     if (!check.ok) return;
     const existing = await check.json();
@@ -41,7 +41,7 @@ export async function GET(_: Request, { params }: { params: Promise<{ slug: stri
   const filePath = path.join(process.cwd(), 'members', `${slug}.md`);
   const active = fs.existsSync(filePath);
 
-  if (active && fs.existsSync(path.join(process.cwd(), 'members-pending', `${slug}.md`))) {
+  if (active && fs.existsSync(path.join(process.cwd(), 'members', 'pending', `${slug}.md`))) {
     void deletePendingFile(slug);
   }
 
