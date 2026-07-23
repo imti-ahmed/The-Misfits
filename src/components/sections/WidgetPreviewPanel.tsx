@@ -5,7 +5,7 @@ import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import { widgetV2Registry } from "@/widgets/v2/registry";
 import NavTag from "@/components/NavTag";
 import { sounds } from "@/lib/sounds";
-import { parseGoogleFontFamily } from "@/lib/customFont";
+import { resolveFontFamily } from "@/lib/customFont";
 import styles from "./WidgetPreviewPanel.module.css";
 
 const WIDGET_IDS = widgetV2Registry.map((w) => w.id);
@@ -18,10 +18,11 @@ interface WidgetPreviewPanelProps {
   bgColor?: string;
   textColor?: string;
   customFont?: string;
+  customFontFamily?: string;
   onMeasure?: (widgetId: string, width: number, height: number) => void;
 }
 
-export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColor, textColor, customFont, onMeasure }: WidgetPreviewPanelProps) {
+export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColor, textColor, customFont, customFontFamily, onMeasure }: WidgetPreviewPanelProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [phase, setPhase] = useState<"idle" | "out" | "in">("idle");
   const [fitScale, setFitScale] = useState(1);
@@ -60,7 +61,7 @@ export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColo
     };
   }, [customFont]);
 
-  const fontFamily = customFont ? parseGoogleFontFamily(customFont) : null;
+  const fontFamily = customFont ? resolveFontFamily(customFont, customFontFamily) : null;
   const fontVarStyle = fontFamily
     ? ({ "--font-chivo-mono": `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties)
     : undefined;

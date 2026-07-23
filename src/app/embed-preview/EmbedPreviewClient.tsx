@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import { widgetV2Registry } from "@/widgets/v2/registry";
-import { parseGoogleFontFamily } from "@/lib/customFont";
+import { resolveFontFamily } from "@/lib/customFont";
 import { SITE_ORIGIN } from "@/lib/site";
 
 const WIDGET_IDS = widgetV2Registry.map((w) => w.id);
@@ -19,6 +19,7 @@ export default function EmbedPreviewClient() {
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
   const [customFont, setCustomFont] = useState("");
+  const [customFontFamily, setCustomFontFamily] = useState("");
   const [fontReady, setFontReady] = useState(true);
   const [measured, setMeasured] = useState<{ width: number; height: number } | null>(null);
   const [live, setLive] = useState<{ src: string; width: number; height: number } | null>(null);
@@ -46,7 +47,7 @@ export default function EmbedPreviewClient() {
     };
   }, [customFont]);
 
-  const fontFamily = customFont ? parseGoogleFontFamily(customFont) : null;
+  const fontFamily = customFont ? resolveFontFamily(customFont, customFontFamily) : null;
   const fontVarStyle = fontFamily
     ? ({ "--font-chivo-mono": `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties)
     : undefined;
@@ -74,6 +75,7 @@ export default function EmbedPreviewClient() {
       bgColor,
       textColor,
       customFont,
+      customFontFamily,
       embedWidth: String(measured.width),
       embedHeight: String(measured.height),
       // Cache-bust so a stale/cached response can't hide behind a URL
@@ -129,6 +131,15 @@ export default function EmbedPreviewClient() {
             value={customFont}
             onChange={(e) => setCustomFont(e.target.value)}
             placeholder="https://fonts.googleapis.com/css2?family=..."
+          />
+        </label>
+        <label>
+          Font Family Name (only needed for non-Google-Fonts URLs)
+          <input
+            style={inputStyle}
+            value={customFontFamily}
+            onChange={(e) => setCustomFontFamily(e.target.value)}
+            placeholder="Univers LT Std"
           />
         </label>
       </div>

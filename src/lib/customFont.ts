@@ -12,3 +12,13 @@ export function parseGoogleFontFamily(url: string): string | null {
     return null;
   }
 }
+
+// Non-Google-Fonts CDNs (cdnfonts.com, Adobe Fonts, self-hosted, etc.) provide
+// the stylesheet URL and the font-family name as two separate pieces with no
+// reliable way to derive one from the other, so an explicit name always wins
+// over the URL-parsed guess.
+export function resolveFontFamily(url: string, explicitFamily?: string): string | null {
+  const trimmed = explicitFamily?.trim();
+  if (trimmed) return trimmed;
+  return parseGoogleFontFamily(url);
+}

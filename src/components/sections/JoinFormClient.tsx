@@ -19,6 +19,7 @@ export default function JoinFormClient() {
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
   const [customFont, setCustomFont] = useState("");
+  const [customFontFamily, setCustomFontFamily] = useState("");
   const [embedSize, setEmbedSize] = useState<{ width: number; height: number } | null>(null);
   const [successSlug, setSuccessSlug] = useState<string | null>(null);
 
@@ -81,6 +82,7 @@ export default function JoinFormClient() {
               bgColor={bgColor}
               textColor={textColor}
               customFont={customFont}
+              customFontFamily={customFontFamily}
               onMeasure={(_widgetId, width, height) => setEmbedSize({ width, height })}
             />
           </div>
@@ -95,6 +97,7 @@ export default function JoinFormClient() {
               onBgColorChange={setBgColor}
               onTextColorChange={setTextColor}
               onCustomFontChange={setCustomFont}
+              onCustomFontFamilyChange={setCustomFontFamily}
               onSuccess={(slug) => handleSuccess(slug)}
             />
           </div>

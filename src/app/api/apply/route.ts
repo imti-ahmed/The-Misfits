@@ -254,7 +254,7 @@ function buildPRBody(opts: {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, nickname, url, email, tags, bgColor, textColor, customFont, widgetId, embedWidth, embedHeight, comments } = body;
+    const { name, nickname, url, email, tags, bgColor, textColor, customFont, customFontFamily, widgetId, embedWidth, embedHeight, comments } = body;
 
     if (!name || !nickname || !url || !email) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -292,6 +292,7 @@ export async function POST(req: NextRequest) {
       bgColor: bgColor ?? "",
       textColor: textColor ?? "",
       customFont: customFont ?? "",
+      customFontFamily: customFontFamily ?? "",
       widget: widgetId ?? "",
       info: comments ?? "",
       embedCode: buildEmbedCode(SITE_ORIGIN, slug, iframeWidth, iframeHeight),

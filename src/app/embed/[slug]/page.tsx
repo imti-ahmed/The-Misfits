@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import WidgetV2Renderer from '@/widgets/v2/WidgetV2Renderer';
 import WidgetPending from '@/widgets/WidgetPending';
 import { recordHit } from '@/lib/widgetHits';
-import { parseGoogleFontFamily } from '@/lib/customFont';
+import { resolveFontFamily } from '@/lib/customFont';
 import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE, EMBED_PADDING } from '@/lib/widgetV2Sizes';
 
 function ensureHash(val: string): string {
@@ -69,6 +69,7 @@ interface EmbedSearchParams {
   bgColor?: string;
   textColor?: string;
   customFont?: string;
+  customFontFamily?: string;
   embedWidth?: string;
   embedHeight?: string;
 }
@@ -106,7 +107,7 @@ export default async function EmbedPage({
     }
 
     const customFont = sp.customFont ?? '';
-    const fontFamily = customFont ? parseGoogleFontFamily(customFont) : null;
+    const fontFamily = customFont ? resolveFontFamily(customFont, sp.customFontFamily) : null;
     const fontVarStyle = fontFamily ? ({ '--font-chivo-mono': `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties) : undefined;
 
     return (
@@ -168,7 +169,8 @@ export default async function EmbedPage({
   }
 
   const customFont: string = data.customFont ?? '';
-  const fontFamily = customFont ? parseGoogleFontFamily(customFont) : null;
+  const customFontFamily: string = data.customFontFamily ?? '';
+  const fontFamily = customFont ? resolveFontFamily(customFont, customFontFamily) : null;
   const fontVarStyle = fontFamily ? ({ '--font-chivo-mono': `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties) : undefined;
 
   return (

@@ -15,6 +15,7 @@ export interface Site {
   bgColor: string;
   textColor: string;
   customFont: string;
+  customFontFamily: string;
   info: string;
   screenshot: string;
 }
@@ -57,6 +58,7 @@ export function getSites(): Site[] {
       bgColor: data.bgColor ?? '',
       textColor: data.textColor ?? '',
       customFont: data.customFont ?? '',
+      customFontFamily: data.customFontFamily ?? '',
       info: data.info ?? '',
       screenshot: data.screenshot ?? '',
     };

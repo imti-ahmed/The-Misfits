@@ -15,6 +15,7 @@ interface FormSectionProps {
   onBgColorChange?: (bgColor: string) => void;
   onTextColorChange?: (textColor: string) => void;
   onCustomFontChange?: (customFont: string) => void;
+  onCustomFontFamilyChange?: (customFontFamily: string) => void;
   onSuccess?: (slug: string, applicationNumber: number, prUrl?: string) => void;
 }
 
@@ -46,6 +47,7 @@ export default function FormSection({
   onBgColorChange,
   onTextColorChange,
   onCustomFontChange,
+  onCustomFontFamilyChange,
   onSuccess,
 }: FormSectionProps) {
   const [name, setName] = useState("");
@@ -56,6 +58,7 @@ export default function FormSection({
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
   const [customFont, setCustomFont] = useState("");
+  const [customFontFamily, setCustomFontFamily] = useState("");
   const [comments, setComments] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
@@ -88,6 +91,7 @@ export default function FormSection({
           bgColor,
           textColor,
           customFont,
+          customFontFamily,
           widgetId,
           embedWidth,
           embedHeight,
@@ -113,10 +117,12 @@ export default function FormSection({
     setBgColor("");
     setTextColor("");
     setCustomFont("");
+    setCustomFontFamily("");
     onNicknameChange?.("USER");
     onBgColorChange?.("");
     onTextColorChange?.("");
     onCustomFontChange?.("");
+    onCustomFontFamilyChange?.("");
     onDiscard?.();
   }
 
@@ -197,16 +203,28 @@ export default function FormSection({
               }}
             />
           </div>
-          <input
-            className={styles.field}
-            type="text"
-            placeholder="Custom Font: Google Fonts or CDN stylesheet URL (Optional)"
-            value={customFont}
-            onChange={(e) => {
-              setCustomFont(e.target.value);
-              onCustomFontChange?.(e.target.value);
-            }}
-          />
+          <div className={styles.row}>
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Custom Font: Google Fonts or CDN stylesheet URL (Optional)"
+              value={customFont}
+              onChange={(e) => {
+                setCustomFont(e.target.value);
+                onCustomFontChange?.(e.target.value);
+              }}
+            />
+            <input
+              className={styles.field}
+              type="text"
+              placeholder="Font Family Name (only needed for non-Google-Fonts URLs)"
+              value={customFontFamily}
+              onChange={(e) => {
+                setCustomFontFamily(e.target.value);
+                onCustomFontFamilyChange?.(e.target.value);
+              }}
+            />
+          </div>
           <textarea
             className={`${styles.field} ${styles.fieldTextarea}`}
             placeholder="Drop any comments or say something about yourself (optional)"
