@@ -57,15 +57,66 @@ function EmbedFrame({
   );
 }
 
+interface EmbedSearchParams {
+  scale?: string;
+  nickname?: string;
+  widget?: string;
+  bgColor?: string;
+  textColor?: string;
+  customFont?: string;
+  embedWidth?: string;
+  embedHeight?: string;
+}
+
 export default async function EmbedPage({
   params,
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ scale?: string }>;
+  searchParams: Promise<EmbedSearchParams>;
 }) {
   const { slug } = await params;
-  const { scale: scaleParam } = await searchParams;
+  const sp = await searchParams;
+  const { scale: scaleParam } = sp;
+
+  // The "preview" slug is a live debug harness (see /embed-preview) — it
+  // renders straight from query params instead of a members/*.md file, so
+  // the embed pipeline can be tested without creating a real member.
+  if (slug === 'preview') {
+    const widgetId = sp.widget ? String(sp.widget).padStart(3, '0') : null;
+    const sizeEntry = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
+    const { defaultScale } = sizeEntry;
+    const measuredWidth = Number(sp.embedWidth);
+    const measuredHeight = Number(sp.embedHeight);
+    const width = Number.isFinite(measuredWidth) && measuredWidth > 0 ? measuredWidth : sizeEntry.width;
+    const height = Number.isFinite(measuredHeight) && measuredHeight > 0 ? measuredHeight : sizeEntry.height;
+    const scale = Math.max(0.1, Math.min(5, parseFloat(scaleParam ?? String(defaultScale)) || defaultScale));
+
+    if (!widgetId) {
+      return (
+        <EmbedFrame width={width} height={height} scale={scale}>
+          <WidgetPending slug={slug} />
+        </EmbedFrame>
+      );
+    }
+
+    const customFont = sp.customFont ?? '';
+    const fontFamily = customFont ? parseGoogleFontFamily(customFont) : null;
+    const fontVarStyle = fontFamily ? ({ '--font-chivo-mono': `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties) : undefined;
+
+    return (
+      <EmbedFrame width={width} height={height} scale={scale} fontLink={customFont || undefined} fontVarStyle={fontVarStyle}>
+        <WidgetV2Renderer
+          widgetId={widgetId}
+          nickname={sp.nickname || 'USER'}
+          slug={slug}
+          bgColor={ensureHash(sp.bgColor || '')}
+          textColor={ensureHash(sp.textColor || '')}
+        />
+      </EmbedFrame>
+    );
+  }
+
   recordHit(slug);
 
   const filePath = path.join(process.cwd(), 'members', `${slug}.md`);
