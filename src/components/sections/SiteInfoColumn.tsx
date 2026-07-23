@@ -35,6 +35,12 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion, days
                 </span>
               ))}
             </p>
+            <iframe
+              src="https://themisfits.byimti.tools/embed/admin"
+              width="305"
+              height="28"
+              style={{ border: 0, marginTop: "12px" }}
+            />
           </div>,
         ]}
       />
