@@ -51,7 +51,6 @@ export default async function JoinPage() {
                   <li>Fill out the form and submit your site.</li>
                   <li>Receive your unique embed URL.</li>
                   <li>Add the widget to your homepage.</li>
-                  <li>Optionally override the widget&apos;s width and font from your own site&apos;s embed script — nothing else is customizable from there.</li>
                   <li>We review your submission.</li>
                   <li>Once approved, you&apos;re officially part this webring</li>
                 </ul>,
