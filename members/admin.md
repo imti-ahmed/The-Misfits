@@ -12,4 +12,5 @@ info:
 embedCode: "<iframe src=\"https://themisfits.byimti.tools/embed/admin\" width=\"305\" height=\"28\" style=\"border:0\"></iframe>"
 embedWidth: 305
 embedHeight: 28
+screenshot: "https://pub-cace89b70f804e5bbafbde60527270f7.r2.dev/screenshots/admin.jpg"
 ---
