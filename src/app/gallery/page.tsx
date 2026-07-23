@@ -2,7 +2,6 @@ import Link from "next/link";
 import SiteHeader from "@/components/sections/SiteHeader";
 import TaggedSection from "@/components/TaggedSection";
 import GalleryCard from "@/components/GalleryCard";
-import ResolutionIndicator from "@/components/ResolutionIndicator";
 import { getSites } from "@/lib/sites";
 import { getRecentMemberActivityMessages } from "@/lib/version";
 import layout from "@/styles/screenLayout.module.css";
@@ -18,8 +17,6 @@ export default async function GalleryPage() {
     <div className={layout.desktopOnly}>
       <main className={layout.page}>
         <div className={layout.bgTexture} aria-hidden />
-        {/* TODO: dev-only reference overlay, remove before final ship */}
-        <ResolutionIndicator />
 
         <SiteHeader memberCount={memberCount} recentActivity={recentActivity} />
 

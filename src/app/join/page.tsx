@@ -3,7 +3,6 @@ import SiteHeader from "@/components/sections/SiteHeader";
 import SiteInfoColumn from "@/components/sections/SiteInfoColumn";
 import JoinFormClient from "@/components/sections/JoinFormClient";
 import TaggedSection from "@/components/TaggedSection";
-import ResolutionIndicator from "@/components/ResolutionIndicator";
 import { getSites } from "@/lib/sites";
 import { getViews } from "@/lib/db";
 import { getLatestVersion, getDaysOnline, getLastUpdateDate, getRecentMemberActivityMessages } from "@/lib/version";
@@ -22,8 +21,6 @@ export default async function JoinPage() {
     <div className={layout.desktopOnly}>
       <main className={layout.page}>
         <div className={layout.bgTexture} aria-hidden />
-        {/* TODO: dev-only reference overlay, remove before final ship */}
-        <ResolutionIndicator />
 
         <SiteHeader memberCount={memberCount} recentActivity={recentActivity} />
 

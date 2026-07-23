@@ -5,7 +5,6 @@ import MemberLink from "@/components/MemberLink";
 import MobilePage from "@/components/mobile/MobilePage";
 import MobileRoot from "@/components/mobile/MobileRoot";
 import MobileFormBottomContent from "@/components/mobile/MobileFormBottomContent";
-import ResolutionIndicator from "@/components/ResolutionIndicator";
 import { getSites } from "@/lib/sites";
 import { getViews } from "@/lib/db";
 import { withRef } from "@/lib/ref";
@@ -27,8 +26,6 @@ export default async function Home() {
       <div className={layout.desktopOnly}>
         <main className={layout.page}>
           <div className={layout.bgTexture} aria-hidden />
-          {/* TODO: dev-only reference overlay, remove before final ship */}
-          <ResolutionIndicator />
 
           <SiteHeader memberCount={memberCount} recentActivity={recentActivity} />
 
