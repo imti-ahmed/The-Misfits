@@ -20,6 +20,7 @@ function EmbedFrame({
   scale,
   fontLink,
   fontVarStyle,
+  pending,
   children,
 }: {
   width: number;
@@ -27,6 +28,7 @@ function EmbedFrame({
   scale: number;
   fontLink?: string;
   fontVarStyle?: React.CSSProperties;
+  pending?: boolean;
   children: React.ReactNode;
 }) {
   const scaledWidth = Math.round(width * scale);
@@ -48,7 +50,10 @@ function EmbedFrame({
           ...fontVarStyle,
         }}
       >
-        <div style={{ width, height, transform: `scale(${scale})`, transformOrigin: 'top left', overflow: 'hidden' }}>
+        {/* Pre-approval: the widget looks exactly right but isn't live yet —
+            pointer-events:none makes every link inert without touching any
+            of the 8 widget components' own markup. */}
+        <div style={{ width, height, transform: `scale(${scale})`, transformOrigin: 'top left', overflow: 'hidden', pointerEvents: pending ? 'none' : undefined }}>
           {children}
         </div>
       </div>
@@ -120,8 +125,17 @@ export default async function EmbedPage({
   recordHit(slug);
 
   const filePath = path.join(process.cwd(), 'members', `${slug}.md`);
+  const pendingFilePath = path.join(process.cwd(), 'members-pending', `${slug}.md`);
 
-  if (!fs.existsSync(filePath)) {
+  // Approved (merged to main) always wins. Before that, a pending copy —
+  // written straight to main at signup — lets the widget render with the
+  // applicant's real customization immediately; its links are just inert
+  // (see the `pending` flag on EmbedFrame) until the PR is reviewed.
+  const approved = fs.existsSync(filePath);
+  const dataFilePath = approved ? filePath : pendingFilePath;
+  const pending = !approved;
+
+  if (!approved && !fs.existsSync(pendingFilePath)) {
     const { width, height, defaultScale } = DEFAULT_WIDGET_SIZE;
     const scale = Math.max(0.1, Math.min(5, parseFloat(scaleParam ?? String(defaultScale)) || defaultScale));
     return (
@@ -131,7 +145,7 @@ export default async function EmbedPage({
     );
   }
 
-  const { data } = matter(fs.readFileSync(filePath, 'utf-8'));
+  const { data } = matter(fs.readFileSync(dataFilePath, 'utf-8'));
 
   const widgetId = data.widget ? String(data.widget).padStart(3, '0') : null;
   const sizeEntry = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
@@ -158,7 +172,7 @@ export default async function EmbedPage({
   const fontVarStyle = fontFamily ? ({ '--font-chivo-mono': `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties) : undefined;
 
   return (
-    <EmbedFrame width={width} height={height} scale={scale} fontLink={customFont || undefined} fontVarStyle={fontVarStyle}>
+    <EmbedFrame width={width} height={height} scale={scale} fontLink={customFont || undefined} fontVarStyle={fontVarStyle} pending={pending}>
       <WidgetV2Renderer
         widgetId={widgetId}
         nickname={data.nickname || data.name || slug}

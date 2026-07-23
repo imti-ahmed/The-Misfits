@@ -312,6 +312,16 @@ export async function POST(req: NextRequest) {
     await createBranch(branch, baseSha);
     await putFile(branch, `members/${slug}.md`, markdown, `Add member: ${nickname}`);
 
+    // Also write straight to main, unreviewed, so the widget can render with
+    // the applicant's real customization immediately instead of showing the
+    // "joining" placeholder until the PR is merged. The embed page marks it
+    // as inert (pending) until the reviewed members/{slug}.md file exists.
+    try {
+      await putFile(GITHUB_BASE, `members-pending/${slug}.md`, markdown, `Add pending widget preview: ${nickname}`);
+    } catch (err) {
+      console.error("[apply] Failed to write pending widget preview:", err);
+    }
+
     const prBody = buildPRBody({ name, nickname, url, email, widgetId, tags: tagList, applicationNumber, screenshotUrl: null });
     const pr = await createPR(branch, `Add member: ${nickname}`, prBody);
 
