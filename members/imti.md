@@ -4,7 +4,7 @@ nickname: IMTI
 url: "https://www.imtiyazahmed.com"
 email: designer.imtiyaz@gmail.com
 tags: [Designer, Builder]
-bgColor: "#000000"
+bgColor: "#F5436D"
 textColor: 
 customFont: "https://fonts.cdnfonts.com/css/univers-lt-std"
 customFontFamily: Univers LT Std
