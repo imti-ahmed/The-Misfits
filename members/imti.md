@@ -13,4 +13,5 @@ info:
 embedCode: "<iframe src=\"https://themisfits.byimti.tools/embed/imti\" width=\"282\" height=\"28\" style=\"border:0\"></iframe>"
 embedWidth: 282
 embedHeight: 28
+screenshot: "https://pub-cace89b70f804e5bbafbde60527270f7.r2.dev/screenshots/imti.jpg"
 ---
