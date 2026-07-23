@@ -29,8 +29,12 @@ export default function Widget006({ slug, bgColor, textColor }: Props) {
         </a>
       </div>
       <div className={styles.identity}>
-        <MisfitsMark />
-        <span className={styles.label}>misfits webring</span>
+        <a href={SITE_ORIGIN} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', color: 'inherit' }}>
+          <MisfitsMark />
+        </a>
+        <span className={styles.label}>
+          <a href={SITE_ORIGIN} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>misfits</a> webring
+        </span>
       </div>
     </div>
   );

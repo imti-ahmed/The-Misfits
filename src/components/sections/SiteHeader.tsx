@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import LogoBox from "@/components/LogoBox";
 import MarqueeTag from "@/components/MarqueeTag";
 import HeaderTag from "@/components/HeaderTag";
 import StackedTag from "@/components/StackedTag";
+import { sounds } from "@/lib/sounds";
 import styles from "./SiteHeader.module.css";
 
 interface SiteHeaderProps {
@@ -27,15 +30,15 @@ export default function SiteHeader({ memberCount, recentActivity = [] }: SiteHea
 
       <StackedTag topLabel="active" bottomLabel={`members:${memberCount}`} color="purple" align="end" />
 
-      <Link href="/join" className={styles.headerLink}>
+      <Link href="/join" className={styles.headerLink} onMouseEnter={() => sounds.swoosh()} onClick={() => sounds.click()}>
         <StackedTag topLabel="click to" bottomLabel="join >>>" color="yellow" align="start" />
       </Link>
 
-      <a href="https://github.com/imti-ahmed/The-Misfits" target="_blank" rel="noopener noreferrer" className={styles.headerLink}>
+      <a href="https://github.com/imti-ahmed/The-Misfits" target="_blank" rel="noopener noreferrer" className={styles.headerLink} onMouseEnter={() => sounds.swoosh()} onClick={() => sounds.click()}>
         <StackedTag topLabel="visit" bottomLabel="github >" color="yellow" align="start" />
       </a>
 
-      <Link href="/gallery" className={styles.headerLink}>
+      <Link href="/gallery" className={styles.headerLink} onMouseEnter={() => sounds.swoosh()} onClick={() => sounds.click()}>
         <HeaderTag label="gallery >" color="yellow" />
       </Link>
     </header>

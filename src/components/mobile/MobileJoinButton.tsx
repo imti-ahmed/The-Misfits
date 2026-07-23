@@ -10,7 +10,7 @@ export default function MobileJoinButton() {
     <button
       className={styles.joinBtn}
       onClick={() => { sounds.click(); onJoin?.(); }}
-      onMouseEnter={() => sounds.hover()}
+      onMouseEnter={() => sounds.swoosh()}
     >
       <span className={styles.joinBtnText}>Join The Guild</span>
       <svg

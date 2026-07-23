@@ -129,7 +129,7 @@ export default function MobileSuccessPage({
               type="button"
               className={styles.actionBtn}
               onClick={() => { sounds.click(); onGoBack(); }}
-              onMouseEnter={() => sounds.hover()}
+              onMouseEnter={() => sounds.swoosh()}
             >
               Go Back To Mainpage
             </button>
@@ -139,7 +139,7 @@ export default function MobileSuccessPage({
               rel="noopener noreferrer"
               className={styles.actionBtnLink}
               onClick={() => sounds.click()}
-              onMouseEnter={() => sounds.hover()}
+              onMouseEnter={() => sounds.swoosh()}
             >
               {prUrl ? "Review Your Submission" : "Check Github Page"}
               <ArrowUpRight size={20} weight="regular" />
@@ -148,7 +148,7 @@ export default function MobileSuccessPage({
               href="mailto:designer.imtiyaz@gmail.com"
               className={styles.actionBtnLink}
               onClick={() => sounds.click()}
-              onMouseEnter={() => sounds.hover()}
+              onMouseEnter={() => sounds.swoosh()}
             >
               Contact Guild Leader
               <ArrowUpRight size={20} weight="regular" />

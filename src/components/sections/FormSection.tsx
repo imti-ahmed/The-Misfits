@@ -234,10 +234,10 @@ export default function FormSection({
         </div>
 
         <div className={styles.submitRow}>
-          <button type="submit" className={styles.navButton} disabled={submitting} onClick={() => sounds.click()} onMouseEnter={() => sounds.hover()}>
+          <button type="submit" className={styles.navButton} disabled={submitting} onClick={() => sounds.click()} onMouseEnter={() => sounds.swoosh()}>
             <NavTag label={submitting ? "submitting..." : "submit >>"} />
           </button>
-          <button type="button" className={styles.navButton} onClick={() => { sounds.click(); handleDiscard(); }} onMouseEnter={() => sounds.hover()}>
+          <button type="button" className={styles.navButton} onClick={() => { sounds.click(); handleDiscard(); }} onMouseEnter={() => sounds.swoosh()}>
             <NavTag label="cancel >>" />
           </button>
         </div>

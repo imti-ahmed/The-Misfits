@@ -62,7 +62,7 @@ export default function WidgetSuccessPanel({ widgetId, nickname, slug, bgColor, 
         </button>
       </div>
 
-      <button type="button" className={styles.navButton} onClick={() => { sounds.click(); handleCopy(); }} onMouseEnter={() => sounds.hover()}>
+      <button type="button" className={styles.navButton} onClick={() => { sounds.click(); handleCopy(); }} onMouseEnter={() => sounds.swoosh()}>
         <NavTag label="copy the url >>" />
       </button>
     </div>

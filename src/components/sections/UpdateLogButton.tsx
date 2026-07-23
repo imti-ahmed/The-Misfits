@@ -57,7 +57,7 @@ export default function UpdateLogButton({ versionLabel }: { versionLabel: string
             className={styles.closeBtn}
             onClick={toggle}
             aria-label="Close update log"
-            onMouseEnter={() => sounds.hover()}
+            onMouseEnter={() => sounds.swoosh()}
           >
             <X size={16} />
           </button>
@@ -83,7 +83,7 @@ export default function UpdateLogButton({ versionLabel }: { versionLabel: string
       </div>
 
       {/* Trigger button */}
-      <button className={styles.button} onClick={toggle} onMouseEnter={() => sounds.hover()}>
+      <button className={styles.button} onClick={toggle} onMouseEnter={() => sounds.swoosh()}>
         <GitFork size={20} className={styles.buttonIcon} />
         <p className={styles.buttonText}>{versionLabel}</p>
       </button>

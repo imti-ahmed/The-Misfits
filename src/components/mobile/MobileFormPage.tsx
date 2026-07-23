@@ -246,7 +246,7 @@ export default function MobileFormPage({
                 className={styles.submitBtn}
                 disabled={submitting}
                 onClick={() => sounds.click()}
-                onMouseEnter={() => sounds.hover()}
+                onMouseEnter={() => sounds.swoosh()}
               >
                 {submitting ? "Submitting..." : "Submit The Application"}
                 <Plus size={18} />
@@ -257,7 +257,7 @@ export default function MobileFormPage({
                 type="button"
                 className={styles.discardBtn}
                 onClick={() => { sounds.click(); handleDiscard(); }}
-                onMouseEnter={() => sounds.hover()}
+                onMouseEnter={() => sounds.swoosh()}
               >
                 Discard &amp; Go Back
               </button>

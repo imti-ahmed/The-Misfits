@@ -1,5 +1,6 @@
 import { defineSound } from '@web-kits/audio';
-import { swoosh, copy, success, error, click, hover, expand } from '@/audio/soft';
+import { copy, error, hover, expand } from '@/audio/soft';
+import { swoosh, success, click } from '@/audio/playful';
 
 export const sounds = {
   swoosh:  defineSound(swoosh),

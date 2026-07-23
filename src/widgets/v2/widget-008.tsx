@@ -17,10 +17,14 @@ export default function Widget008({ slug, bgColor, textColor }: Props) {
 
   return (
     <div className={styles.widget} style={style}>
-      <div className={styles.label}>misfits webring</div>
+      <div className={styles.label}>
+        <a href={SITE_ORIGIN} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>misfits</a> webring
+      </div>
       <div className={styles.row}>
         <div className={styles.iconBadge}>
-          <MisfitsMark />
+          <a href={SITE_ORIGIN} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', color: 'inherit' }}>
+            <MisfitsMark />
+          </a>
         </div>
         <div className={styles.navPill}>
           <a href={`${SITE_ORIGIN}/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navBtn} aria-label="Previous site">

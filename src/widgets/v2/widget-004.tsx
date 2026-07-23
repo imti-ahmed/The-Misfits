@@ -18,8 +18,12 @@ export default function Widget004({ slug, bgColor, textColor }: Props) {
   return (
     <div className={styles.widget} style={style}>
       <div className={styles.identity}>
-        <MisfitsMark />
-        <span className={styles.label}>misfits webring</span>
+        <a href={SITE_ORIGIN} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', color: 'inherit' }}>
+          <MisfitsMark />
+        </a>
+        <span className={styles.label}>
+          <a href={SITE_ORIGIN} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>misfits</a> webring
+        </span>
       </div>
       <div className={styles.navPill}>
         <a href={`${SITE_ORIGIN}/api/ring/${slug}/prev`} target="_blank" rel="noopener noreferrer" className={styles.navBtn} aria-label="Previous site">
