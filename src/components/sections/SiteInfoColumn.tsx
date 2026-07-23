@@ -43,9 +43,7 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion, days
               src={`${SITE_ORIGIN}/embed/admin`}
               width={adminWidgetSize.width}
               height={adminWidgetSize.height}
-              scrolling="no"
-              style={{ border: 0, overflow: "hidden", marginTop: "12px" }}
-              title="Misfits Webring"
+              style={{ border: 0, marginTop: "12px" }}
             />
           </div>,
         ]}
