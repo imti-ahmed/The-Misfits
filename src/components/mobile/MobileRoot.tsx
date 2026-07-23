@@ -25,6 +25,7 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
   const [nickname, setNickname] = useState("USER");
   const [selectedWidgetIndex, setSelectedWidgetIndex] = useState(0);
   const [successData, setSuccessData] = useState<SuccessData | null>(null);
+  const [embedSize, setEmbedSize] = useState<{ width: number; height: number } | null>(null);
 
   function handleBack() {
     window.scrollTo(0, 0);
@@ -49,6 +50,7 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
         onWidgetSelect={setSelectedWidgetIndex}
         onBack={handleBack}
         onSuccess={handleSuccess}
+        onMeasure={(width, height) => setEmbedSize({ width, height })}
       />
     );
   }
@@ -62,6 +64,8 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
         prUrl={successData.prUrl}
         bottomContent={formBottomContent}
         onGoBack={handleBack}
+        embedWidth={embedSize?.width}
+        embedHeight={embedSize?.height}
       />
     );
   }

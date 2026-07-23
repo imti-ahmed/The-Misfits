@@ -18,6 +18,8 @@ export default function JoinFormClient() {
   const [widgetId, setWidgetId] = useState("002");
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
+  const [customFont, setCustomFont] = useState("");
+  const [embedSize, setEmbedSize] = useState<{ width: number; height: number } | null>(null);
   const [successSlug, setSuccessSlug] = useState<string | null>(null);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -66,6 +68,8 @@ export default function JoinFormClient() {
           slug={successSlug}
           bgColor={bgColor}
           textColor={textColor}
+          embedWidth={embedSize?.width}
+          embedHeight={embedSize?.height}
         />
       ) : (
         <>
@@ -76,6 +80,8 @@ export default function JoinFormClient() {
               onSelect={setWidgetId}
               bgColor={bgColor}
               textColor={textColor}
+              customFont={customFont}
+              onMeasure={(_widgetId, width, height) => setEmbedSize({ width, height })}
             />
           </div>
 
@@ -83,9 +89,12 @@ export default function JoinFormClient() {
             <HeaderTag label="fill the details" color="pink" />
             <FormSection
               widgetId={widgetId}
+              embedWidth={embedSize?.width}
+              embedHeight={embedSize?.height}
               onNicknameChange={setNickname}
               onBgColorChange={setBgColor}
               onTextColorChange={setTextColor}
+              onCustomFontChange={setCustomFont}
               onSuccess={(slug) => handleSuccess(slug)}
             />
           </div>

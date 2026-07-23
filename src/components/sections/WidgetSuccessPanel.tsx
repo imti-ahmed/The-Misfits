@@ -9,6 +9,7 @@ import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
 import { SITE_ORIGIN } from "@/lib/site";
 import { buildEmbedCode } from "@/lib/embedCode";
+import { resolveEmbedIframeSize } from "@/lib/widgetV2Sizes";
 import styles from "./WidgetSuccessPanel.module.css";
 
 interface WidgetSuccessPanelProps {
@@ -17,10 +18,13 @@ interface WidgetSuccessPanelProps {
   slug: string;
   bgColor?: string;
   textColor?: string;
+  embedWidth?: number;
+  embedHeight?: number;
 }
 
-export default function WidgetSuccessPanel({ widgetId, nickname, slug, bgColor, textColor }: WidgetSuccessPanelProps) {
-  const embedCode = buildEmbedCode(SITE_ORIGIN, slug, widgetId);
+export default function WidgetSuccessPanel({ widgetId, nickname, slug, bgColor, textColor, embedWidth, embedHeight }: WidgetSuccessPanelProps) {
+  const { width, height } = resolveEmbedIframeSize(widgetId, embedWidth, embedHeight);
+  const embedCode = buildEmbedCode(SITE_ORIGIN, slug, width, height);
   const [copied, setCopied] = useState(false);
   const closeToast = useCallback(() => setCopied(false), []);
 

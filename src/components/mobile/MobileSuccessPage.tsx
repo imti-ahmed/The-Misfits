@@ -9,6 +9,7 @@ import Toast from "@/components/Toast";
 import { sounds } from "@/lib/sounds";
 import { SITE_ORIGIN } from "@/lib/site";
 import { buildEmbedCode } from "@/lib/embedCode";
+import { resolveEmbedIframeSize } from "@/lib/widgetV2Sizes";
 import MobileHeader, { FORM_TABS } from "./MobileHeader";
 import pageStyles from "./MobilePage.module.css";
 import styles from "./MobileSuccessPage.module.css";
@@ -25,6 +26,8 @@ interface MobileSuccessPageProps {
   prUrl?: string;
   bottomContent: React.ReactNode;
   onGoBack: () => void;
+  embedWidth?: number;
+  embedHeight?: number;
 }
 
 export default function MobileSuccessPage({
@@ -34,8 +37,11 @@ export default function MobileSuccessPage({
   prUrl,
   bottomContent,
   onGoBack,
+  embedWidth,
+  embedHeight,
 }: MobileSuccessPageProps) {
-  const embedCode = buildEmbedCode(SITE_ORIGIN, slug, widgetId);
+  const { width, height } = resolveEmbedIframeSize(widgetId, embedWidth, embedHeight);
+  const embedCode = buildEmbedCode(SITE_ORIGIN, slug, width, height);
   const previewScale = getPreviewScale(widgetId);
 
   const [copied, setCopied] = useState(false);

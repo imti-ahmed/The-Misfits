@@ -8,10 +8,13 @@ import { sounds } from "@/lib/sounds";
 
 interface FormSectionProps {
   widgetId?: string;
+  embedWidth?: number;
+  embedHeight?: number;
   onDiscard?: () => void;
   onNicknameChange?: (nickname: string) => void;
   onBgColorChange?: (bgColor: string) => void;
   onTextColorChange?: (textColor: string) => void;
+  onCustomFontChange?: (customFont: string) => void;
   onSuccess?: (slug: string, applicationNumber: number, prUrl?: string) => void;
 }
 
@@ -36,10 +39,13 @@ function ensureHttps(val: string): string {
 
 export default function FormSection({
   widgetId,
+  embedWidth,
+  embedHeight,
   onDiscard,
   onNicknameChange,
   onBgColorChange,
   onTextColorChange,
+  onCustomFontChange,
   onSuccess,
 }: FormSectionProps) {
   const [name, setName] = useState("");
@@ -83,6 +89,8 @@ export default function FormSection({
           textColor,
           customFont,
           widgetId,
+          embedWidth,
+          embedHeight,
           comments,
         }),
       });
@@ -108,6 +116,7 @@ export default function FormSection({
     onNicknameChange?.("USER");
     onBgColorChange?.("");
     onTextColorChange?.("");
+    onCustomFontChange?.("");
     onDiscard?.();
   }
 
@@ -193,7 +202,10 @@ export default function FormSection({
             type="text"
             placeholder="Custom Font: Google Fonts or CDN stylesheet URL (Optional)"
             value={customFont}
-            onChange={(e) => setCustomFont(e.target.value)}
+            onChange={(e) => {
+              setCustomFont(e.target.value);
+              onCustomFontChange?.(e.target.value);
+            }}
           />
           <textarea
             className={`${styles.field} ${styles.fieldTextarea}`}

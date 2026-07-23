@@ -2,7 +2,7 @@
 
 import { Plus } from "@phosphor-icons/react";
 import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from "@/lib/widgetV2Sizes";
 import Toast from "@/components/Toast";
@@ -34,6 +34,7 @@ interface MobileFormPageProps {
   onWidgetSelect: (i: number) => void;
   onBack: () => void;
   onSuccess: (slug: string, applicationNumber: number, prUrl?: string) => void;
+  onMeasure?: (width: number, height: number) => void;
 }
 
 export default function MobileFormPage({
@@ -44,6 +45,7 @@ export default function MobileFormPage({
   onWidgetSelect,
   onBack,
   onSuccess,
+  onMeasure,
 }: MobileFormPageProps) {
   const [direction, setDirection] = useState<"prev" | "next">("next");
   const [animKey, setAnimKey] = useState(0);
@@ -58,7 +60,28 @@ export default function MobileFormPage({
   const [comments, setComments] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
+  const [embedSize, setEmbedSize] = useState<{ width: number; height: number } | null>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
   const closeToast = useCallback(() => setToast(null), []);
+
+  // Measure the real rendered widget size (per selected widget + nickname)
+  // instead of relying on the approximate lookup table — text width varies
+  // per name and the guess table can clip content in the embed iframe.
+  useEffect(() => {
+    const measure = measureRef.current;
+    if (!measure) return;
+    const recompute = () => {
+      const width = measure.scrollWidth;
+      const height = measure.scrollHeight;
+      if (width <= 0) return;
+      setEmbedSize({ width, height });
+      onMeasure?.(width, height);
+    };
+    recompute();
+    const observer = new ResizeObserver(recompute);
+    observer.observe(measure);
+    return () => observer.disconnect();
+  }, [selectedWidgetIndex, nickname]);
 
   function showToast(message: string, type: "error" | "success" = "error") {
     setToast({ message, type });
@@ -109,6 +132,8 @@ export default function MobileFormPage({
           bgColor,
           textColor,
           widgetId,
+          embedWidth: embedSize?.width,
+          embedHeight: embedSize?.height,
           comments,
         }),
       });
@@ -172,7 +197,7 @@ export default function MobileFormPage({
                 flexShrink: 0,
               }}>
                 <div key={animKey} className={slideClass}>
-                  <div onClick={(e) => e.preventDefault()}>
+                  <div ref={measureRef} onClick={(e) => e.preventDefault()}>
                     <WidgetV2Renderer
                       widgetId={widgetId}
                       nickname={nickname}

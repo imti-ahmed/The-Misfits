@@ -84,7 +84,14 @@ export default async function EmbedPage({
 
   const widgetId = data.widget ? String(data.widget).padStart(3, '0') : null;
   const sizeEntry = (widgetId ? WIDGET_SIZES[widgetId] : null) ?? DEFAULT_WIDGET_SIZE;
-  const { width, height, defaultScale } = sizeEntry;
+  const { defaultScale } = sizeEntry;
+  // A member's measured content size (set at signup, from the actual rendered
+  // widget) always wins over the approximate per-widget-type lookup table —
+  // real text/font width varies per nickname and can't be guessed globally.
+  const measuredWidth = Number(data.embedWidth);
+  const measuredHeight = Number(data.embedHeight);
+  const width = Number.isFinite(measuredWidth) && measuredWidth > 0 ? measuredWidth : sizeEntry.width;
+  const height = Number.isFinite(measuredHeight) && measuredHeight > 0 ? measuredHeight : sizeEntry.height;
   const scale = Math.max(0.1, Math.min(5, parseFloat(scaleParam ?? String(defaultScale)) || defaultScale));
 
   if (!widgetId) {

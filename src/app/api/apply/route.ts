@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse, after } from "next/server";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { buildEmbedCode } from "@/lib/embedCode";
+import { resolveEmbedIframeSize } from "@/lib/widgetV2Sizes";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
@@ -253,7 +254,7 @@ function buildPRBody(opts: {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, nickname, url, email, tags, bgColor, textColor, customFont, widgetId, comments } = body;
+    const { name, nickname, url, email, tags, bgColor, textColor, customFont, widgetId, embedWidth, embedHeight, comments } = body;
 
     if (!name || !nickname || !url || !email) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -279,7 +280,10 @@ export async function POST(req: NextRequest) {
         ? tags.split(",").map((t: string) => t.trim()).filter(Boolean)
         : Array.isArray(tags) ? tags : [];
 
-    const fields = {
+    const hasMeasuredSize = typeof embedWidth === "number" && typeof embedHeight === "number" && embedWidth > 0 && embedHeight > 0;
+    const { width: iframeWidth, height: iframeHeight } = resolveEmbedIframeSize(widgetId ?? "", embedWidth, embedHeight);
+
+    const fields: Record<string, string | string[]> = {
       name,
       nickname,
       url,
@@ -290,8 +294,16 @@ export async function POST(req: NextRequest) {
       customFont: customFont ?? "",
       widget: widgetId ?? "",
       info: comments ?? "",
-      embedCode: buildEmbedCode(SITE_ORIGIN, slug, widgetId ?? ""),
+      embedCode: buildEmbedCode(SITE_ORIGIN, slug, iframeWidth, iframeHeight),
     };
+
+    // Real measured size (from the widget as actually rendered client-side
+    // at signup) beats the approximate per-widget-type lookup table — stored
+    // per-member so the embed page never has to guess again.
+    if (hasMeasuredSize) {
+      fields.embedWidth = String(embedWidth);
+      fields.embedHeight = String(embedHeight);
+    }
 
     // GitHub: branch → file → PR — no screenshot yet, so the member is live
     // and reviewable right away instead of waiting on a slow external API.

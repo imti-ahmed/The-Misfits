@@ -1,6 +1,9 @@
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 import TaggedSection from "@/components/TaggedSection";
 import { SITE_ORIGIN } from "@/lib/site";
-import { getEmbedIframeSize } from "@/lib/widgetV2Sizes";
+import { resolveEmbedIframeSize } from "@/lib/widgetV2Sizes";
 
 const SOCIAL_LINKS = [
   { label: "Portfolio", href: "https://www.imtiyazahmed.com/" },
@@ -18,7 +21,9 @@ interface SiteInfoColumnProps {
 }
 
 export default function SiteInfoColumn({ views, memberCount, latestVersion, daysOnline, lastUpdate }: SiteInfoColumnProps) {
-  const adminWidgetSize = getEmbedIframeSize('009');
+  const adminFilePath = path.join(process.cwd(), "members", "admin.md");
+  const { data: adminData } = matter(fs.readFileSync(adminFilePath, "utf-8"));
+  const adminWidgetSize = resolveEmbedIframeSize("009", Number(adminData.embedWidth), Number(adminData.embedHeight));
 
   return (
     <>

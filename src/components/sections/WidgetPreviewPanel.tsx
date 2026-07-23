@@ -5,6 +5,7 @@ import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import { widgetV2Registry } from "@/widgets/v2/registry";
 import NavTag from "@/components/NavTag";
 import { sounds } from "@/lib/sounds";
+import { parseGoogleFontFamily } from "@/lib/customFont";
 import styles from "./WidgetPreviewPanel.module.css";
 
 const WIDGET_IDS = widgetV2Registry.map((w) => w.id);
@@ -16,9 +17,11 @@ interface WidgetPreviewPanelProps {
   nickname?: string;
   bgColor?: string;
   textColor?: string;
+  customFont?: string;
+  onMeasure?: (widgetId: string, width: number, height: number) => void;
 }
 
-export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColor, textColor }: WidgetPreviewPanelProps) {
+export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColor, textColor, customFont, onMeasure }: WidgetPreviewPanelProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [phase, setPhase] = useState<"idle" | "out" | "in">("idle");
   const [fitScale, setFitScale] = useState(1);
@@ -26,12 +29,41 @@ export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColo
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
+  const [fontReady, setFontReady] = useState(!customFont);
 
   useEffect(() => {
     return () => {
       timeoutsRef.current.forEach(clearTimeout);
     };
   }, []);
+
+  // Load the custom font before measuring — its metrics can be wider or
+  // narrower than the default, and we need the real rendered size for the
+  // embed iframe, not a guess made against the wrong font.
+  useEffect(() => {
+    if (!customFont) {
+      setFontReady(true);
+      return;
+    }
+    setFontReady(false);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = customFont;
+    const markReady = () => setFontReady(true);
+    link.addEventListener("load", markReady);
+    link.addEventListener("error", markReady);
+    document.head.appendChild(link);
+    return () => {
+      link.removeEventListener("load", markReady);
+      link.removeEventListener("error", markReady);
+      link.remove();
+    };
+  }, [customFont]);
+
+  const fontFamily = customFont ? parseGoogleFontFamily(customFont) : null;
+  const fontVarStyle = fontFamily
+    ? ({ "--font-chivo-mono": `"${fontFamily}", 'Chivo Mono', monospace` } as React.CSSProperties)
+    : undefined;
 
   // Shrink the widget to fit the box whenever it (or the box) is wider than
   // the available space in cramped viewport ranges. Independent of the bounce
@@ -40,15 +72,17 @@ export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColo
   useEffect(() => {
     const container = containerRef.current;
     const measure = measureRef.current;
-    if (!container || !measure) return;
+    if (!container || !measure || !fontReady) return;
 
     const recompute = () => {
       const naturalWidth = measure.scrollWidth;
+      const naturalHeight = measure.scrollHeight;
       if (naturalWidth <= 0) return;
       const cs = getComputedStyle(container);
       const paddingH = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
       const availableWidth = container.clientWidth - paddingH;
       setFitScale(Math.min(1, availableWidth / naturalWidth));
+      onMeasure?.(WIDGET_IDS[selectedIndex], naturalWidth, naturalHeight);
     };
 
     recompute();
@@ -56,7 +90,7 @@ export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColo
     observer.observe(container);
     observer.observe(measure);
     return () => observer.disconnect();
-  }, [selectedIndex]);
+  }, [selectedIndex, fontReady]);
 
   function transitionTo(nextIndex: number) {
     pendingIndexRef.current = nextIndex;
@@ -93,7 +127,7 @@ export default function WidgetPreviewPanel({ onSelect, nickname = "USER", bgColo
     <div className={styles.panel}>
       <div ref={containerRef} className={styles.previewBox}>
         <div style={{ transform: `scale(${fitScale})`, transformOrigin: "center" }}>
-          <div ref={measureRef} className={animClass}>
+          <div ref={measureRef} className={animClass} style={fontVarStyle}>
             <WidgetV2Renderer
               widgetId={WIDGET_IDS[selectedIndex]}
               nickname={nickname}
