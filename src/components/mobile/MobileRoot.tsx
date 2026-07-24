@@ -15,12 +15,20 @@ interface SuccessData {
   prUrl?: string;
 }
 
-interface MobileRootProps {
-  homePage: React.ReactNode;
-  formBottomContent: React.ReactNode;
+interface SiteInfo {
+  views: number;
+  memberCount: number;
+  latestVersion: string;
+  daysOnline: number;
+  lastUpdate: string;
 }
 
-export default function MobileRoot({ homePage, formBottomContent }: MobileRootProps) {
+interface MobileRootProps {
+  homePage: React.ReactNode;
+  siteInfo: SiteInfo;
+}
+
+export default function MobileRoot({ homePage, siteInfo }: MobileRootProps) {
   const [view, setView] = useState<View>("home");
   const [nickname, setNickname] = useState("USER");
   const [selectedWidgetIndex, setSelectedWidgetIndex] = useState(0);
@@ -45,7 +53,7 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
       <MobileFormPage
         nickname={nickname}
         selectedWidgetIndex={selectedWidgetIndex}
-        bottomContent={formBottomContent}
+        siteInfo={siteInfo}
         onNicknameChange={setNickname}
         onWidgetSelect={setSelectedWidgetIndex}
         onBack={handleBack}
@@ -62,7 +70,7 @@ export default function MobileRoot({ homePage, formBottomContent }: MobileRootPr
         nickname={nickname}
         slug={successData.slug}
         prUrl={successData.prUrl}
-        bottomContent={formBottomContent}
+        siteInfo={siteInfo}
         onGoBack={handleBack}
         embedWidth={embedSize?.width}
         embedHeight={embedSize?.height}

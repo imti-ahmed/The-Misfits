@@ -1,0 +1,12 @@
+.link {
+  display: inline;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: var(--space-1);
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -6,6 +6,10 @@
   width: 100%;
 }
 
+.sectionFullWidth {
+  align-items: stretch;
+}
+
 .contentBox {
   display: flex;
   align-items: center;

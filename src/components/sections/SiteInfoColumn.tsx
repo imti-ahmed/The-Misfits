@@ -13,14 +13,16 @@ interface SiteInfoColumnProps {
   latestVersion: string;
   daysOnline: number;
   lastUpdate: string;
+  fullWidth?: boolean;
 }
 
-export default function SiteInfoColumn({ views, memberCount, latestVersion, daysOnline, lastUpdate }: SiteInfoColumnProps) {
+export default function SiteInfoColumn({ views, memberCount, latestVersion, daysOnline, lastUpdate, fullWidth = false }: SiteInfoColumnProps) {
   return (
     <>
       <TaggedSection
         headerLabel="author's note"
         color="green"
+        fullWidth={fullWidth}
         content={[
           <div key="author">
             <p>Designed, developed and maintained by Imtiyaz Ahmed.</p>
@@ -48,6 +50,7 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion, days
       <TaggedSection
         headerLabel="site stats"
         color="purple"
+        fullWidth={fullWidth}
         content={[
           <ul key="stats">
             <li>Views {">>"} {String(views).padStart(4, "0")}</li>
@@ -62,6 +65,7 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion, days
       <TaggedSection
         headerLabel="update widget"
         color="blue"
+        fullWidth={fullWidth}
         content={[
           <p key="update">
             We&apos;re working on a feature that will let existing members update their webring widget

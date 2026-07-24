@@ -1,22 +1,33 @@
 "use client";
 
-import { Plus, ArrowUpRight, Copy } from "@phosphor-icons/react";
+import { Copy } from "@phosphor-icons/react";
 import { useState, useCallback } from "react";
 import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from "@/lib/widgetV2Sizes";
-import DotGridBackground from "@/components/DotGridBackground";
 import Toast from "@/components/Toast";
+import TaggedSection from "@/components/TaggedSection";
+import HeaderTag from "@/components/HeaderTag";
+import NavTag from "@/components/NavTag";
 import { sounds } from "@/lib/sounds";
 import { SITE_ORIGIN } from "@/lib/site";
 import { buildEmbedCode } from "@/lib/embedCode";
 import { resolveEmbedIframeSize } from "@/lib/widgetV2Sizes";
-import MobileHeader, { FORM_TABS } from "./MobileHeader";
-import pageStyles from "./MobilePage.module.css";
-import styles from "./MobileSuccessPage.module.css";
+import MobileHeader from "./MobileHeader";
+import MobileInfoSections from "./MobileInfoSections";
+import styles from "./MobileFormPage.module.css";
+import successStyles from "./MobileSuccessPage.module.css";
 
 function getPreviewScale(widgetId: string): number {
   const { width } = WIDGET_SIZES[widgetId] ?? DEFAULT_WIDGET_SIZE;
   return Math.max(0.4, Math.min(1.4, 260 / width));
+}
+
+interface SiteInfo {
+  views: number;
+  memberCount: number;
+  latestVersion: string;
+  daysOnline: number;
+  lastUpdate: string;
 }
 
 interface MobileSuccessPageProps {
@@ -24,7 +35,7 @@ interface MobileSuccessPageProps {
   nickname: string;
   slug: string;
   prUrl?: string;
-  bottomContent: React.ReactNode;
+  siteInfo: SiteInfo;
   onGoBack: () => void;
   embedWidth?: number;
   embedHeight?: number;
@@ -35,7 +46,7 @@ export default function MobileSuccessPage({
   nickname,
   slug,
   prUrl,
-  bottomContent,
+  siteInfo,
   onGoBack,
   embedWidth,
   embedHeight,
@@ -56,114 +67,81 @@ export default function MobileSuccessPage({
   }
 
   return (
-    <div className={pageStyles.page}>
+    <div className={styles.page}>
       {copied && (
         <Toast message="Embed code copied!" type="success" onClose={closeToast} />
       )}
 
-      <MobileHeader tabs={FORM_TABS as unknown as { label: string; id: string }[]} />
+      <MobileHeader memberCount={String(siteInfo.memberCount).padStart(3, "0")} />
 
-      <main className={pageStyles.content}>
-        <section id="form">
+      <main className={styles.content}>
 
-          {/* Section header */}
-          <div className={pageStyles.sectionHeader}>
-            <p className={pageStyles.sectionTitle}>Join The Guild</p>
-            <Plus size={18} className={pageStyles.sectionIcon} />
-          </div>
+        <TaggedSection
+          headerLabel="join the webring"
+          color="yellow"
+          fullWidth
+          content={[
+            <p key="welcome">
+              Welcome Cool Misfit.
+              <br />
+              <br />
+              Pick a widget, submit your site, and we&apos;ll handle the rest. Cheers!
+            </p>,
+          ]}
+        />
 
-          {/* Intro text */}
-          <div className={pageStyles.block}>
-            <p className={pageStyles.bodyText}>
-              Welcome Cool Strange. To join the guild, please fill the form below and choose the
-              kind of webring widget you want to embed in your website. Want different colors?
-              Please specify the hex codes in the form below and submit — and we handle the rest.
-              You will get an embed code, add that to your site and once we approve, you will
-              part of the webring.
-            </p>
-          </div>
+        {/* ── Form submitted ───────────────────────────── */}
+        <div className={styles.group}>
+          <HeaderTag label="form submitted" color="pink" fullWidth />
 
-          {/* Widget preview */}
-          <div className={styles.preview}>
-            <div
-              style={{
-                transform: `scale(${previewScale})`,
-                transformOrigin: "center center",
-                flexShrink: 0,
-              }}
-              onClick={(e) => e.preventDefault()}
-            >
+          <div className={styles.ticker}>
+            <div style={{ transform: `scale(${previewScale})`, transformOrigin: "center center", flexShrink: 0 }}>
               <WidgetV2Renderer widgetId={widgetId} nickname={nickname} slug={slug} />
             </div>
           </div>
 
-          {/* Success confirmation */}
-          <div className={pageStyles.block}>
-            <p className={pageStyles.bodyText}>
+          <div className={successStyles.textBox}>
+            <p className={successStyles.text}>
               Your application has successfully submitted. We will review your site and get back
               to you through email in 1-2 days max.
             </p>
           </div>
 
-          {/* Embed code */}
-          <div className={styles.embedBlock}>
-            <p className={pageStyles.bodyText}>
-              Here is your embed code. Make sure its added to the main page of the website.
+          <div className={successStyles.textBox}>
+            <p className={successStyles.text}>
+              Here is your script embed code. Make sure its added to the main page of the website.
             </p>
-            <div className={styles.embedField}>
-              <button
-                type="button"
-                className={styles.copyBtn}
-                onClick={handleCopy}
-                aria-label="Copy embed code"
-              >
-                <Copy size={20} weight="regular" />
-              </button>
-              <span className={styles.embedCode}>{embedCode}</span>
-            </div>
+            <button type="button" className={successStyles.codeBox} onClick={handleCopy} aria-label="Copy embed code">
+              <Copy size={20} className={successStyles.codeIcon} />
+              <span className={successStyles.code}>{embedCode}</span>
+            </button>
           </div>
 
-          {/* Action buttons */}
-          <div className={styles.submitSection}>
+          <div className={styles.navRow}>
             <button
               type="button"
-              className={styles.actionBtn}
-              onClick={() => { sounds.click(); onGoBack(); }}
+              className={styles.navButton}
+              onClick={() => { sounds.click(); handleCopy(); }}
               onMouseEnter={() => sounds.swoosh()}
             >
-              Go Back To Mainpage
+              <NavTag label="copy the url >>" />
             </button>
-            <a
-              href={prUrl ?? "https://github.com/imti-ahmed/The-Misfits"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.actionBtnLink}
-              onClick={() => sounds.click()}
-              onMouseEnter={() => sounds.swoosh()}
-            >
-              {prUrl ? "Review Your Submission" : "Check Github Page"}
-              <ArrowUpRight size={20} weight="regular" />
-            </a>
-            <a
-              href="mailto:designer.imtiyaz@gmail.com"
-              className={styles.actionBtnLink}
-              onClick={() => sounds.click()}
-              onMouseEnter={() => sounds.swoosh()}
-            >
-              Contact Guild Leader
-              <ArrowUpRight size={20} weight="regular" />
-            </a>
+            {prUrl && (
+              <a
+                href={prUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.navButton}
+                onClick={() => sounds.click()}
+                onMouseEnter={() => sounds.swoosh()}
+              >
+                <NavTag label="review submission >>" />
+              </a>
+            )}
           </div>
-
-        </section>
-
-        {/* Cool interaction */}
-        <div className={pageStyles.interactionBlock}>
-          <DotGridBackground />
         </div>
 
-        {/* Members, gallery, criteria */}
-        {bottomContent}
+        <MobileInfoSections {...siteInfo} onGoBack={onGoBack} />
 
       </main>
     </div>

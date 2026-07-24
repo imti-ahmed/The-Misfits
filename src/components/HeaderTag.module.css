@@ -5,6 +5,12 @@
   padding: 0 var(--space-1);
 }
 
+.full {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .label {
   font-family: var(--font-chivo-mono, 'Chivo Mono', monospace);
   font-size: var(--font-size-md);

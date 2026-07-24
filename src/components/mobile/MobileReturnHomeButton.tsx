@@ -1,19 +1,21 @@
 "use client";
 
 import { sounds } from "@/lib/sounds";
-import { useMobileJoin } from "./MobileJoinContext";
 import styles from "./MobileJoinButton.module.css";
 
-export default function MobileJoinButton() {
-  const onJoin = useMobileJoin();
+interface MobileReturnHomeButtonProps {
+  onGoBack: () => void;
+}
+
+export default function MobileReturnHomeButton({ onGoBack }: MobileReturnHomeButtonProps) {
   return (
     <button
       type="button"
       className={styles.link}
-      onClick={() => { sounds.click(); onJoin?.(); }}
+      onClick={() => { sounds.click(); onGoBack(); }}
       onMouseEnter={() => sounds.swoosh()}
     >
-      Click Here To Join
+      Click Here
     </button>
   );
 }

@@ -1,13 +1,15 @@
 "use client";
 
-import { Plus } from "@phosphor-icons/react";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { useState, useCallback, useEffect, useRef } from "react";
 import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
 import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from "@/lib/widgetV2Sizes";
 import Toast from "@/components/Toast";
+import TaggedSection from "@/components/TaggedSection";
+import HeaderTag from "@/components/HeaderTag";
+import NavTag from "@/components/NavTag";
 import { sounds } from "@/lib/sounds";
-import MobileHeader, { FORM_TABS } from "./MobileHeader";
+import MobileHeader from "./MobileHeader";
+import MobileInfoSections from "./MobileInfoSections";
 import styles from "./MobileFormPage.module.css";
 
 const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009"];
@@ -26,10 +28,18 @@ function ensureHash(val: string): string {
 
 interface ToastState { message: string; type: "error" | "success"; }
 
+interface SiteInfo {
+  views: number;
+  memberCount: number;
+  latestVersion: string;
+  daysOnline: number;
+  lastUpdate: string;
+}
+
 interface MobileFormPageProps {
   nickname: string;
   selectedWidgetIndex: number;
-  bottomContent: React.ReactNode;
+  siteInfo: SiteInfo;
   onNicknameChange: (n: string) => void;
   onWidgetSelect: (i: number) => void;
   onBack: () => void;
@@ -40,7 +50,7 @@ interface MobileFormPageProps {
 export default function MobileFormPage({
   nickname,
   selectedWidgetIndex,
-  bottomContent,
+  siteInfo,
   onNicknameChange,
   onWidgetSelect,
   onBack,
@@ -163,33 +173,29 @@ export default function MobileFormPage({
     <div className={styles.page}>
       {toast && <Toast message={toast.message} type={toast.type} onClose={closeToast} />}
 
-      <MobileHeader tabs={FORM_TABS as unknown as { label: string; id: string }[]} />
+      <MobileHeader memberCount={String(siteInfo.memberCount).padStart(3, "0")} />
 
       <main className={styles.content}>
 
-        {/* ── Join The Guild header ──────────────────── */}
-        <section id="form">
-          <div className={styles.sectionHeader}>
-            <p className={styles.sectionTitle}>Join The Guild</p>
-            <Plus size={18} className={styles.sectionIcon} />
-          </div>
+        <TaggedSection
+          headerLabel="join the webring"
+          color="yellow"
+          fullWidth
+          content={[
+            <p key="welcome">
+              Welcome Cool Misfit.
+              <br />
+              <br />
+              Pick a widget, submit your site, and we&apos;ll handle the rest. Cheers!
+            </p>,
+          ]}
+        />
 
-          {/* Intro text */}
-          <div className={styles.block}>
-            <p className={styles.bodyText}>
-              Welcome Cool Strange. To join the guild, please fill the form below and choose the
-              kind of webring widget you want to embed in your website. Want different colors?
-              Please specify the hex codes in the form below and submit — and we handle the rest.
-              You will get an embed code, add that to your site and once we approve, you will
-              part of the webring.
-            </p>
-          </div>
+        {/* ── Select a widget ──────────────────────────── */}
+        <div className={styles.group}>
+          <HeaderTag label="select a widget" color="pink" fullWidth />
 
-          {/* Widget ticker */}
           <div className={styles.ticker}>
-            <button className={styles.caretBtn} onClick={goToPrev} aria-label="Previous widget">
-              <CaretLeft size={18} />
-            </button>
             <div className={styles.tickerDisplay}>
               <div style={{
                 transform: `scale(${tickerScale})`,
@@ -207,13 +213,23 @@ export default function MobileFormPage({
                 </div>
               </div>
             </div>
-            <button className={styles.caretBtn} onClick={goToNext} aria-label="Next widget">
-              <CaretRight size={18} />
-            </button>
           </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit}>
+          <div className={styles.navRow}>
+            <button className={styles.navButton} onClick={goToPrev} aria-label="Previous widget">
+              <NavTag label="prev >>" />
+            </button>
+            <button className={styles.navButton} onClick={goToNext} aria-label="Next widget">
+              <NavTag label="next >>" />
+            </button>
+          </div>
+        </div>
+
+        {/* ── Fill the details ─────────────────────────── */}
+        <form onSubmit={handleSubmit}>
+          <div className={styles.group}>
+            <HeaderTag label="fill the details" color="pink" fullWidth />
+
             <div className={styles.formPart}>
               <input className={styles.field} type="text" placeholder="Your Full Name*" value={name} onChange={(e) => setName(e.target.value)} />
               <input
@@ -237,36 +253,32 @@ export default function MobileFormPage({
             <div className={styles.formPart}>
               <input className={styles.field} type="text" placeholder="Custom Background Color (Optional)" value={bgColor} onChange={(e) => setBgColor(ensureHash(e.target.value))} />
               <input className={styles.field} type="text" placeholder="Custom Text Color (Optional)" value={textColor} onChange={(e) => setTextColor(ensureHash(e.target.value))} />
-              <textarea className={`${styles.field} ${styles.fieldTextarea}`} placeholder="Drop any comments" value={comments} onChange={(e) => setComments(e.target.value)} />
+              <textarea className={`${styles.field} ${styles.fieldTextarea}`} placeholder="Drop any comments or say something about yourself" value={comments} onChange={(e) => setComments(e.target.value)} />
             </div>
 
-            <div className={styles.submitBlock}>
+            <div className={styles.navRow}>
               <button
                 type="submit"
-                className={styles.submitBtn}
+                className={styles.navButton}
                 disabled={submitting}
                 onClick={() => sounds.click()}
                 onMouseEnter={() => sounds.swoosh()}
               >
-                {submitting ? "Submitting..." : "Submit The Application"}
-                <Plus size={18} />
+                <NavTag label={submitting ? "submitting..." : "submit >>"} />
               </button>
-            </div>
-            <div className={styles.discardBlock}>
               <button
                 type="button"
-                className={styles.discardBtn}
+                className={styles.navButton}
                 onClick={() => { sounds.click(); handleDiscard(); }}
                 onMouseEnter={() => sounds.swoosh()}
               >
-                Discard &amp; Go Back
+                <NavTag label="cancel >>" />
               </button>
             </div>
-          </form>
-        </section>
+          </div>
+        </form>
 
-        {/* ── Bottom sections (members, gallery, criteria) */}
-        {bottomContent}
+        <MobileInfoSections {...siteInfo} onGoBack={onBack} />
 
       </main>
     </div>

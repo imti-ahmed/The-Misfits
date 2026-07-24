@@ -4,7 +4,6 @@ import TaggedSection from "@/components/TaggedSection";
 import MemberLink from "@/components/MemberLink";
 import MobilePage from "@/components/mobile/MobilePage";
 import MobileRoot from "@/components/mobile/MobileRoot";
-import MobileFormBottomContent from "@/components/mobile/MobileFormBottomContent";
 import { getSites } from "@/lib/sites";
 import { getViews } from "@/lib/db";
 import { withRef } from "@/lib/ref";
@@ -118,7 +117,7 @@ export default async function Home() {
       <div className={layout.mobileOnly}>
         <MobileRoot
           homePage={<MobilePage />}
-          formBottomContent={<MobileFormBottomContent />}
+          siteInfo={{ views, memberCount: members.length, latestVersion, daysOnline, lastUpdate }}
         />
       </div>
     </>
