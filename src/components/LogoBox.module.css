@@ -6,8 +6,13 @@
 
 .iconWrap {
   position: relative;
-  width: 16.84px;
-  height: 46px;
+  /* em-based so the icon scales with --font-size-md exactly like the
+     adjacent "the"/"misfits" tags, instead of a fixed px size that only
+     matched the tag height at one specific viewport. Ratio taken from the
+     Figma mobile spec: icon height 37.529px at a 16px tag font-size. */
+  font-size: var(--font-size-md);
+  width: 0.8586em;
+  height: 2.3456em;
   color: var(--color-accent-blue);
   flex-shrink: 0;
 }
@@ -16,7 +21,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 46px;
-  height: 16.84px;
+  width: 2.3456em;
+  height: 0.8586em;
   transform: translate(-50%, -50%) rotate(-90deg);
 }

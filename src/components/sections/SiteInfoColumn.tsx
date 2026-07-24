@@ -1,4 +1,5 @@
 import TaggedSection from "@/components/TaggedSection";
+import ResponsiveEmbedFrame from "@/components/ResponsiveEmbedFrame";
 
 const SOCIAL_LINKS = [
   { label: "Portfolio", href: "https://www.imtiyazahmed.com/" },
@@ -37,11 +38,11 @@ export default function SiteInfoColumn({ views, memberCount, latestVersion, days
                 </span>
               ))}
             </p>
-            <iframe
+            <ResponsiveEmbedFrame
               src="https://themisfits.byimti.tools/embed/admin"
-              width="305"
-              height="28"
-              style={{ border: 0, marginTop: "12px" }}
+              width={305}
+              height={28}
+              style={{ marginTop: "12px" }}
             />
           </div>,
         ]}

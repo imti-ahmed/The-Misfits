@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
-import WidgetV2Renderer from "@/widgets/v2/WidgetV2Renderer";
-import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE } from "@/lib/widgetV2Sizes";
+import { useState, useCallback } from "react";
+import WidgetPreviewPanel from "@/components/sections/WidgetPreviewPanel";
 import Toast from "@/components/Toast";
 import TaggedSection from "@/components/TaggedSection";
 import HeaderTag from "@/components/HeaderTag";
@@ -13,13 +12,6 @@ import MobileInfoSections from "./MobileInfoSections";
 import styles from "./MobileFormPage.module.css";
 
 const WIDGET_IDS = ["001", "002", "003", "004", "005", "006", "007", "008", "009"];
-const MOBILE_TICKER_TARGET = 260;
-
-function getMobileTickerScale(widgetId: string): number {
-  const { width } = WIDGET_SIZES[widgetId] ?? DEFAULT_WIDGET_SIZE;
-  const scale = MOBILE_TICKER_TARGET / width;
-  return Math.max(0.4, Math.min(1.4, scale));
-}
 
 function ensureHash(val: string): string {
   if (!val) return "";
@@ -57,9 +49,6 @@ export default function MobileFormPage({
   onSuccess,
   onMeasure,
 }: MobileFormPageProps) {
-  const [direction, setDirection] = useState<"prev" | "next">("next");
-  const [animKey, setAnimKey] = useState(0);
-
   const [name, setName] = useState("");
   const [nick, setNick] = useState("");
   const [url, setUrl] = useState("");
@@ -71,54 +60,23 @@ export default function MobileFormPage({
   const [submitting, setSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
   const [embedSize, setEmbedSize] = useState<{ width: number; height: number } | null>(null);
-  const measureRef = useRef<HTMLDivElement>(null);
   const closeToast = useCallback(() => setToast(null), []);
-
-  // Measure the real rendered widget size (per selected widget + nickname)
-  // instead of relying on the approximate lookup table — text width varies
-  // per name and the guess table can clip content in the embed iframe.
-  useEffect(() => {
-    const measure = measureRef.current;
-    if (!measure) return;
-    const recompute = () => {
-      const width = measure.scrollWidth;
-      const height = measure.scrollHeight;
-      if (width <= 0) return;
-      setEmbedSize({ width, height });
-      onMeasure?.(width, height);
-    };
-    recompute();
-    const observer = new ResizeObserver(recompute);
-    observer.observe(measure);
-    return () => observer.disconnect();
-  }, [selectedWidgetIndex, nickname]);
 
   function showToast(message: string, type: "error" | "success" = "error") {
     setToast({ message, type });
   }
 
-  function goToPrev() {
-    sounds.swoosh();
-    const prev = (selectedWidgetIndex - 1 + WIDGET_IDS.length) % WIDGET_IDS.length;
-    setDirection("prev");
-    setAnimKey((k) => k + 1);
-    onWidgetSelect(prev);
+  function handleWidgetSelect(id: string) {
+    const index = WIDGET_IDS.indexOf(id);
+    if (index !== -1) onWidgetSelect(index);
   }
 
-  function goToNext() {
-    sounds.swoosh();
-    const next = (selectedWidgetIndex + 1) % WIDGET_IDS.length;
-    setDirection("next");
-    setAnimKey((k) => k + 1);
-    onWidgetSelect(next);
+  function handleWidgetMeasure(_widgetId: string, width: number, height: number) {
+    setEmbedSize({ width, height });
+    onMeasure?.(width, height);
   }
 
   const widgetId = WIDGET_IDS[selectedWidgetIndex];
-  const tickerScale = getMobileTickerScale(widgetId);
-
-  const slideClass = animKey > 0
-    ? (direction === "next" ? styles.slideFromRight : styles.slideFromLeft)
-    : "";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -194,35 +152,13 @@ export default function MobileFormPage({
         {/* ── Select a widget ──────────────────────────── */}
         <div className={styles.group}>
           <HeaderTag label="select a widget" color="pink" fullWidth />
-
-          <div className={styles.ticker}>
-            <div className={styles.tickerDisplay}>
-              <div style={{
-                transform: `scale(${tickerScale})`,
-                transformOrigin: "center center",
-                flexShrink: 0,
-              }}>
-                <div key={animKey} className={slideClass}>
-                  <div ref={measureRef} onClick={(e) => e.preventDefault()}>
-                    <WidgetV2Renderer
-                      widgetId={widgetId}
-                      nickname={nickname}
-                      slug="preview"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.navRow}>
-            <button className={styles.navButton} onClick={goToPrev} aria-label="Previous widget">
-              <NavTag label="prev >>" />
-            </button>
-            <button className={styles.navButton} onClick={goToNext} aria-label="Next widget">
-              <NavTag label="next >>" />
-            </button>
-          </div>
+          <WidgetPreviewPanel
+            nickname={nickname}
+            bgColor={bgColor}
+            textColor={textColor}
+            onSelect={handleWidgetSelect}
+            onMeasure={handleWidgetMeasure}
+          />
         </div>
 
         {/* ── Fill the details ─────────────────────────── */}
