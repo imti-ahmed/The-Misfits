@@ -1,10 +1,12 @@
-import { existsSync, readFileSync, readdirSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const MEMBERS_DIR = join(__dirname, '..', 'members');
+const ACTIVITY_PATH = join(__dirname, '..', 'activity.md');
+const RUN_MARKER = '<!-- New weekly run entries go below, most recent at the top -->';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_REPO = process.env.GITHUB_REPO ?? 'imti-ahmed/The-Misfits';
@@ -158,6 +160,33 @@ function buildRemovalPRBody(member, siteStatus, widgetPresent) {
   ].join('\n');
 }
 
+// ── Activity log ──────────────────────────────────────────────────────────────
+
+function logActivity(results) {
+  const today = new Date().toISOString().split('T')[0];
+  const rows = results.map(({ member, siteLive, widgetFound, notes }) =>
+    `| ${member.nickname || member.name || member.slug} | ${member.slug} | ${siteLive ? '✅' : '❌'} | ${widgetFound ? '✅' : '❌'} | ${notes || '—'} |`
+  );
+
+  const block = [
+    `### ${today}`,
+    '',
+    '| Member | Slug | Site Live | Widget Found | Notes |',
+    '|--------|------|-----------|--------------|-------|',
+    ...rows,
+    '',
+  ].join('\n');
+
+  const existing = readFileSync(ACTIVITY_PATH, 'utf-8');
+  const markerIndex = existing.indexOf(RUN_MARKER);
+  if (markerIndex === -1) {
+    throw new Error(`Could not find run marker in ${ACTIVITY_PATH}`);
+  }
+  const insertAt = markerIndex + RUN_MARKER.length;
+  const updated = existing.slice(0, insertAt) + '\n\n' + block + existing.slice(insertAt);
+  writeFileSync(ACTIVITY_PATH, updated);
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const DRY_RUN = process.env.DRY_RUN === 'true';
@@ -184,10 +213,12 @@ async function main() {
   console.log(`Checking ${members.length} member(s)...\n`);
 
   const flagged = [];
+  const activityResults = [];
 
   for (const member of members) {
     if (!member.url) {
       console.log(`[skip] ${member.slug} — no URL`);
+      activityResults.push({ member, siteLive: false, widgetFound: false, notes: 'No URL on file' });
       continue;
     }
 
@@ -204,12 +235,24 @@ async function main() {
       console.log(`  widget: skipped (site unreachable)`);
     }
 
+    activityResults.push({
+      member,
+      siteLive: siteStatus.active,
+      widgetFound: widgetPresent,
+      notes: !siteStatus.active ? `Site unreachable${siteStatus.status ? ` (HTTP ${siteStatus.status})` : ''}` : (!widgetPresent ? 'Widget not detected' : ''),
+    });
+
     if (!siteStatus.active || !widgetPresent) {
       console.log(`  → flagged`);
       flagged.push({ member, siteStatus, widgetPresent });
     } else {
       console.log(`  → OK`);
     }
+  }
+
+  if (!DRY_RUN) {
+    logActivity(activityResults);
+    console.log('\nactivity.md updated.');
   }
 
   console.log(`\n${flagged.length} member(s) flagged.`);

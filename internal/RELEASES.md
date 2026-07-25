@@ -11,7 +11,21 @@ _MAJOR — breaking changes or full redesigns · MINOR — new features · PATCH
 
 | Version | Date | Time | Title |
 |---------|------|------|-------|
+| v1.0.0 | 2026-07-25 | — | Public Launch |
 | v0.1.0 | 2026-06-21 | — | Initial Release |
+
+---
+
+## v1.0.0 · 2026-07-25
+### Public Launch
+
+- The Misfits webring is officially live.
+- Join the guild: submit your site, pick a widget, and get listed alongside every other member.
+- 9 widget designs to choose from, each linking your site to the next and previous members in the ring.
+- New Gallery page showing a screenshot of every member's site.
+- Custom widget colors and fonts, matched live to your site as you fill out the join form.
+- Live site stats — version, days online, and last update — always current.
+- Full mobile experience, matching the desktop site screen for screen.
 
 ---
 

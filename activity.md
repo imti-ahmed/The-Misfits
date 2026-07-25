@@ -12,3 +12,11 @@ _Weekly checks for all members. Verifies site is live and widget is present on t
 ---
 
 <!-- New weekly run entries go below, most recent at the top -->
+
+### 2026-07-25
+
+| Member | Slug | Site Live | Widget Found | Notes |
+|--------|------|-----------|--------------|-------|
+| ADMIN | admin | ✅ | ✅ | — |
+| IMTI | imti | ✅ | ✅ | — |
+
