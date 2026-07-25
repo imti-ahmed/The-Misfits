@@ -4,7 +4,6 @@ import matter from 'gray-matter';
 import WidgetV2Renderer from '@/widgets/v2/WidgetV2Renderer';
 import WidgetPending from '@/widgets/WidgetPending';
 import PendingApprovalSync from '@/widgets/PendingApprovalSync';
-import { recordHit } from '@/lib/widgetHits';
 import { resolveFontFamily } from '@/lib/customFont';
 import { WIDGET_V2_SIZES as WIDGET_SIZES, DEFAULT_WIDGET_V2_SIZE as DEFAULT_WIDGET_SIZE, EMBED_PADDING } from '@/lib/widgetV2Sizes';
 
@@ -123,8 +122,6 @@ export default async function EmbedPage({
       </EmbedFrame>
     );
   }
-
-  recordHit(slug);
 
   const filePath = path.join(process.cwd(), 'members', `${slug}.md`);
   const pendingFilePath = path.join(process.cwd(), 'members', 'pending', `${slug}.md`);
