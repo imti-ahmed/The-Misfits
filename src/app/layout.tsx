@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Chivo, Chivo_Mono, Familjen_Grotesk, Doto } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import CustomCursor from "@/components/CustomCursor";
 import PageTransition from "@/components/PageTransition";
 import "./globals.css";
@@ -28,6 +29,7 @@ export default function RootLayout({
       <body className={`${inter.className} ${chivo.variable} ${chivoMono.variable} ${familjenGrotesk.variable} ${doto.variable}`}>
         <CustomCursor />
         <PageTransition>{children}</PageTransition>
+        <Analytics />
       </body>
     </html>
   );
