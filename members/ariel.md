@@ -13,4 +13,5 @@ info: A room I made at 2am. Dim light, headphones around the neck, five things t
 embedCode: "<iframe src=\"https://themisfits.byimti.tools/embed/ariel\" width=\"256\" height=\"60\" style=\"border:0\"></iframe>"
 embedWidth: 256
 embedHeight: 60
+screenshot: "https://pub-cace89b70f804e5bbafbde60527270f7.r2.dev/screenshots/ariel.jpg"
 ---
